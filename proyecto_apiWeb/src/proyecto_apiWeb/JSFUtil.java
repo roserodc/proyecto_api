@@ -9,6 +9,7 @@ public class JSFUtil {
 		msg.setSeverity(FacesMessage.SEVERITY_INFO);
 		msg.setSummary(mensaje);
 		FacesContext.getCurrentInstance().addMessage(null, msg);
+		
 	}
 	
 	public static void createMensajeWarning(String mensaje) {
