@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<f:facet name="first">
+		<meta name="viewport"
+			content="widtd=device-widtg, initial-sacale=1, shrink-to-fit=no, user-scalable=no" />
+		<title>Manejo de Datos</title>
+	</f:facet>
+</h:head>
+<body>
+	<p:growl>
+		<p:autoUpdate />
+	</p:growl>
+	<h:form>
+		<p:growl>
+			<p:autoUpdate />
+		</p:growl>
+
+
+	</h:form>
+	<h:form id="form1">
+		<p:messages>
+			<p:autoUpdate />
+		</p:messages>
+		<p:panel collapsed="#{beanFacultad.panelColapsado}">
+			<f:facet name="header">
+				<p:commandButton value="Nueva " icon="fa fa-plus" update="@form"
+					actionListener="#{beanFacultad.actionListenerColapsarPanerl()}"></p:commandButton>
+			</f:facet>
+			<p:panelGrid columns="2">
+
+				<h:outputText value="Descripción" />
+				<p:inputText value="#{beanFacultad.facultad.FDescripcion}" />
+
+				<h:outputText value="Acrónimo" />
+				<p:inputText value="#{beanFacultad.facultad.FAcronimo}" />
+
+				<p:commandButton value="Insertar" icon="fa fa-save"
+					update="@form,:form2"
+					action="#{beanFacultad.actionListenerInsertar()}"></p:commandButton>
+			</p:panelGrid>
+		</p:panel>
+	</h:form>
+	<br />
+	<h:form id="form2">
+		<p:panel header="Datos de Facultades">
+			<p:dataTable value="#{beanFacultad.lista}" var="facu" reflow="true"
+				paginator="true">
+				<p:column headerText="Id ">
+					<h:outputText value="#{facu.FId}" />
+				</p:column>
+				<p:column headerText="Descripción" filterBy="#{facu.FDescripcion}"
+					filterMatchMode="contains" priority="1">
+					<h:outputText value="#{facu.FDescripcion}" />
+				</p:column>
+
+				<p:column headerText="Acrónimo" filterBy="#{facu.FAcronimo}"
+					filterMatchMode="contains" priority="2">
+					<h:outputText value="#{facu.FAcronimo}" />
+				</p:column>
+
+				<p:column headerText="OPCIONES" priority="1">
+					<p:commandButton icon="fa fa-edit" title="Editar"
+						actionListener="#{beanFacultad.actionListenerSeleccionado(facu)}"
+						update="formEdicion" oncomplete="PF('dlgEdicion').show();">
+					</p:commandButton>
+
+					<p:commandButton icon="fa fa-close" title="eliminar" update="@form"
+						actionListener="#{beanFacultad.actionListenerEliminar(facu.FId)}">
+						<p:confirm header="Confirmacion" message="Desea Elminar?"
+							icon="fa fa-exclamation-triangle"></p:confirm>
+					</p:commandButton>
+
+				</p:column>
+
+			</p:dataTable>
+		</p:panel>
+	</h:form>
+
+
+
+	<p:dialog header="Editar Informacion" widgetVar="dlgEdicion"
+		modal="true">
+		<h:form id="formEdicion">
+			<p:growl>
+				<p:autoUpdate />
+			</p:growl>
+
+
+			<h:outputText value="Descripcion" />
+			<p:inputText value="#{beanFacultad.selecionada.FDescripcion}" />
+
+			<h:outputText value="Acrónimo" />
+			<p:inputText value="#{beanFacultad.selecionada.FAcronimo}" />
+
+
+			<p:commandButton value="Actualizar" icon="fa fa-save"
+				update="@form,:form2"
+				actionListener="#{beanFacultad.actionListenerActualizar()}"></p:commandButton>
+		</h:form>
+	</p:dialog>
+
+	<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+		<p:commandButton value="Si" type="button"
+			styleClass="ui-confirmdialog-yes" icon="fa fa-check"></p:commandButton>
+		<p:commandButton value="No" type="button"
+			styleClass="ui-confirmdialog-no" icon="fa fa-times"></p:commandButton>
+	</p:confirmDialog>
+
+</body>
+</html>
