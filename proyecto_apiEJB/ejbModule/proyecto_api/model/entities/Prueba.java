@@ -14,7 +14,7 @@ public class Prueba implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="PRUEBA_ID_GENERATOR", sequenceName="SEQ_PRUEBA", allocationSize=1)
+	@SequenceGenerator(name="PRUEBA_ID_GENERATOR", sequenceName="SEQ_PRUEBA",allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="PRUEBA_ID_GENERATOR")
 	private Integer id;
 

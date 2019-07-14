@@ -6,5 +6,12 @@
 		<class>proyecto_api.model.entities.Club</class>
 		<class>proyecto_api.model.entities.Carrera</class>
 		<class>proyecto_api.model.entities.Facultad</class>
+		<class>proyecto_api.model.entities.Estado</class>
+		<class>proyecto_api.model.entities.GuiaEntrenamiento</class>
+		<class>proyecto_api.model.entities.Nivel</class>
+		<class>proyecto_api.model.entities.Peticion</class>
+		<class>proyecto_api.model.entities.Role</class>
+		<class>proyecto_api.model.entities.TipoPeticion</class>
+		<class>proyecto_api.model.entities.Usuario</class>
 	</persistence-unit>
 </persistence>

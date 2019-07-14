@@ -15,7 +15,7 @@ public class Facultad implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="FACULTAD_FID_GENERATOR", sequenceName="SEQ_FACULTAD", allocationSize=1)
+	@SequenceGenerator(name="FACULTAD_FID_GENERATOR", sequenceName="SEQ_FACULTAD",allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="FACULTAD_FID_GENERATOR")
 	@Column(name="f_id")
 	private Integer fId;
