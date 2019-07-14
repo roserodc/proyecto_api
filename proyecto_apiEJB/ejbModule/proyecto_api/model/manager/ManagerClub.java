@@ -27,7 +27,7 @@ public class ManagerClub {
     }
     
     public List<Club>findAll(){
-    	String c = "SELECT c FROM Club c";
+    	String c = "SELECT c FROM Club c order by clu_id";
     	Query q = em.createQuery(c,Club.class);
     	return q.getResultList();
     }

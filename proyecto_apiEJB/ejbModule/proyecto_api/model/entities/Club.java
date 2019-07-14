@@ -4,10 +4,6 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 
-/**
- * The persistent class for the club database table.
- * 
- */
 @Entity
 @NamedQuery(name="Club.findAll", query="SELECT c FROM Club c")
 public class Club implements Serializable {

@@ -6,6 +6,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
 import proyecto_api.model.entities.Club;
+import proyecto_api.model.entities.Facultad;
 import proyecto_api.model.entities.Prueba;
 import proyecto_api.model.manager.ManagerClub;
 import proyecto_api.model.manager.ManagerPrueba;
@@ -43,6 +44,28 @@ public class BeanClub implements Serializable {
 			JSFUtil.createMensajeInfo("insertados");
 		} catch (Exception e) {
 			JSFUtil.createMensajeError("error");
+			e.printStackTrace();
+		}
+	}
+	
+	public void actionListenerEliminar(Integer id) {
+		managerClub.eliminar(id);
+		lista=managerClub.findAll();
+		JSFUtil.createMensajeInfo("Eliminado");
+	}
+	
+	public void actionListenerSeleccionado(Club club) {
+		selecionada = club;
+	}
+	
+	public void actionListenerActualizar() {
+		try {
+			managerClub.actualizar(selecionada);
+			lista=managerClub.findAll();
+			JSFUtil.createMensajeInfo("Acualizado");
+		} catch (Exception e) {
+			// TODO: handle exception
+			JSFUtil.createMensajeError(e.getMessage());
 			e.printStackTrace();
 		}
 	}

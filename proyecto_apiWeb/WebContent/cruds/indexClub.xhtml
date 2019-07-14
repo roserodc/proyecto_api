@@ -55,10 +55,48 @@
 					filterMatchMode="contains" priority="1">
 					<h:outputText value="#{club.cluDescripcion}" />
 				</p:column>
+				
+				<p:column headerText="OPCIONES" priority="1">
+					<p:commandButton icon="fa fa-edit" title="Editar"
+						actionListener="#{beanClub.actionListenerSeleccionado(club)}"
+						update="formEdicion" oncomplete="PF('dlgEdicion').show();">
+					</p:commandButton>
+
+					<p:commandButton icon="fa fa-close" title="eliminar" update="@form"
+						actionListener="#{beanClub.actionListenerEliminar(club.cluId)}">
+						<p:confirm header="Confirmacion" message="Desea Elminar?"
+							icon="fa fa-exclamation-triangle"></p:confirm>
+					</p:commandButton>
+
+				</p:column>
 
 			</p:dataTable>
 		</p:panel>
 	</h:form>
+	
+		<p:dialog header="Editar Informacion" widgetVar="dlgEdicion"
+		modal="true">
+		<h:form id="formEdicion">
+			<p:growl>
+				<p:autoUpdate />
+			</p:growl>
+
+
+			<h:outputText value="Descripcion" />
+			<p:inputText value="#{beanClub.selecionada.cluDescripcion}" />
+
+			<p:commandButton value="Actualizar" icon="fa fa-save"
+				update="@form,:form2"
+				actionListener="#{beanClub.actionListenerActualizar()}"></p:commandButton>
+		</h:form>
+	</p:dialog>
+
+	<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+		<p:commandButton value="Si" type="button"
+			styleClass="ui-confirmdialog-yes" icon="fa fa-check"></p:commandButton>
+		<p:commandButton value="No" type="button"
+			styleClass="ui-confirmdialog-no" icon="fa fa-times"></p:commandButton>
+	</p:confirmDialog>
 
 </body>
 </html>
