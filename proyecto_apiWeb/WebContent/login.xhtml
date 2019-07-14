@@ -6,121 +6,56 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-
-	<f:facet name="first">
-		<meta name="viewport"
-			content="widtd=device-widtg, initial-sacale=1, shrink-to-fit=no, user-scalable=no" />
-		<title>GYM UTN</title>
-		<link
-			href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900|Raleway:400,300,700,900"
-			rel="stylesheet"></link>
-		<link href="recursos/lib/bootstrap/css/bootstrap.min.css"
-			rel="stylesheet"></link>
-		<link href="recursos/lib/font-awesome/css/font-awesome.min.css"
-			rel="stylesheet"></link>
-		<link href="recursos/recursos/css/style.css" rel="stylesheet"></link>
-	</f:facet>
-
+	<title>login</title>
 </h:head>
-<body data-spy="scroll" data-offset="80" data-target="#thenavbar">
-
-	<!-- Fixed navbar -->
-	<div id="thenavbar" class="navbar navbar-default navbar-fixed-top">
-		<div class="container">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse"
-					data-target=".navbar-collapse">
-					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
-
-				<h1>UNIVERSIDAD TECNICA DEL NORTE</h1>
-
-				<!-- <a class="navbar-brand" href="#"><i class="fa fa-bolt"></i></a> -->
-			</div>
-			<div class="navbar-collapse collapse"></div>
-			<!--/.nav-collapse -->
-		</div>
-		<div class="container">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse"
-					data-target=".navbar-collapse">
-					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="#"><i class="fa fa-bolt"></i></a>
-			</div>
-			<div class="navbar-collapse collapse">
-				<ul class="nav navbar-nav navbar-left">
-					<li class="active"><a href="#hello" class="smoothscroll">Home</a></li>
-					<li><a href="#green" class="smoothscroll">Usuarios</a></li>
-					<li><a href="#portfolio" class="smoothscroll">Guias
-							Entrenamiento</a></li>
-					<li><a href="#contact" class="smoothscroll">Contactos</a></li>
-				</ul>
-			</div>
-			<!--/.nav-collapse -->
-		</div>
-	</div>
-
-	<div id="hello">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-8 col-lg-offset-2 centered">
-					<h1>Bolt Template</h1>
-					<h2>Awesome Bootstrap Template</h2>
-				</div>
-				<!-- /col-lg-8 -->
-			</div>
-			<!-- /row -->
-		</div>
-		<!-- /container -->
-	</div>
-	<!-- /hello -->
-	<br/>
-	<div id="green">
-		<div class="container">
-			<div class="row">
-
-				<div>
-					<center>
-
-						<h:panelGroup layout="block" style="width:500px;" >
-							<!-- 				<p:panel styleClass="panelStyle"> -->
-
-							<p:panel>
-								<f:facet name="header">
-								<h:outputLabel value="Iniciar Sesión" />						
-								</f:facet>
-								<div><img src="recursos/img/iconUser.png" width="120" height="110" /></div>
-								<br/>
-								<div><p:inputText value="" placeholder="Cédula" /></div>
-								<br />
-								<div><p:inputText value="" placeholder="Contraseña" /></div>
-								<br />
-								<div><p:commandButton value="Login" action="#"	style="width: 190px; "></p:commandButton></div>
-
-							</p:panel>
-
-							<!-- 				</p:panel> -->
-						</h:panelGroup>
-					</center>
-
-				</div>
-			</div>
-		</div>
-	</div>
+<h:body>
+	<h:form>
 
 
 
-	<!-- JavaScript Libraries -->
-	<script src="recursos/lib/jquery/jquery.min.js"></script>
-	<script src="recursos/lib/bootstrap/js/bootstrap.min.js"></script>
-	<script src="recursos/lib/php-mail-form/validate.js"></script>
-	<script src="recursos/lib/easing/easing.min.js"></script>
-	<script src="recursos/lib/chart/chart.js"></script>
-	<!-- Template Main Javascript File -->
-	<script src="recursos/js/main.js"></script>
+<!-- 		<h:panelGrid columns="2"> -->
+<!-- 			<h:outputText value="Usuario" for="txtUsuario" /> -->
+<!-- 			<p:inputText id="txtUsuario" value="#{beanLogin.usuario.userCi}" -->
+<!-- 				required="true" size="20" maxlength="20" -->
+<!-- 				requiredMessage="Debe ingresar su usuario." /> -->
+<!-- 			<h:outputText value="Clave" for="txtClave" /> -->
+<!-- 			<p:password id="txtClave" value="#{beanLogin.usuario.userPass}" -->
+<!-- 				required="true" size="20" maxlength="10" -->
+<!-- 				requiredMessage="Debe ingresar su contraseña." /> -->
+<!-- 			<p:commandButton value="Ingresar" icon="fa fa-key" -->
+<!-- 				action="#{beanLogin.iniciarSesion()}" /> -->
+<!-- 		</h:panelGrid> -->
+		
+		
+			<center>
 
-</body>
+			<h:panelGroup layout="block" style="width:500px;">
+				<!-- 				<p:panel styleClass="panelStyle"> -->
+
+				<p:panel>
+					<f:facet name="header">
+						<h:outputLabel value="Iniciar Sesión" />
+					</f:facet>
+					<div>
+						<img src="recursos/img/iconUser.png" width="120" height="110" />
+					</div>
+
+<!-- 					<h:outputText value="Usuario" for="txtUsuario" /> -->
+					<p:inputText id="txtUsuario" value="#{beanLogin.usuario.userCi}"
+						required="true" size="20" maxlength="20"
+						requiredMessage="Debe ingresar su usuario." placeholder="Cedula" /><br/><br/>
+<!-- 					<h:outputText value="Clave" for="txtClave" /> -->
+					<p:password id="txtClave" value="#{beanLogin.usuario.userPass}"
+						required="true" size="20" maxlength="10"
+						requiredMessage="Debe ingresar su contraseña." placeholder="Contraseña"/><br/><br/>
+					<p:commandButton value="Ingresar" icon="fa fa-key"
+						action="#{beanLogin.iniciarSesion()}" />
+
+				</p:panel>
+
+				<!-- 				</p:panel> -->
+			</h:panelGroup>
+		</center>
+	</h:form>
+</h:body>
 </html>
