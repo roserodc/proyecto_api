@@ -2,6 +2,7 @@ package proyecto_api.model.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import java.util.List;
 
 
 /**
@@ -14,7 +15,7 @@ public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="USUARIO_USERID_GENERATOR", sequenceName="SEQ_USUARIO")
+	@SequenceGenerator(name="USUARIO_USERID_GENERATOR", sequenceName="SEQ_USUARIO",allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="USUARIO_USERID_GENERATOR")
 	@Column(name="user_id")
 	private Integer userId;
@@ -53,6 +54,18 @@ public class Usuario implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="r_id_roles")
 	private Role role;
+
+	//bi-directional many-to-one association to Bitacora
+	@OneToMany(mappedBy="usuario")
+	private List<Bitacora> bitacoras;
+
+	//bi-directional many-to-one association to Nomina
+	@OneToMany(mappedBy="usuario")
+	private List<Nomina> nominas;
+
+	//bi-directional many-to-one association to Peticione
+	@OneToMany(mappedBy="usuario")
+	private List<Peticione> peticiones;
 
 	public Usuario() {
 	}
@@ -135,6 +148,72 @@ public class Usuario implements Serializable {
 
 	public void setRole(Role role) {
 		this.role = role;
+	}
+
+	public List<Bitacora> getBitacoras() {
+		return this.bitacoras;
+	}
+
+	public void setBitacoras(List<Bitacora> bitacoras) {
+		this.bitacoras = bitacoras;
+	}
+
+	public Bitacora addBitacora(Bitacora bitacora) {
+		getBitacoras().add(bitacora);
+		bitacora.setUsuario(this);
+
+		return bitacora;
+	}
+
+	public Bitacora removeBitacora(Bitacora bitacora) {
+		getBitacoras().remove(bitacora);
+		bitacora.setUsuario(null);
+
+		return bitacora;
+	}
+
+	public List<Nomina> getNominas() {
+		return this.nominas;
+	}
+
+	public void setNominas(List<Nomina> nominas) {
+		this.nominas = nominas;
+	}
+
+	public Nomina addNomina(Nomina nomina) {
+		getNominas().add(nomina);
+		nomina.setUsuario(this);
+
+		return nomina;
+	}
+
+	public Nomina removeNomina(Nomina nomina) {
+		getNominas().remove(nomina);
+		nomina.setUsuario(null);
+
+		return nomina;
+	}
+
+	public List<Peticione> getPeticiones() {
+		return this.peticiones;
+	}
+
+	public void setPeticiones(List<Peticione> peticiones) {
+		this.peticiones = peticiones;
+	}
+
+	public Peticione addPeticione(Peticione peticione) {
+		getPeticiones().add(peticione);
+		peticione.setUsuario(this);
+
+		return peticione;
+	}
+
+	public Peticione removePeticione(Peticione peticione) {
+		getPeticiones().remove(peticione);
+		peticione.setUsuario(null);
+
+		return peticione;
 	}
 
 }

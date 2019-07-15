@@ -15,7 +15,7 @@ public class Club implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="CLUB_CLUID_GENERATOR", sequenceName="SEQ_CLUB", allocationSize=1)
+	@SequenceGenerator(name="CLUB_CLUID_GENERATOR", sequenceName="SEQ_CLUB",allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="CLUB_CLUID_GENERATOR")
 	@Column(name="clu_id")
 	private Integer cluId;

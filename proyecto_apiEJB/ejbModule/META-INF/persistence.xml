@@ -3,14 +3,18 @@
 	<persistence-unit name="gymutnDS" transaction-type="JTA">
 		<jta-data-source>java:/gymutnDS</jta-data-source>
 		<class>proyecto_api.model.entities.Prueba</class>
-		<class>proyecto_api.model.entities.Club</class>
+		<class>proyecto_api.model.entities.Bitacora</class>
 		<class>proyecto_api.model.entities.Carrera</class>
-		<class>proyecto_api.model.entities.Facultad</class>
+		<class>proyecto_api.model.entities.Club</class>
 		<class>proyecto_api.model.entities.Estado</class>
+		<class>proyecto_api.model.entities.Facultad</class>
 		<class>proyecto_api.model.entities.GuiaEntrenamiento</class>
 		<class>proyecto_api.model.entities.Nivel</class>
-		<class>proyecto_api.model.entities.Peticion</class>
+		<class>proyecto_api.model.entities.Nomina</class>
+		<class>proyecto_api.model.entities.Peticione</class>
+		<class>proyecto_api.model.entities.Plane</class>
 		<class>proyecto_api.model.entities.Role</class>
+		<class>proyecto_api.model.entities.Rutina</class>
 		<class>proyecto_api.model.entities.TipoPeticion</class>
 		<class>proyecto_api.model.entities.Usuario</class>
 	</persistence-unit>

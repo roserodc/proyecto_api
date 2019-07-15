@@ -15,7 +15,7 @@ public class Nivel implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="NIVEL_NIID_GENERATOR", sequenceName="SEQ_NIVEL")
+	@SequenceGenerator(name="NIVEL_NIID_GENERATOR", sequenceName="SEQ_NIVEL",allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="NIVEL_NIID_GENERATOR")
 	@Column(name="ni_id")
 	private Integer niId;
