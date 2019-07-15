@@ -16,7 +16,7 @@ public class Peticione implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="PETICIONES_PTCID_GENERATOR", sequenceName="SEQ_PETICIONES",allocationSize=1)
+	@SequenceGenerator(name="PETICIONES_PTCID_GENERATOR", sequenceName="SEQ_PETICION",allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="PETICIONES_PTCID_GENERATOR")
 	@Column(name="ptc_id")
 	private Integer ptcId;
