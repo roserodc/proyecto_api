@@ -15,7 +15,7 @@ public class Carrera implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="CARRERA_CAID_GENERATOR", sequenceName="SEQ_CARRERA")
+	@SequenceGenerator(name="CARRERA_CAID_GENERATOR", sequenceName="SEQ_CARRERA",allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="CARRERA_CAID_GENERATOR")
 	@Column(name="ca_id")
 	private Integer caId;
