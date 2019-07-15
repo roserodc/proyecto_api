@@ -27,7 +27,7 @@ public class Facultad implements Serializable {
 	private String fDescripcion;
 
 	//bi-directional many-to-one association to Carrera
-	@OneToMany(mappedBy="facultad")
+	@OneToMany(mappedBy="facultad",cascade=CascadeType.ALL)
 	private List<Carrera> carreras;
 
 	public Facultad() {

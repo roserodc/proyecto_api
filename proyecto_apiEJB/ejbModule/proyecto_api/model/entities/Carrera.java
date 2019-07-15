@@ -32,7 +32,7 @@ public class Carrera implements Serializable {
 	private Facultad facultad;
 
 	//bi-directional many-to-one association to Usuario
-	@OneToMany(mappedBy="carrera")
+	@OneToMany(mappedBy="carrera",cascade=CascadeType.ALL)
 	private List<Usuario> usuarios;
 
 	public Carrera() {

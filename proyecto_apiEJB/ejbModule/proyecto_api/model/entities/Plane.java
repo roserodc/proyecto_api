@@ -30,7 +30,7 @@ public class Plane implements Serializable {
 	private GuiaEntrenamiento guiaEntrenamiento;
 
 	//bi-directional one-to-one association to Rutina
-	@OneToOne(mappedBy="plane1")
+	@OneToOne(mappedBy="plane1",cascade=CascadeType.ALL)
 	private Rutina rutina;
 
 	//bi-directional many-to-one association to Rutina

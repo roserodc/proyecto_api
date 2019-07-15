@@ -31,7 +31,7 @@ public class Peticione implements Serializable {
 	private String ptcHoraInicio;
 
 	//bi-directional many-to-one association to Nomina
-	@OneToMany(mappedBy="peticione")
+	@OneToMany(mappedBy="peticione",cascade=CascadeType.ALL)
 	private List<Nomina> nominas;
 
 	//bi-directional many-to-one association to Estado

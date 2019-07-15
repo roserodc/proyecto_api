@@ -24,7 +24,7 @@ public class Nivel implements Serializable {
 	private String niDescripcion;
 
 	//bi-directional many-to-one association to Usuario
-	@OneToMany(mappedBy="nivel")
+	@OneToMany(mappedBy="nivel",cascade=CascadeType.ALL)
 	private List<Usuario> usuarios;
 
 	public Nivel() {

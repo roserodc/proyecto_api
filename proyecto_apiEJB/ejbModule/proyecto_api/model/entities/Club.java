@@ -24,7 +24,7 @@ public class Club implements Serializable {
 	private String cluDescripcion;
 
 	//bi-directional many-to-one association to Usuario
-	@OneToMany(mappedBy="club")
+	@OneToMany(mappedBy="club",cascade=CascadeType.ALL)
 	private List<Usuario> usuarios;
 
 	public Club() {

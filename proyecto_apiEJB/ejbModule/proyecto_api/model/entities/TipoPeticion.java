@@ -25,7 +25,7 @@ public class TipoPeticion implements Serializable {
 	private String tpDescripcion;
 
 	//bi-directional many-to-one association to Peticione
-	@OneToMany(mappedBy="tipoPeticion")
+	@OneToMany(mappedBy="tipoPeticion",cascade=CascadeType.ALL)
 	private List<Peticione> peticiones;
 
 	public TipoPeticion() {

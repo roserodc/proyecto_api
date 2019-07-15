@@ -56,15 +56,15 @@ public class Usuario implements Serializable {
 	private Role role;
 
 	//bi-directional many-to-one association to Bitacora
-	@OneToMany(mappedBy="usuario")
+	@OneToMany(mappedBy="usuario",cascade=CascadeType.ALL)
 	private List<Bitacora> bitacoras;
 
 	//bi-directional many-to-one association to Nomina
-	@OneToMany(mappedBy="usuario")
+	@OneToMany(mappedBy="usuario",cascade=CascadeType.ALL)
 	private List<Nomina> nominas;
 
 	//bi-directional many-to-one association to Peticione
-	@OneToMany(mappedBy="usuario")
+	@OneToMany(mappedBy="usuario",cascade=CascadeType.ALL)
 	private List<Peticione> peticiones;
 
 	public Usuario() {
