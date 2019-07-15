@@ -25,7 +25,7 @@ public class Estado implements Serializable {
 	private String estDescripcion;
 
 	//bi-directional many-to-one association to Peticione
-	@OneToMany(mappedBy="estado",cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="estado")
 	private List<Peticione> peticiones;
 
 	public Estado() {

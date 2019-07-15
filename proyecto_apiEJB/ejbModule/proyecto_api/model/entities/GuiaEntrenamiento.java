@@ -25,11 +25,11 @@ public class GuiaEntrenamiento implements Serializable {
 	private String geDescripcion;
 
 	//bi-directional many-to-one association to Plane
-	@OneToMany(mappedBy="guiaEntrenamiento",cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="guiaEntrenamiento")
 	private List<Plane> planes;
 
 	//bi-directional many-to-one association to Peticione
-	@OneToMany(mappedBy="guiaEntrenamiento",cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="guiaEntrenamiento")
 	private List<Peticione> peticiones;
 
 	public GuiaEntrenamiento() {
