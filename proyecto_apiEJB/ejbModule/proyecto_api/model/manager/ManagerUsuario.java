@@ -2,12 +2,18 @@ package proyecto_api.model.manager;
 
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import proyecto_api.model.entities.Carrera;
+import proyecto_api.model.entities.Club;
+import proyecto_api.model.entities.Facultad;
+import proyecto_api.model.entities.Nivel;
+import proyecto_api.model.entities.Role;
 import proyecto_api.model.entities.Usuario;
 
 /**
@@ -19,7 +25,15 @@ public class ManagerUsuario {
 	@PersistenceContext
 	private EntityManager en;
 	
-    public ManagerUsuario() {
+	@EJB
+	public ManagerCarrera managerCarrera;
+	@EJB
+	public ManagerRoles managerRol;
+	@EJB
+	public ManagerNivel managerNivel;
+	@EJB
+	public ManagerClub managerClub;
+	public ManagerUsuario() {
     	
     }
     
@@ -43,40 +57,59 @@ public class ManagerUsuario {
     	return usuario;
     }
     
-    public List<Usuario> findAllUsuarios(){
-    	String consulta ="select u from Usuario u order by user_id";
-    	Query q= en.createQuery(consulta,Usuario.class);
+    public List<Usuario>findAll(){
+    	String c = "SELECT c FROM Usuario c order by user_id";
+    	Query q = en.createQuery(c,Usuario.class);
     	return q.getResultList();
     }
     
-    public Usuario findUsarioById(int id_usuario) {
-    	return en.find(Usuario.class, id_usuario);
+    public Usuario findById(int id) {
+    	return en.find(Usuario.class, id);
     }
     
-    public void insertarUsuario(Usuario usuario) throws Exception{
-    	if(findUsarioById(usuario.getUserId())!= null)
-    		throw new Exception("Ya existe el usuario indicado");
-    	en.persist(usuario);
+    public Usuario insertar(Usuario usuario,
+    		Integer idNivel,
+    		Integer idRol,Integer idCarrera,Integer idClub) {
+    	Usuario us = new Usuario();
+    	Role rol;
+    	Carrera ca;
+    	Club clu;
+    	Nivel ni;
+    	rol=managerRol.findById(idRol);
+    	ca=managerCarrera.findById(idCarrera);
+    	clu=managerClub.findById(idClub);
+    	ni=managerNivel.findById(idNivel);
+    	us.setUserCi(usuario.getUserCi());
+    	us.setUserPass(usuario.getUserPass());
+    	us.setUserApellido(usuario.getUserApellido());
+    	us.setUserNombre(usuario.getUserNombre());
+    	us.setUserTelefono(usuario.getUserTelefono());
+    	us.setRole(rol);
+    	us.setCarrera(ca);
+    	us.setClub(clu);
+    	us.setNivel(ni);
+    	en.persist(us);
+    	return us;
+    }
+
+    
+    public void eliminar (Integer id) {
+    	Usuario us = findById(id);
+    	if (us!=null) {
+    		en.remove(us);
+		}
     }
     
-    public void eliminarUsuario(int id_usuario) {
-    	Usuario usuario =findUsarioById(id_usuario);
-    	if	(usuario!=null)
-    		en.remove(usuario);
-    }
-    
-    public void actualizarUsuario(Usuario usuario) throws Exception {
-    	Usuario user = findUsarioById(usuario.getUserId());
-    	if(user==null)
-    		throw new Exception("No existe el usuario con el Id especificada");
-    	user.setUserCi(usuario.getUserCi());
-    	user.setUserApellido(usuario.getUserApellido());
-    	user.setUserNombre(usuario.getUserNombre());
-    	user.setUserTelefono(usuario.getUserTelefono());
-    	user.setUserPass(usuario.getUserPass());
-//    	user.setCaIdCarrera(usuario.getCaIdCarrera());
-//    	user.setCluIdClub(usuario.getCluIdClub());
-    	en.merge(user);
+    public void actualizar (Usuario usuario) throws  Exception{
+    	Usuario us = findById(usuario.getUserId());
+    	if (us==null) 
+			throw new Exception("No existe");
+    	us.setUserCi(usuario.getUserCi());
+    	us.setUserPass(usuario.getUserPass());
+    	us.setUserApellido(usuario.getUserApellido());
+    	us.setUserNombre(usuario.getUserNombre());
+    	us.setUserTelefono(usuario.getUserTelefono());
+		en.merge(us);
     }
     
    
