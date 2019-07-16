@@ -71,6 +71,21 @@ public class BeanUsuario implements Serializable {
 		}
 	}
 	
+	public void actionListenerInsertarUsuario() {
+		try {
+//			managerCarrera.insertar(carrera);
+			managerUsuario.insertar(usuario, idNivel,2,
+					idCarrera,idClub);
+			lista = managerUsuario.findAll();
+			usuario = new Usuario();
+			JSFUtil.createMensajeInfo("insertados");
+			
+		} catch (Exception e) {
+			JSFUtil.createMensajeError("error");
+			e.printStackTrace();
+		}
+	}
+	
 	public void actionListenerEliminar(Integer id) {
 		managerUsuario.eliminar(id);
 		lista=managerUsuario.findAll();
