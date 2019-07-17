@@ -71,7 +71,7 @@ public class BeanUsuario implements Serializable {
 		}
 	}
 	
-	public void actionListenerInsertarUsuario() {
+	public String actionListenerInsertarUsuario() {
 		try {
 //			managerCarrera.insertar(carrera);
 			managerUsuario.insertar(usuario, idNivel,2,
@@ -79,11 +79,13 @@ public class BeanUsuario implements Serializable {
 			lista = managerUsuario.findAll();
 			usuario = new Usuario();
 			JSFUtil.createMensajeInfo("insertados");
-			
+			return "indexUsuario";
 		} catch (Exception e) {
 			JSFUtil.createMensajeError("error");
 			e.printStackTrace();
+			return "";
 		}
+		
 	}
 	
 	public void actionListenerEliminar(Integer id) {
