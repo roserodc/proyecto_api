@@ -1,11 +1,244 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"> 
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
 
-<h:head></h:head> 
-<body> 
-USUARIO
-</body> 
+
+<h:head>
+	<f:facet name="first">
+		<meta name="viewport"
+			content="widtd=device-widtg, initial-sacale=1, shrink-to-fit=no, user-scalable=no" />
+		<title>Manejo de Peticiones</title>
+	</f:facet>
+</h:head>
+<body>
+
+	<script type="text/javascript">    
+    PrimeFaces.locales['de'] = {
+        closeText: 'Schließen',
+        prevText: 'Zurück',
+        nextText: 'Weiter',
+        monthNames: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'],
+        monthNamesShort: ['Jan', 'Feb', 'März', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'],
+        dayNames: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'],
+        dayNamesShort: ['Son', 'Mon', 'Die', 'Mit', 'Don', 'Fre', 'Sam'],
+        dayNamesMin: ['S', 'M', 'D', 'M ', 'D', 'F ', 'S'],
+        weekHeader: 'Woche',
+        FirstDay: 1,
+        isRTL: false,
+        showMonthAfterYear: false,
+        yearSuffix: '',
+        timeOnlyTitle: 'Nur Zeit',
+        timeText: 'Zeit',
+        hourText: 'Stunde',
+        minuteText: 'Minute',
+        secondText: 'Sekunde',
+        currentText: 'Aktuelles Datum',
+        ampm: false,
+        month: 'Monat',
+        week: 'Woche',
+        day: 'Tag',
+        allDayText: 'Ganzer Tag'
+    };
+</script>
+
+
+	<h:form id="form1">
+		<style type="text/css">
+.value {
+	font-weight: bold;
+}
+</style>
+		<p:messages>
+			<p:autoUpdate />
+		</p:messages>
+		<p:tabView>
+			<h:outputText
+				value="Realizar una nueva peticion - Complete los campos solicitados" />
+			<p:tab title="Peticiones">
+			<h3>Usuario</h3>
+
+
+
+				<div style="width: 45%; float: left;">
+
+					<div>
+						<p:calendar value="#{beanPeticion.peticion.ptcFecha}"
+							mode="inline">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Quito_City" />
+						</p:calendar>
+					</div>
+					<br />
+				</div>
+
+
+				<div>
+					<p:selectOneMenu value="#{beanPeticion.idUsuario}" filter="true"
+						filterMatchMode="contains">
+						<f:selectItem itemLabel="Seleccione Usuario" itemValue=""
+							noSelectionOption="true" />
+						<f:selectItems value="#{beanPeticion.listaUsuarioSI}" />
+					</p:selectOneMenu>
+				</div>
+
+				<div>
+					<p:selectOneMenu value="#{beanPeticion.peticion.ptcHoraInicio}"
+						style="width:125px">
+						<f:selectItem itemLabel="Hora inicio" itemValue="" />
+						<f:selectItem itemLabel="7:00" itemValue="7:00" />
+						<f:selectItem itemLabel="8:00" itemValue="8:00" />
+						<f:selectItem itemLabel="9:00" itemValue="9:00" />
+						<f:selectItem itemLabel="10:00" itemValue="10:00" />
+						<f:selectItem itemLabel="11:00" itemValue="11:00" />
+						<f:selectItem itemLabel="12:00" itemValue="12:00" />
+						<f:selectItem itemLabel="13:00" itemValue="13:00" />
+						<f:selectItem itemLabel="14:00" itemValue="14:00" />
+						<f:selectItem itemLabel="15:00" itemValue="15:00" />
+						<f:selectItem itemLabel="16:00" itemValue="16:00" />
+						<f:selectItem itemLabel="17:00" itemValue="17:00" />
+						<f:selectItem itemLabel="18:00" itemValue="18:00" />
+						<f:selectItem itemLabel="19:00" itemValue="19:00" />
+						<f:selectItem itemLabel="20:00" itemValue="20:00" />
+					</p:selectOneMenu>
+				</div>
+
+				<div>
+					<p:selectOneMenu value="#{beanPeticion.peticion.ptcHoraFin}"
+						style="width:125px">
+						<f:selectItem itemLabel="Hora fin" itemValue="" />
+						<f:selectItem itemLabel="7:00" itemValue="7:00" />
+						<f:selectItem itemLabel="8:00" itemValue="8:00" />
+						<f:selectItem itemLabel="9:00" itemValue="9:00" />
+						<f:selectItem itemLabel="10:00" itemValue="10:00" />
+						<f:selectItem itemLabel="11:00" itemValue="11:00" />
+						<f:selectItem itemLabel="12:00" itemValue="12:00" />
+						<f:selectItem itemLabel="13:00" itemValue="13:00" />
+						<f:selectItem itemLabel="14:00" itemValue="14:00" />
+						<f:selectItem itemLabel="15:00" itemValue="15:00" />
+						<f:selectItem itemLabel="16:00" itemValue="16:00" />
+						<f:selectItem itemLabel="17:00" itemValue="17:00" />
+						<f:selectItem itemLabel="18:00" itemValue="18:00" />
+						<f:selectItem itemLabel="19:00" itemValue="19:00" />
+					</p:selectOneMenu>
+				</div>
+				<div>
+					<p:selectOneMenu value="#{beanPeticion.idGuiaEntrenamiento}"
+						filter="true" filterMatchMode="contains">
+						<f:selectItem itemLabel="Seleccione Guia" itemValue=""
+							noSelectionOption="true" />
+						<f:selectItems value="#{beanPeticion.listaGuiaEntrenamietnoSI}" />
+					</p:selectOneMenu>
+				</div>
+
+
+				<div>
+					<p:selectOneMenu value="#{beanPeticion.idTipoPeticion}"
+						filter="true" filterMatchMode="contains">
+						<f:selectItem itemLabel="Seleccione Tipo" itemValue=""
+							noSelectionOption="true" />
+						<f:selectItems value="#{beanPeticion.listaTipoPeticionSI}" />
+					</p:selectOneMenu>
+				</div>
+
+				<div>
+					<p:selectOneMenu value="#{beanPeticion.idEstado}" filter="true"
+						filterMatchMode="contains">
+						<f:selectItem itemLabel="Seleccione Estado" itemValue=""
+							noSelectionOption="true" />
+						<f:selectItems value="#{beanPeticion.listaEstadoSI}" />
+					</p:selectOneMenu>
+				</div>
+
+
+
+
+
+				<p:commandButton value="Insertar" icon="fa fa-save"
+					update="@form,:form2"
+					action="#{beanPeticion.actionListenerInsertar()}"></p:commandButton>
+
+			</p:tab>
+			<p:tab title="Lista Peticiones">
+				<p:tab title="Lista Peticiones">
+					<h:form id="form2">
+
+						<p:panel header="Datos de Peticiones">
+							<p:dataTable value="#{beanPeticion.lista}" var="peticion"
+								reflow="true" paginator="true">
+								<p:column headerText="Id ">
+									<h:outputText value="#{peticion.ptcId}" />
+								</p:column>
+								<p:column headerText="Tipo"
+									filterBy="#{peticion.tipoPeticion.tpDescripcion}"
+									filterMatchMode="contains" priority="1">
+									<h:outputText value="#{peticion.tipoPeticion.tpDescripcion}" />
+								</p:column>
+
+								<p:column headerText="Fecha" filterBy="#{peticion.ptcFecha}"
+									filterMatchMode="contains" priority="1">
+									<h:outputText value="#{peticion.ptcFecha}" />
+								</p:column>
+
+								<p:column headerText="Hora Inicio"
+									filterBy="#{peticion.ptcHoraInicio}" filterMatchMode="contains"
+									priority="2">
+									<h:outputText value="#{peticion.ptcHoraInicio}" />
+								</p:column>
+
+								<p:column headerText="Hora Fin"
+									filterBy="#{peticion.ptcHoraFin}" filterMatchMode="contains"
+									priority="2">
+									<h:outputText value="#{peticion.ptcHoraFin}" />
+								</p:column>
+
+
+
+								<p:column headerText="Estado"
+									filterBy="#{peticion.estado.estDescripcion}"
+									filterMatchMode="contains" priority="2">
+									<h:outputText value="#{peticion.estado.estDescripcion}" />
+								</p:column>
+
+								<p:column headerText="Guia de Entrenamiento"
+									filterBy="#{peticion.guiaEntrenamiento.geDescripcion}"
+									filterMatchMode="contains" priority="2">
+									<h:outputText
+										value="#{peticion.guiaEntrenamiento.geDescripcion}" />
+								</p:column>
+
+
+							</p:dataTable>
+						</p:panel>
+
+					</h:form>
+
+				</p:tab>
+
+			</p:tab>
+		</p:tabView>
+	</h:form>
+	<br />
+	<h:form id="form2">
+	</h:form>
+
+	<p:dialog header="Editar Informacion" widgetVar="dlgEdicion"
+		modal="true">
+		<h:form id="formEdicion">
+
+			<p:commandButton value="Actualizar" icon="fa fa-save"
+				update="@form,:form2"
+				actionListener="#{beanPeticion.actionListenerActualizar()}"></p:commandButton>
+		</h:form>
+	</p:dialog>
+
+	<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+		<p:commandButton value="Si" type="button"
+			styleClass="ui-confirmdialog-yes" icon="fa fa-check"></p:commandButton>
+		<p:commandButton value="No" type="button"
+			styleClass="ui-confirmdialog-no" icon="fa fa-times"></p:commandButton>
+	</p:confirmDialog>
+</body>
 </html>
