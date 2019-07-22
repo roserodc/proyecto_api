@@ -3,8 +3,12 @@ package proyecto_apiWeb;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.inject.Named;
+
+import com.sun.javafx.collections.MappingChange.Map;
 
 import proyecto_api.model.entities.Club;
 import proyecto_api.model.entities.Estado;
@@ -46,7 +50,7 @@ public class BeanPeticion implements Serializable {
 	private Integer idTipoPeticion;
 	private Integer idEstado;
 
-
+	private Integer aux;
 	private Integer idUsuario;
 	private Integer idGuiaEntrenamiento;
 	private List<Peticione> lista;
@@ -56,9 +60,20 @@ public class BeanPeticion implements Serializable {
 
 	@PostConstruct
 	public void inicalizar() {
-		lista = managerPeticion.findAll();
+		//lista = managerPeticion.findAll();
+		
+		System.out.println("*////////"+id());
+		lista = managerPeticion.findAll2(aux);
 		peticion = new Peticione();
 		panelColapsado = true;
+	}
+	public Integer id() {
+		FacesContext facesContext = FacesContext. getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
+		java.util.Map<String, String> params = externalContext.getRequestParameterMap();
+		aux= new Integer((String) params.get("id"));
+		System.out.println("--------*"+aux);
+		return aux;
 	}
 
 	public void actionListenerColapsarPanerl() {
@@ -66,15 +81,27 @@ public class BeanPeticion implements Serializable {
 	}
 
 	public void actionListenerInsertar() {
+		Usuario us;
+		int tp=0;
+		us=managerUsuario.findById(aux);
+		if (us.getRole().getRDescripcion().equals("Usuario")) {
+			tp=1;
+		}else {
+			tp=2;
+		}
+		
 		try {
+			System.out.println("----insert-try---*"+aux);
 			managerPeticion.insertar2(peticion,
-					 idTipoPeticion,  idEstado,
-					 idUsuario,idGuiaEntrenamiento);
-			lista = managerPeticion.findAll();
+					 tp,  3,
+					 idUsuario,idGuiaEntrenamiento);		
+			lista = managerPeticion.findAll2(aux);
+//			lista = managerPeticion.findAll();
 			peticion = new Peticione();
 			JSFUtil.createMensajeInfo("insertados");
 		} catch (Exception e) {
-			JSFUtil.createMensajeError("error");
+			System.out.println("----insert- error---*"+aux);
+			JSFUtil.createMensajeError("error "+e.getMessage()+" "+e.getCause());
 			e.printStackTrace();
 		}
 	}
@@ -211,6 +238,14 @@ public class BeanPeticion implements Serializable {
 			listadoSI.add(item);
 		}
 		return listadoSI;
+	}
+
+	public Integer getAux() {
+		return aux;
+	}
+
+	public void setAux(Integer aux) {
+		this.aux = aux;
 	}
 	
 }

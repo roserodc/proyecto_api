@@ -38,11 +38,11 @@ public class BeanLogin implements Serializable {
 			us=managerUsuario.iniciarSesion(usuario);
 			if(us!=null) {
 				if(us.getRole().getRDescripcion().equals("Usuario")) {
-					redireccion = "/usuario/indexUsuario?faces-redirect=true";
+					redireccion = "/usuario/indexUsuario?faces-redirect=true"+"id="+us.getUserId();
 				}else if(us.getRole().getRDescripcion().equals("Instructor")) {
-					redireccion = "/instructor/indexInstructor?faces-redirect=true";
+					redireccion = "/instructor/indexInstructor?faces-redirect=true"+"id="+us.getUserId();
 				}else {
-					redireccion = "/admingym/indexAdminGym?faces-redirect=true";
+					redireccion = "/admingym/indexAdminGym?faces-redirect=true"+"id="+us.getUserId();
 				}
 				
 			}else {
@@ -56,6 +56,18 @@ public class BeanLogin implements Serializable {
 			e.printStackTrace();
 		}
 		return redireccion;
+	}
+	
+	public String salirSistema(){
+		System.out.println("salirSistema");
+		try {
+			System.out.println("salir - falta evento ");
+			//managerAuditoria.crearEvento(loginDTO.getCodigoUsuario(), this.getClass(), "salisSistema", "Cerrar sesion");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+		return "/login.xhtml?faces-redirect=true";
 	}
 
 	

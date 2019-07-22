@@ -13,6 +13,11 @@
 		<title>Manejo de Peticiones</title>
 	</f:facet>
 </h:head>
+
+<!-- <f:metadata> -->
+<!--   <f:viewParam name="id" value="#{beanPeticion.aux}" /> -->
+<!-- </f:metadata> -->
+
 <body>
 
 	<script type="text/javascript">    
@@ -51,9 +56,14 @@
 	font-weight: bold;
 }
 </style>
+
 		<p:messages>
 			<p:autoUpdate />
 		</p:messages>
+		<p:commandButton value="Salir" icon="fa fa-sign-out" 
+					action="#{beanLogin.salirSistema()}">
+		</p:commandButton>
+		
 		<p:tabView>
 			<h:outputText
 				value="Realizar una nueva peticion - Complete los campos solicitados" />
@@ -134,31 +144,32 @@
 				</div>
 
 
-				<div>
-					<p:selectOneMenu value="#{beanPeticion.idTipoPeticion}"
-						filter="true" filterMatchMode="contains">
-						<f:selectItem itemLabel="Seleccione Tipo" itemValue=""
-							noSelectionOption="true" />
-						<f:selectItems value="#{beanPeticion.listaTipoPeticionSI}" />
-					</p:selectOneMenu>
-				</div>
+<!-- 				<div> -->
+<!-- 					<p:selectOneMenu value="#{beanPeticion.idTipoPeticion}" -->
+<!-- 						filter="true" filterMatchMode="contains"> -->
+<!-- 						<f:selectItem itemLabel="Seleccione Tipo" itemValue="" -->
+<!-- 							noSelectionOption="true" /> -->
+<!-- 						<f:selectItems value="#{beanPeticion.listaTipoPeticionSI}" /> -->
+<!-- 					</p:selectOneMenu> -->
+<!-- 				</div> -->
 
-				<div>
-					<p:selectOneMenu value="#{beanPeticion.idEstado}" filter="true"
-						filterMatchMode="contains">
-						<f:selectItem itemLabel="Seleccione Estado" itemValue=""
-							noSelectionOption="true" />
-						<f:selectItems value="#{beanPeticion.listaEstadoSI}" />
-					</p:selectOneMenu>
-				</div>
-
-
+<!-- 				<div> -->
+<!-- 					<p:selectOneMenu value="#{beanPeticion.idEstado}" filter="true" -->
+<!-- 						filterMatchMode="contains"> -->
+<!-- 						<f:selectItem itemLabel="Seleccione Estado" itemValue="" -->
+<!-- 							noSelectionOption="true" /> -->
+<!-- 						<f:selectItems value="#{beanPeticion.listaEstadoSI}" /> -->
+<!-- 					</p:selectOneMenu> -->
+<!-- 				</div> -->
 
 
 
+
+				<br/>
 				<p:commandButton value="Insertar" icon="fa fa-save"
 					update="@form,:form2"
 					action="#{beanPeticion.actionListenerInsertar()}"></p:commandButton>
+					<br/><br/><br/><br/>
 
 			</p:tab>
 			<p:tab title="Lista Peticiones">
@@ -170,6 +181,9 @@
 								reflow="true" paginator="true">
 								<p:column headerText="Id ">
 									<h:outputText value="#{peticion.ptcId}" />
+								</p:column>
+								<p:column headerText="name">
+									<h:outputText value="#{peticion.usuario.userApellido} #{peticion.usuario.userNombre}" />
 								</p:column>
 								<p:column headerText="Tipo"
 									filterBy="#{peticion.tipoPeticion.tpDescripcion}"
