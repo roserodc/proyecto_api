@@ -147,7 +147,7 @@ public class BeanNomina implements Serializable {
 		List<Peticione> listadoPeticion=managerPeticion.findAll();
 		
 		for(Peticione p:listadoPeticion){
-			SelectItem item=new SelectItem(p.getPtcId(),p.getPtcFecha(), p.getPtcHoraFin()+" "+p.getPtcHoraInicio());
+			SelectItem item=new SelectItem(p.getPtcId());
 			listadoSI.add(item);
 		}
 		return listadoSI;

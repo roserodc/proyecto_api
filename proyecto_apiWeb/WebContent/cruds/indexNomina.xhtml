@@ -72,9 +72,9 @@
 				</p:column>
 				
 				
-				<p:column headerText="Peticion" filterBy="#{nomina.peticione.ptcHoraInicio}"
+				<p:column headerText="Peticion" filterBy="#{nomina.peticione.ptcId}"
 					filterMatchMode="contains" priority="1">
-					<h:outputText value="#{nomina.peticione.ptcHoraInicio}" />
+					<h:outputText value="#{nomina.peticione.ptcId}" />
 				</p:column>
 				
 				<p:column headerText="OPCIONES" priority="1">
@@ -113,11 +113,13 @@
 
 			<p:selectOneMenu value="#{beanNomina.idPeticion}" filter="true"
 				filterMatchMode="contains">
-				<f:selectItem itemLabel="#{beanNomina.selecionada.peticione.ptcFecha}" itemValue=""
+				<f:selectItem itemLabel="#{beanNomina.selecionada.peticione.ptcId}" itemValue=""
 					noSelectionOption="true" />
 				<f:selectItems value="#{beanNomina.listaPeticionSI}" />
 
 			</p:selectOneMenu>
+			
+			
 
 
 			<p:commandButton value="Actualizar" icon="fa fa-save"

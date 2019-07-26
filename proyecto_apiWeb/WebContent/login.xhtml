@@ -9,25 +9,9 @@
 	<title>login</title>
 </h:head>
 <h:body>
+	
 	<h:form>
-
-
-
-<!-- 		<h:panelGrid columns="2"> -->
-<!-- 			<h:outputText value="Usuario" for="txtUsuario" /> -->
-<!-- 			<p:inputText id="txtUsuario" value="#{beanLogin.usuario.userCi}" -->
-<!-- 				required="true" size="20" maxlength="20" -->
-<!-- 				requiredMessage="Debe ingresar su usuario." /> -->
-<!-- 			<h:outputText value="Clave" for="txtClave" /> -->
-<!-- 			<p:password id="txtClave" value="#{beanLogin.usuario.userPass}" -->
-<!-- 				required="true" size="20" maxlength="10" -->
-<!-- 				requiredMessage="Debe ingresar su contraseña." /> -->
-<!-- 			<p:commandButton value="Ingresar" icon="fa fa-key" -->
-<!-- 				action="#{beanLogin.iniciarSesion()}" /> -->
-<!-- 		</h:panelGrid> -->
-		
-		
-			<center>
+		<center>
 
 			<h:panelGroup layout="block" style="width:500px;">
 				<!-- 				<p:panel styleClass="panelStyle"> -->
@@ -40,14 +24,19 @@
 						<img src="recursos/img/iconUser.png" width="120" height="110" />
 					</div>
 
-<!-- 					<h:outputText value="Usuario" for="txtUsuario" /> -->
+					<!-- 					<h:outputText value="Usuario" for="txtUsuario" /> -->
 					<p:inputText id="txtUsuario" value="#{beanLogin.usuario.userCi}"
 						required="true" size="20" maxlength="20"
-						requiredMessage="Debe ingresar su usuario." placeholder="Cedula" /><br/><br/>
-<!-- 					<h:outputText value="Clave" for="txtClave" /> -->
+						requiredMessage="Debe ingresar su usuario." placeholder="Cedula" />
+					<br />
+					<br />
+					<!-- 					<h:outputText value="Clave" for="txtClave" /> -->
 					<p:password id="txtClave" value="#{beanLogin.usuario.userPass}"
 						required="true" size="20" maxlength="10"
-						requiredMessage="Debe ingresar su contraseña." placeholder="Contraseña"/><br/><br/>
+						requiredMessage="Debe ingresar su contraseña."
+						placeholder="Contraseña" />
+					<br />
+					<br />
 					<p:commandButton value="Ingresar" icon="fa fa-key"
 						action="#{beanLogin.iniciarSesion()}" />
 

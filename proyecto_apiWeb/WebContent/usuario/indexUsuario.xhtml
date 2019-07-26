@@ -60,15 +60,27 @@
 		<p:messages>
 			<p:autoUpdate />
 		</p:messages>
-		<p:commandButton value="Salir" icon="fa fa-sign-out" 
-					action="#{beanLogin.salirSistema()}">
-		</p:commandButton>
-		
+
+
+		<div style="text-align: right">
+
+			<p:commandButton value="Salir" icon="fa fa-sign-out"
+				style="align:right" action="#{beanLogin.salirSistema()}">
+			</p:commandButton>
+			<p:commandButton value="Generar Reporte" icon="fa fa-paper"
+					 action="#{beanPeticion.actionReporteUsuario()}" ajax="false">
+				</p:commandButton>
+
+		</div>
+
+
+
+
 		<p:tabView>
 			<h:outputText
 				value="Realizar una nueva peticion - Complete los campos solicitados" />
 			<p:tab title="Peticiones">
-			<h3>Usuario</h3>
+				<h3>Usuario</h3>
 
 
 
@@ -144,32 +156,35 @@
 				</div>
 
 
-<!-- 				<div> -->
-<!-- 					<p:selectOneMenu value="#{beanPeticion.idTipoPeticion}" -->
-<!-- 						filter="true" filterMatchMode="contains"> -->
-<!-- 						<f:selectItem itemLabel="Seleccione Tipo" itemValue="" -->
-<!-- 							noSelectionOption="true" /> -->
-<!-- 						<f:selectItems value="#{beanPeticion.listaTipoPeticionSI}" /> -->
-<!-- 					</p:selectOneMenu> -->
-<!-- 				</div> -->
+				<!-- 				<div> -->
+				<!-- 					<p:selectOneMenu value="#{beanPeticion.idTipoPeticion}" -->
+				<!-- 						filter="true" filterMatchMode="contains"> -->
+				<!-- 						<f:selectItem itemLabel="Seleccione Tipo" itemValue="" -->
+				<!-- 							noSelectionOption="true" /> -->
+				<!-- 						<f:selectItems value="#{beanPeticion.listaTipoPeticionSI}" /> -->
+				<!-- 					</p:selectOneMenu> -->
+				<!-- 				</div> -->
 
-<!-- 				<div> -->
-<!-- 					<p:selectOneMenu value="#{beanPeticion.idEstado}" filter="true" -->
-<!-- 						filterMatchMode="contains"> -->
-<!-- 						<f:selectItem itemLabel="Seleccione Estado" itemValue="" -->
-<!-- 							noSelectionOption="true" /> -->
-<!-- 						<f:selectItems value="#{beanPeticion.listaEstadoSI}" /> -->
-<!-- 					</p:selectOneMenu> -->
-<!-- 				</div> -->
-
-
+				<!-- 				<div> -->
+				<!-- 					<p:selectOneMenu value="#{beanPeticion.idEstado}" filter="true" -->
+				<!-- 						filterMatchMode="contains"> -->
+				<!-- 						<f:selectItem itemLabel="Seleccione Estado" itemValue="" -->
+				<!-- 							noSelectionOption="true" /> -->
+				<!-- 						<f:selectItems value="#{beanPeticion.listaEstadoSI}" /> -->
+				<!-- 					</p:selectOneMenu> -->
+				<!-- 				</div> -->
 
 
-				<br/>
+
+
+				<br />
 				<p:commandButton value="Insertar" icon="fa fa-save"
 					update="@form,:form2"
 					action="#{beanPeticion.actionListenerInsertar()}"></p:commandButton>
-					<br/><br/><br/><br/>
+				<br />
+				<br />
+				<br />
+				<br />
 
 			</p:tab>
 			<p:tab title="Lista Peticiones">
@@ -183,7 +198,8 @@
 									<h:outputText value="#{peticion.ptcId}" />
 								</p:column>
 								<p:column headerText="name">
-									<h:outputText value="#{peticion.usuario.userApellido} #{peticion.usuario.userNombre}" />
+									<h:outputText
+										value="#{peticion.usuario.userApellido} #{peticion.usuario.userNombre}" />
 								</p:column>
 								<p:column headerText="Tipo"
 									filterBy="#{peticion.tipoPeticion.tpDescripcion}"
@@ -231,6 +247,11 @@
 
 				</p:tab>
 
+			</p:tab>
+			<p:tab title="Reporte">
+				<p:commandButton value="Generar Reporte" icon="fa fa-paper"
+					 action="#{beanPeticion.actionReporteUsuario()}" ajax="false">
+				</p:commandButton>
 			</p:tab>
 		</p:tabView>
 	</h:form>

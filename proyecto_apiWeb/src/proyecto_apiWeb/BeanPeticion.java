@@ -1,5 +1,13 @@
 package proyecto_apiWeb;
 
+import java.io.Serializable;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
@@ -7,29 +15,22 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.inject.Named;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletResponse;
 
-import com.sun.javafx.collections.MappingChange.Map;
-
-import proyecto_api.model.entities.Club;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
 import proyecto_api.model.entities.Estado;
-import proyecto_api.model.entities.Facultad;
+import proyecto_api.model.entities.GuiaEntrenamiento;
 import proyecto_api.model.entities.Peticione;
-import proyecto_api.model.entities.Prueba;
 import proyecto_api.model.entities.TipoPeticion;
 import proyecto_api.model.entities.Usuario;
-import proyecto_api.model.entities.GuiaEntrenamiento;
-import proyecto_api.model.manager.ManagerClub;
 import proyecto_api.model.manager.ManagerEstados;
-import proyecto_api.model.manager.ManagerFacultad;
 import proyecto_api.model.manager.ManagerGuiaEntrenamiento;
 import proyecto_api.model.manager.ManagerPeticion;
-import proyecto_api.model.manager.ManagerPrueba;
 import proyecto_api.model.manager.ManagerTipoPeticion;
 import proyecto_api.model.manager.ManagerUsuario;
-
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 @Named
 @SessionScoped
@@ -127,6 +128,36 @@ public class BeanPeticion implements Serializable {
 			e.printStackTrace();
 		}
 	}
+	
+	public String actionReporteUsuario() {
+		Map<String, Object> parametros = new HashMap<String, Object>();
+//		/*
+		parametros.put("user_id_usuario",aux);
+//		 parametros.put("p_titulo",p_titulo);
+//		 */
+		FacesContext context = FacesContext.getCurrentInstance();
+		ServletContext servletContext = (ServletContext) context.getExternalContext().getContext();
+		String ruta = servletContext.getRealPath("usuario/rp_usr.jasper");
+		System.out.println(ruta);
+		HttpServletResponse response = (HttpServletResponse) context.getExternalContext().getResponse();
+		response.addHeader("Content-disposition", "attachment;filename=reporte.pdf");
+		response.setContentType("application/pdf");
+		try {
+			Class.forName("org.postgresql.Driver");
+			Connection connection = null;
+			connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/gimnasio_utn", "postgres", "dr1234");
+			JasperPrint impresion = JasperFillManager.fillReport(ruta, parametros, connection);
+			JasperExportManager.exportReportToPdfStream(impresion, response.getOutputStream());
+			context.getApplication().getStateManager().saveView(context);
+			System.out.println("reporte generado.");
+			context.responseComplete();
+		} catch (Exception e) {
+			JSFUtil.createMensajeError(e.getMessage());
+			e.printStackTrace();
+		}
+		return "";
+	}
+
 
 	public List<Peticione> getLista() {
 		return lista;
