@@ -19,6 +19,7 @@ public class BeanLogin implements Serializable {
 	@EJB
 	private ManagerUsuario managerUsuario;
 	private Usuario usuario;
+	
 	@PostConstruct
 	public void inicializar() {
 		usuario = new Usuario();

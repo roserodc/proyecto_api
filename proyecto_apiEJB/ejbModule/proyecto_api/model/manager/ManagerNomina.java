@@ -43,23 +43,49 @@ public class ManagerNomina {
 	    	return q.getResultList();
 	    }
 	    
+	  public List<Nomina>findAllUsuariosxPeticion(Integer idpeticion){
+	    	String n = "SELECT n FROM Nomina n WHERE ptc_id_peticiones="+idpeticion+" order by user_id_usuario";
+	    	Query q = em.createQuery(n,Nomina.class);
+	    	return q.getResultList();
+	    }
 	
-	public Nomina insertar(Nomina nomina, Integer idpeticion, Integer idusuario) {
+	public Nomina insertar( Integer idpeticion, Integer idusuario) {
+		Nomina nom = new Nomina();
 		Peticione ptc;
 		ptc = managerPeticion.findById(idpeticion);
 		Usuario usr;
 		usr = managerUsuario.findById(idusuario);
-		Nomina nom = new Nomina();
 		nom.setPeticione(ptc);
 		nom.setUsuario(usr);
 //    	pl.setRutina(rut);
 		em.persist(nom);
 		return nom;
 	}
+	
+//	throws Exception {
+//		Nomina nom = findById(nomina.getNmId());
+//		
+//		if (nom != null)
+//			throw new Exception("Ya existe");
 
+	public Nomina insertarAdd( Integer idpeticion, Integer idusuario){
+		Nomina nom = new Nomina();
+		Peticione ptc;
+		ptc = managerPeticion.findById(idpeticion);
+		Usuario usr;
+		usr = managerUsuario.findById(idusuario);
+		nom.setPeticione(ptc);
+		nom.setUsuario(usr);
+//    	pl.setRutina(rut);
+		em.persist(nom);
+		return nom;
+	}
+	
 	public Nomina findById(int id) {
 		return em.find(Nomina.class, id);
 	}
+	
+	
 
 	public void eliminar(Integer id) {
 		Nomina nom = findById(id);
@@ -67,6 +93,8 @@ public class ManagerNomina {
 			em.remove(nom);
 		}
 	}
+	
+	
 
 	public void actualizar(Nomina nomina, Integer idpeticion, Integer idusuario) throws Exception {
 		Nomina nom = findById(nomina.getNmId());

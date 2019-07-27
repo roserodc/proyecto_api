@@ -63,6 +63,14 @@ public class ManagerUsuario {
     	return q.getResultList();
     }
     
+    public List<Usuario>findAllUsuarios(){
+    	String c = "SELECT c FROM Usuario c WHERE r_id_roles=2 order by user_id";
+    	Query q = en.createQuery(c,Usuario.class);
+    	return q.getResultList();
+    }
+    
+    
+    
     public Usuario findById(int id) {
     	return en.find(Usuario.class, id);
     }

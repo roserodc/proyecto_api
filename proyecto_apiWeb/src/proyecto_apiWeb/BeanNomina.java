@@ -8,6 +8,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.model.SelectItem;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import proyecto_api.model.entities.Usuario;
@@ -18,6 +19,7 @@ import proyecto_api.model.manager.ManagerNomina;
 import proyecto_api.model.entities.Carrera;
 import proyecto_api.model.entities.Peticione;
 import proyecto_api.model.entities.Nomina;
+
 @Named
 @SessionScoped
 
@@ -29,21 +31,30 @@ public class BeanNomina implements Serializable {
 	private ManagerPeticion managerPeticion;
 	@EJB
 	private ManagerUsuario managerUsuario;
-	
-	
+
 	private Integer idPeticion;
 	private Integer idUsuario;
 	private List<Nomina> lista;
 	private Nomina nomina;
-	
+	private Peticione peticion;
+	private List<Usuario> listaUsuario;
+	private List<Nomina> listaUsuarioxPeticion;
 	private boolean panelColapsado;
 	private Nomina selecionada;
 
 	@PostConstruct
 	public void inicalizar() {
+		listaUsuario = managerUsuario.findAllUsuarios();
+
 		lista = managerNomina.findAll();
 		nomina = new Nomina();
+		peticion = new Peticione();
 		panelColapsado = true;
+	}
+
+	public void ViewUsuarioxPeticion(Integer idPeticion) {
+		listaUsuarioxPeticion = managerNomina.findAllUsuariosxPeticion(idPeticion);
+
 	}
 
 	public void actionListenerColapsarPanerl() {
@@ -52,31 +63,54 @@ public class BeanNomina implements Serializable {
 
 	public void actionListenerInsertar() {
 		try {
-//			managerCarrera.insertar(carrera);
-			managerNomina.insertar(nomina, idPeticion,idUsuario);
-			lista = managerNomina.findAll();
-			nomina = new Nomina();
-			JSFUtil.createMensajeInfo("insertados");
+//			
+			if (!comprobarUsuario(idUsuario,idPeticion)) {
+				managerNomina.insertar(idPeticion, idUsuario);
+				lista = managerNomina.findAll();
+				nomina = new Nomina();
+				JSFUtil.createMensajeInfo("Insertado");
+			}else {
+				JSFUtil.createMensajeError("Ya Existe");
+			}
+
 		} catch (Exception e) {
 			JSFUtil.createMensajeError("error");
 			e.printStackTrace();
 		}
 	}
-	
+
+	public void actionListenerAñadirUsr(Integer idPeticion, Integer idUsuario) {
+		try {
+//			
+			listaUsuario = managerUsuario.findAllUsuarios();
+			if (!comprobarUsuario(idUsuario,idPeticion)) {
+				managerNomina.insertar(idPeticion, idUsuario);
+				lista = managerNomina.findAll();
+				nomina = new Nomina();
+				JSFUtil.createMensajeInfo("Insertado");
+			}else {
+				JSFUtil.createMensajeError("Ya Existe");
+			}
+		} catch (Exception e) {
+			JSFUtil.createMensajeError("error");
+			e.printStackTrace();
+		}
+	}
+
 	public void actionListenerEliminar(Integer id) {
 		managerNomina.eliminar(id);
-		lista=managerNomina.findAll();
+		lista = managerNomina.findAll();
 		JSFUtil.createMensajeInfo("Eliminado");
 	}
-	
+
 	public void actionListenerSeleccionado(Nomina nomina) {
 		selecionada = nomina;
 	}
-	
+
 	public void actionListenerActualizar() {
 		try {
-			managerNomina.actualizar(selecionada, idPeticion,idUsuario);
-			lista=managerNomina.findAll();
+			managerNomina.actualizar(selecionada, idPeticion, idUsuario);
+			lista = managerNomina.findAll();
 			JSFUtil.createMensajeInfo("Acualizado");
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -85,7 +119,22 @@ public class BeanNomina implements Serializable {
 		}
 	}
 
-		
+	public List<Nomina> getListaUsuarioxPeticion() {
+		return listaUsuarioxPeticion;
+	}
+
+	public void setListaUsuarioxPeticion(List<Nomina> listaUsuarioxPeticion) {
+		this.listaUsuarioxPeticion = listaUsuarioxPeticion;
+	}
+
+	public List<Usuario> getListaUsuario() {
+		return listaUsuario;
+	}
+
+	public void setListaUsuario(List<Usuario> listaUsuario) {
+		this.listaUsuario = listaUsuario;
+	}
+
 	public ManagerNomina getManagerNomina() {
 		return managerNomina;
 	}
@@ -142,27 +191,45 @@ public class BeanNomina implements Serializable {
 		this.selecionada = selecionada;
 	}
 
-	public List<SelectItem> getListaPeticionSI(){
-		List<SelectItem> listadoSI=new ArrayList<SelectItem>();
-		List<Peticione> listadoPeticion=managerPeticion.findAll();
-		
-		for(Peticione p:listadoPeticion){
-			SelectItem item=new SelectItem(p.getPtcId());
+	public boolean comprobarUsuario(Integer idUser, Integer idPtc) {
+		boolean var = false;
+		List<Nomina> listadoNomina = managerNomina.findAll();
+
+		for (Nomina n : listadoNomina) {
+			if ((n.getUsuario().getUserId() == idUser) && (n.getPeticione().getPtcId() == idPtc)) {
+				
+				System.out.println("lista     "+n.getUsuario().getUserId()+" - "+n.getPeticione().getPtcId());
+				System.out.println("Parametro "+idUser+" - "+idPtc);
+				System.out.println("Verdadero");
+				var = true;
+
+			} 
+
+		}
+		return var;
+
+	}
+
+	public List<SelectItem> getListaPeticionSI() {
+		List<SelectItem> listadoSI = new ArrayList<SelectItem>();
+		List<Peticione> listadoPeticion = managerPeticion.findAll();
+
+		for (Peticione p : listadoPeticion) {
+			SelectItem item = new SelectItem(p.getPtcId());
 			listadoSI.add(item);
 		}
 		return listadoSI;
 	}
-	
-	public List<SelectItem> getListaUsuarioSI(){
-		List<SelectItem> listadoSI=new ArrayList<SelectItem>();
-		List<Usuario> listadoClientes=managerUsuario.findAll();
-		
-		for(Usuario c:listadoClientes){
-			SelectItem item=new SelectItem(c.getUserId(), 
-					                   c.getUserNombre()+" "+c.getUserApellido());
+
+	public List<SelectItem> getListaUsuarioSI() {
+		List<SelectItem> listadoSI = new ArrayList<SelectItem>();
+		List<Usuario> listadoClientes = managerUsuario.findAll();
+
+		for (Usuario c : listadoClientes) {
+			SelectItem item = new SelectItem(c.getUserId(), c.getUserNombre() + " " + c.getUserApellido());
 			listadoSI.add(item);
 		}
 		return listadoSI;
 	}
-	
+
 }

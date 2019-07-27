@@ -118,5 +118,27 @@ public class ManagerPeticion {
     	pte.setGuiaEntrenamiento(peticion.getGuiaEntrenamiento());
 		em.merge(pte);
     }
+    
+    public void actualizarAceptar(Integer ptcId ) throws  Exception{
+    	Peticione pte = findById(ptcId);
+    	if (pte==null) 
+			throw new Exception("No existe");
+    	Estado est;
+    	est=managerEstado.findById(2);
+      	pte.setEstado(est);
+    	
+		em.merge(pte);
+    }
+
+    public void actualizarRechazar(Integer ptcId ) throws  Exception{
+    	Peticione pte = findById(ptcId);
+    	if (pte==null) 
+			throw new Exception("No existe");
+    	Estado est;
+    	est=managerEstado.findById(3);
+      	pte.setEstado(est);
+    	
+		em.merge(pte);
+    }
 
 }

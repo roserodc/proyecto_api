@@ -14,9 +14,11 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -31,6 +33,7 @@ import proyecto_api.model.manager.ManagerGuiaEntrenamiento;
 import proyecto_api.model.manager.ManagerPeticion;
 import proyecto_api.model.manager.ManagerTipoPeticion;
 import proyecto_api.model.manager.ManagerUsuario;
+import proyecto_apiWeb.BeanUsuario;
 
 @Named
 @SessionScoped
@@ -40,14 +43,18 @@ public class BeanPeticion implements Serializable {
 	private ManagerPeticion managerPeticion;
 	@EJB
 	private ManagerTipoPeticion managerTipoPeticion;
-	
+
 	@EJB
 	private ManagerEstados managerEstado;
-	
+
 	@EJB
 	private ManagerUsuario managerUsuario;
 	@EJB
 	private ManagerGuiaEntrenamiento managerGuiaEntrenamiento;
+
+//	@EJB
+
+
 	private Integer idTipoPeticion;
 	private Integer idEstado;
 
@@ -56,24 +63,29 @@ public class BeanPeticion implements Serializable {
 	private Integer idGuiaEntrenamiento;
 	private List<Peticione> lista;
 	private Peticione peticion;
+
 	private boolean panelColapsado;
 	private Peticione selecionada;
+	
+	@Inject
+	private BeanNomina beannomina;
 
 	@PostConstruct
 	public void inicalizar() {
-		//lista = managerPeticion.findAll();
-		
-		System.out.println("*////////"+id());
+		// lista = managerPeticion.findAll();
+
+		System.out.println("*////////" + id());
 		lista = managerPeticion.findAll2(aux);
 		peticion = new Peticione();
 		panelColapsado = true;
 	}
+
 	public Integer id() {
-		FacesContext facesContext = FacesContext. getCurrentInstance();
+		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
 		java.util.Map<String, String> params = externalContext.getRequestParameterMap();
-		aux= new Integer((String) params.get("id"));
-		System.out.println("--------*"+aux);
+		aux = new Integer((String) params.get("id"));
+		System.out.println("--------*" + aux);
 		return aux;
 	}
 
@@ -83,44 +95,51 @@ public class BeanPeticion implements Serializable {
 
 	public void actionListenerInsertar() {
 		Usuario us;
-		int tp=0;
-		us=managerUsuario.findById(aux);
+		int tp = 0;
+		us = managerUsuario.findById(aux);
 		if (us.getRole().getRDescripcion().equals("Usuario")) {
-			tp=1;
-		}else {
-			tp=2;
+			tp = 1;
+		} else {
+			tp = 2;
 		}
-		
+
 		try {
-			System.out.println("----insert-try---*"+aux);
-			managerPeticion.insertar2(peticion,
-					 tp,  3,
-					 idUsuario,idGuiaEntrenamiento);		
+			System.out.println("----insert-try---*" + aux);
+			managerPeticion.insertar2(peticion, tp, 3, idUsuario, idGuiaEntrenamiento);
 			lista = managerPeticion.findAll2(aux);
 //			lista = managerPeticion.findAll();
 			peticion = new Peticione();
 			JSFUtil.createMensajeInfo("insertados");
 		} catch (Exception e) {
-			System.out.println("----insert- error---*"+aux);
-			JSFUtil.createMensajeError("error "+e.getMessage()+" "+e.getCause());
+			System.out.println("----insert- error---*" + aux);
+			JSFUtil.createMensajeError("error " + e.getMessage() + " " + e.getCause());
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void actionListenerEliminar(Integer id) {
 		managerPeticion.eliminar(id);
-		lista=managerPeticion.findAll();
+		lista = managerPeticion.findAll();
 		JSFUtil.createMensajeInfo("Eliminado");
 	}
-	
+
 	public void actionListenerSeleccionado(Peticione peticion) {
 		selecionada = peticion;
+		
+
 	}
 	
+	public void actionListenerSelecAddUser(Peticione peticion) {
+		selecionada = peticion;
+		beannomina.ViewUsuarioxPeticion(peticion.getPtcId());
+
+	}
+	
+
 	public void actionListenerActualizar() {
 		try {
 			managerPeticion.actualizar(selecionada);
-			lista=managerPeticion.findAll();
+			lista = managerPeticion.findAll();
 			JSFUtil.createMensajeInfo("Acualizado");
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -129,10 +148,35 @@ public class BeanPeticion implements Serializable {
 		}
 	}
 	
+	public void actionListenerAceptarPeticion(Integer idPtc) {
+		try {
+			managerPeticion.actualizarAceptar(idPtc);
+			lista = managerPeticion.findAll();
+			JSFUtil.createMensajeInfo("Aceptado");
+		} catch (Exception e) {
+			// TODO: handle exception
+			JSFUtil.createMensajeError(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	public void actionListenerRechazarPeticion(Integer idPtc) {
+		try {
+			managerPeticion.actualizarRechazar(idPtc);
+			lista = managerPeticion.findAll();
+			JSFUtil.createMensajeInfo("Aceptado");
+		} catch (Exception e) {
+			// TODO: handle exception
+			JSFUtil.createMensajeError(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+
 	public String actionReporteUsuario() {
 		Map<String, Object> parametros = new HashMap<String, Object>();
 //		/*
-		parametros.put("user_id_usuario",aux);
+		parametros.put("user_id_usuario", aux);
 //		 parametros.put("p_titulo",p_titulo);
 //		 */
 		FacesContext context = FacesContext.getCurrentInstance();
@@ -145,7 +189,8 @@ public class BeanPeticion implements Serializable {
 		try {
 			Class.forName("org.postgresql.Driver");
 			Connection connection = null;
-			connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/gimnasio_utn", "postgres", "dr1234");
+			connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/gimnasio_utn", "postgres",
+					"dr1234");
 			JasperPrint impresion = JasperFillManager.fillReport(ruta, parametros, connection);
 			JasperExportManager.exportReportToPdfStream(impresion, response.getOutputStream());
 			context.getApplication().getStateManager().saveView(context);
@@ -157,7 +202,6 @@ public class BeanPeticion implements Serializable {
 		}
 		return "";
 	}
-
 
 	public List<Peticione> getLista() {
 		return lista;
@@ -222,50 +266,46 @@ public class BeanPeticion implements Serializable {
 	public void setIdGuiaEntrenamiento(Integer idGuiaEntrenamiento) {
 		this.idGuiaEntrenamiento = idGuiaEntrenamiento;
 	}
-	
-	public List<SelectItem> getListaTipoPeticionSI(){
-		List<SelectItem> listadoSI=new ArrayList<SelectItem>();
-		List<TipoPeticion> listadoClientes=managerTipoPeticion.findAll();
-		
-		for(TipoPeticion c:listadoClientes){
-			SelectItem item=new SelectItem(c.getTpId(), 
-					                   c.getTpDescripcion());
+
+	public List<SelectItem> getListaTipoPeticionSI() {
+		List<SelectItem> listadoSI = new ArrayList<SelectItem>();
+		List<TipoPeticion> listadoClientes = managerTipoPeticion.findAll();
+
+		for (TipoPeticion c : listadoClientes) {
+			SelectItem item = new SelectItem(c.getTpId(), c.getTpDescripcion());
 			listadoSI.add(item);
 		}
 		return listadoSI;
 	}
-	
-	public List<SelectItem> getListaEstadoSI(){
-		List<SelectItem> listadoSI=new ArrayList<SelectItem>();
-		List<Estado> listadoClientes=managerEstado.findAll();
-		
-		for(Estado c:listadoClientes){
-			SelectItem item=new SelectItem(c.getEstId(), 
-					                   c.getEstDescripcion());
+
+	public List<SelectItem> getListaEstadoSI() {
+		List<SelectItem> listadoSI = new ArrayList<SelectItem>();
+		List<Estado> listadoClientes = managerEstado.findAll();
+
+		for (Estado c : listadoClientes) {
+			SelectItem item = new SelectItem(c.getEstId(), c.getEstDescripcion());
 			listadoSI.add(item);
 		}
 		return listadoSI;
 	}
-	
-	public List<SelectItem> getListaUsuarioSI(){
-		List<SelectItem> listadoSI=new ArrayList<SelectItem>();
-		List<Usuario> listadoClientes=managerUsuario.findAll();
-		
-		for(Usuario c:listadoClientes){
-			SelectItem item=new SelectItem(c.getUserId(), 
-					                   c.getUserNombre()+" "+c.getUserApellido());
+
+	public List<SelectItem> getListaUsuarioSI() {
+		List<SelectItem> listadoSI = new ArrayList<SelectItem>();
+		List<Usuario> listadoClientes = managerUsuario.findAll();
+
+		for (Usuario c : listadoClientes) {
+			SelectItem item = new SelectItem(c.getUserId(), c.getUserNombre() + " " + c.getUserApellido());
 			listadoSI.add(item);
 		}
 		return listadoSI;
 	}
-	
-	public List<SelectItem> getListaGuiaEntrenamietnoSI(){
-		List<SelectItem> listadoSI=new ArrayList<SelectItem>();
-		List<GuiaEntrenamiento> listadoClientes=managerGuiaEntrenamiento.findAll();
-		
-		for(GuiaEntrenamiento c:listadoClientes){
-			SelectItem item=new SelectItem(c.getGeId(), 
-					                   c.getGeDescripcion());
+
+	public List<SelectItem> getListaGuiaEntrenamietnoSI() {
+		List<SelectItem> listadoSI = new ArrayList<SelectItem>();
+		List<GuiaEntrenamiento> listadoClientes = managerGuiaEntrenamiento.findAll();
+
+		for (GuiaEntrenamiento c : listadoClientes) {
+			SelectItem item = new SelectItem(c.getGeId(), c.getGeDescripcion());
 			listadoSI.add(item);
 		}
 		return listadoSI;
@@ -278,5 +318,5 @@ public class BeanPeticion implements Serializable {
 	public void setAux(Integer aux) {
 		this.aux = aux;
 	}
-	
+
 }
