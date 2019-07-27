@@ -34,6 +34,7 @@ import proyecto_api.model.manager.ManagerPeticion;
 import proyecto_api.model.manager.ManagerTipoPeticion;
 import proyecto_api.model.manager.ManagerUsuario;
 import proyecto_apiWeb.BeanUsuario;
+import proyecto_apiWeb.BeanLogin;
 
 @Named
 @SessionScoped
@@ -54,6 +55,7 @@ public class BeanPeticion implements Serializable {
 
 //	@EJB
 
+	private Usuario usuario;
 	private Integer idTipoPeticion;
 	private Integer idEstado;
 
@@ -61,10 +63,15 @@ public class BeanPeticion implements Serializable {
 	private Integer idUsuario;
 	private Integer idGuiaEntrenamiento;
 	private List<Peticione> lista;
+	private List<Peticione> listaIndividuales;
+	private List<Peticione> listaGrupales;
 	private Peticione peticion;
 
 	private boolean panelColapsado;
 	private Peticione selecionada;
+
+	@Inject
+	private BeanLogin beanlogin;
 
 	@Inject
 	private BeanNomina beannomina;
@@ -72,35 +79,24 @@ public class BeanPeticion implements Serializable {
 	@PostConstruct
 	public void inicalizar() {
 		// lista = managerPeticion.findAll();
+		usuario = managerUsuario.findByCedula(Integer.parseInt(beanlogin.getCodigoUsuario()));
 
-		System.out.println("*////////" + id());
-		lista = managerPeticion.findAll2(aux);
+		System.out.println("--------*" + usuario.getUserId());
+		lista = managerPeticion.findAll2(usuario.getUserId());
+		listaIndividuales = managerPeticion.findAllIndividuales();
+		listaGrupales = managerPeticion.findAllGrupales();
 		peticion = new Peticione();
 		panelColapsado = true;
 	}
 
-	public Integer id() {
-		FacesContext facesContext = FacesContext.getCurrentInstance();
-		ExternalContext externalContext = facesContext.getExternalContext();
-		java.util.Map<String, String> params = externalContext.getRequestParameterMap();
-		aux = new Integer((String) params.get("id"));
-		System.out.println("--------*" + aux);
-		return aux;
-	}
+	
 
 	public void actionListenerColapsarPanerl() {
 		panelColapsado = !panelColapsado;
 	}
 
 	public void actionListenerInsertar() {
-		Usuario us;
-		int tp = 0;
-		us = managerUsuario.findById(aux);
-		if (us.getRole().getRDescripcion().equals("Usuario")) {
-			tp = 1;
-		} else {
-			tp = 2;
-		}
+	
 
 		String h1 = peticion.getPtcHoraInicio();
 		String[] hi = h1.split(":");
@@ -113,24 +109,18 @@ public class BeanPeticion implements Serializable {
 		System.out.println("-----hora fin---*" + hf1);
 
 		if (hi1 > hf1 || peticion.getPtcHoraInicio().equals(peticion.getPtcHoraFin())) {
-			System.out.println("equasl" + aux);
+			System.out.println("equasl" + usuario.getUserId());
 			JSFUtil.createMensajeError("Revise campos de hora, hora inicio debe ser menor a hora fin");
 		} else {
 
 			try {
-
-				System.out.println("----insert-try---*" + aux);
-				managerPeticion.insertar2(peticion, tp, 3, aux, idGuiaEntrenamiento);
-
-//				System.out.println("----insert-try---*" + aux);
-//				managerPeticion.insertar2(peticion, tp, 3, idUsuario, idGuiaEntrenamiento);
-
-				lista = managerPeticion.findAll2(aux);
-//			lista = managerPeticion.findAll();
+				System.out.println("----insert-try---*" + usuario.getUserId());
+				managerPeticion.insertar2(peticion, usuario.getRole().getRId(), 3, usuario.getUserId(), idGuiaEntrenamiento);
+				lista = managerPeticion.findAll2(usuario.getUserId());
 				peticion = new Peticione();
-				JSFUtil.createMensajeInfo("Petición registrada con Éxito");
+				JSFUtil.createMensajeInfo("insertados");
 			} catch (Exception e) {
-				System.out.println("----insert- error---*" + aux);
+				System.out.println("----insert- error---*" + usuario.getUserId());
 				JSFUtil.createMensajeError("error " + e.getMessage() + " " + e.getCause());
 				e.printStackTrace();
 			}
@@ -183,7 +173,7 @@ public class BeanPeticion implements Serializable {
 		try {
 			managerPeticion.actualizarRechazar(idPtc);
 			lista = managerPeticion.findAll();
-			JSFUtil.createMensajeInfo("Aceptado");
+			JSFUtil.createMensajeInfo("Rechazado");
 		} catch (Exception e) {
 			// TODO: handle exception
 			JSFUtil.createMensajeError(e.getMessage());
@@ -194,7 +184,7 @@ public class BeanPeticion implements Serializable {
 	public String actionReporteUsuario() {
 		Map<String, Object> parametros = new HashMap<String, Object>();
 //		/*
-		parametros.put("user_id_usuario", aux);
+		parametros.put("user_id_usuario", usuario.getUserId());
 //		 parametros.put("p_titulo",p_titulo);
 //		 */
 		FacesContext context = FacesContext.getCurrentInstance();

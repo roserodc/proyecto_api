@@ -177,9 +177,7 @@
 
 
 
-
-
-	<p:tab title="Lista Peticiones">
+<p:tab title="Lista Peticiones">
 		<p:tab title="Lista Peticiones">
 			<h3>Instructor</h3>
 			<h:outputText value="Peticiones Realizadas" />
@@ -188,7 +186,7 @@
 					<p:autoUpdate />
 				</p:messages>
 				<p:panel header="Datos de Peticiones">
-					<p:dataTable value="#{beanPeticion.lista}" var="peticion"
+					<p:dataTable value="#{beanPeticion.listaIndividuales}" var="peticion"
 						reflow="true" paginator="true">
 
 						<p:column headerText="Id ">
@@ -243,6 +241,88 @@
 							</p:commandButton>
 							<p:commandButton icon="fa fa-remove" title="Rechazar Peticion"
 								update="@form,:form4"
+								actionListener="#{beanPeticion.actionListenerRechazarPeticion(peticion.ptcId)}">
+							</p:commandButton>
+
+
+						</p:column>
+
+
+
+					</p:dataTable>
+				</p:panel>
+
+			</h:form>
+
+		</p:tab>
+
+	</p:tab>
+
+
+<p:tab title="Lista Peticiones">
+		<p:tab title="Lista Peticiones">
+			<h3>Instructor</h3>
+			<h:outputText value="Peticiones Realizadas" />
+			<h:form id="form5">
+				<p:messages>
+					<p:autoUpdate />
+				</p:messages>
+				<p:panel header="Datos de Peticiones">
+					<p:dataTable value="#{beanPeticion.listaGrupales}" var="peticion"
+						reflow="true" paginator="true">
+
+						<p:column headerText="Id ">
+							<h:outputText value="#{peticion.ptcId}" />
+						</p:column>
+
+						<p:column headerText="name">
+							<h:outputText
+								value="#{peticion.usuario.userApellido} #{peticion.usuario.userNombre}" />
+						</p:column>
+
+						<p:column headerText="Tipo"
+							filterBy="#{peticion.tipoPeticion.tpDescripcion}"
+							filterMatchMode="contains" priority="1">
+							<h:outputText value="#{peticion.tipoPeticion.tpDescripcion}" />
+						</p:column>
+
+						<p:column headerText="Fecha" filterBy="#{peticion.ptcFecha}"
+							filterMatchMode="contains" priority="1">
+							<h:outputText value="#{peticion.ptcFecha}" />
+						</p:column>
+
+						<p:column headerText="Hora Inicio"
+							filterBy="#{peticion.ptcHoraInicio}" filterMatchMode="contains"
+							priority="2">
+							<h:outputText value="#{peticion.ptcHoraInicio}" />
+						</p:column>
+
+						<p:column headerText="Hora Fin" filterBy="#{peticion.ptcHoraFin}"
+							filterMatchMode="contains" priority="2">
+							<h:outputText value="#{peticion.ptcHoraFin}" />
+						</p:column>
+
+
+
+						<p:column headerText="Estado"
+							filterBy="#{peticion.estado.estDescripcion}"
+							filterMatchMode="contains" priority="2">
+							<h:outputText value="#{peticion.estado.estDescripcion}" />
+						</p:column>
+
+						<p:column headerText="Guia de Entrenamiento"
+							filterBy="#{peticion.guiaEntrenamiento.geDescripcion}"
+							filterMatchMode="contains" priority="2">
+							<h:outputText value="#{peticion.guiaEntrenamiento.geDescripcion}" />
+						</p:column>
+
+						<p:column headerText="OPCIONES" priority="1">
+							<p:commandButton icon="fa fa-check" title="Aceptar Peticion"
+								update="@form,:form5"
+								actionListener="#{beanPeticion.actionListenerAceptarPeticion(peticion.ptcId)}">
+							</p:commandButton>
+							<p:commandButton icon="fa fa-remove" title="Rechazar Peticion"
+								update="@form,:form5"
 								actionListener="#{beanPeticion.actionListenerRechazarPeticion(peticion.ptcId)}">
 							</p:commandButton>
 

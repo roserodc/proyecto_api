@@ -56,6 +56,17 @@ public class ManagerPeticion {
     	return q.getResultList();
     }
    
+    public List<Peticione>findAllIndividuales (){
+    	String c =  "SELECT o FROM Peticione o WHERE tp_id_tipo_peticion=1 order by ptc_Id";
+    	Query q = em.createQuery(c,Peticione.class);
+    	return q.getResultList();
+    }
+    
+    public List<Peticione>findAllGrupales (){
+    	String c =  "SELECT o FROM Peticione o WHERE tp_id_tipo_peticion=2 order by ptc_Id";
+    	Query q = em.createQuery(c,Peticione.class);
+    	return q.getResultList();
+    }
     
     public Peticione findById(int id) {
     	return em.find(Peticione.class, id);
