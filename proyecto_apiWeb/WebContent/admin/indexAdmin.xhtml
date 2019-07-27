@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:head>
+	<f:facet name="first">
+		<meta name="viewport"
+			content="widtd=device-widtg, initial-sacale=1, shrink-to-fit=no, user-scalable=no" />
+		<title>Manejo Administrador</title>
+	</f:facet>
+</h:head>
+
+<!-- <f:metadata> -->
+<!--   <f:viewParam name="id" value="#{beanPeticion.aux}" /> -->
+<!-- </f:metadata> -->
+
+<body>
+
+	<h:form id="form1">
+		<p:messages>
+			<p:autoUpdate />
+		</p:messages>
+
+
+		<div style="text-align: right">
+
+			<p:commandButton value="Salir" icon="fa fa-sign-out"
+				style="align:right" action="#{beanLogin.salirSistema()}">
+			</p:commandButton>
+
+		</div>
+
+
+
+
+		<p:tabView>
+			
+			<p:tab title="Registro de Instructor">
+				<h3>Registre a un Nuevo Instructor</h3>
+				<h:outputText value="Complete los campos solicitados" />
+
+			</p:tab>
+			
+			<p:tab title="Registro de Planes">
+				<h3>Registre un Nuevo Plan</h3>
+				<h:outputText value="Complete los campos solicitados" />
+
+			</p:tab>
+			
+			<p:tab title="Peticiones Indiduales">
+				<h3>Lista de Peticiones Individuales</h3>
+				<p:commandButton value="Generar Reporte" icon="fa fa-paper"
+					 action="#" ajax="false">
+				</p:commandButton>
+			</p:tab>
+			
+			<p:tab title="Peticiones Grupales">
+				<h3>Lista de Peticiones Individuales</h3>
+				<p:commandButton value="Generar Reporte" icon="fa fa-paper"
+					 action="#" ajax="false">
+				</p:commandButton>
+			</p:tab>
+			
+			
+		</p:tabView>
+	</h:form>
+	<br />
+	<h:form id="form2">
+	</h:form>
+
+	<!-- 	<p:dialog header="Editar Informacion" widgetVar="dlgEdicion" -->
+	<!-- 		modal="true"> -->
+	<!-- 		<h:form id="formEdicion"> -->
+
+	<!-- 			<p:commandButton value="Actualizar" icon="fa fa-save" -->
+	<!-- 				update="@form,:form2" -->
+	<!-- 				actionListener="#{beanPeticion.actionListenerActualizar()}"></p:commandButton> -->
+	<!-- 		</h:form> -->
+	<!-- 	</p:dialog> -->
+
+	<!-- 	<p:confirmDialog global="true" showEffect="fade" hideEffect="fade"> -->
+	<!-- 		<p:commandButton value="Si" type="button" -->
+	<!-- 			styleClass="ui-confirmdialog-yes" icon="fa fa-check"></p:commandButton> -->
+	<!-- 		<p:commandButton value="No" type="button" -->
+	<!-- 			styleClass="ui-confirmdialog-no" icon="fa fa-times"></p:commandButton> -->
+	<!-- 	</p:confirmDialog> -->
+</body>
+</html>

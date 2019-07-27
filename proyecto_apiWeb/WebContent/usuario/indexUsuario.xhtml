@@ -97,14 +97,14 @@
 				</div>
 
 
-				<div>
-					<p:selectOneMenu value="#{beanPeticion.idUsuario}" filter="true"
-						filterMatchMode="contains">
-						<f:selectItem itemLabel="Seleccione Usuario" itemValue=""
-							noSelectionOption="true" />
-						<f:selectItems value="#{beanPeticion.listaUsuarioSI}" />
-					</p:selectOneMenu>
-				</div>
+<!-- 				<div> -->
+<!-- 					<p:selectOneMenu value="#{beanPeticion.idUsuario}" filter="true" -->
+<!-- 						filterMatchMode="contains"> -->
+<!-- 						<f:selectItem itemLabel="Seleccione Usuario" itemValue="" -->
+<!-- 							noSelectionOption="true" /> -->
+<!-- 						<f:selectItems value="#{beanPeticion.listaUsuarioSI}" /> -->
+<!-- 					</p:selectOneMenu> -->
+<!-- 				</div> -->
 
 				<div>
 					<p:selectOneMenu value="#{beanPeticion.peticion.ptcHoraInicio}"
@@ -131,7 +131,6 @@
 					<p:selectOneMenu value="#{beanPeticion.peticion.ptcHoraFin}"
 						style="width:125px">
 						<f:selectItem itemLabel="Hora fin" itemValue="" />
-						<f:selectItem itemLabel="7:00" itemValue="7:00" />
 						<f:selectItem itemLabel="8:00" itemValue="8:00" />
 						<f:selectItem itemLabel="9:00" itemValue="9:00" />
 						<f:selectItem itemLabel="10:00" itemValue="10:00" />

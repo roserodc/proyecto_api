@@ -43,7 +43,7 @@ public class BeanLogin implements Serializable {
 				}else if(us.getRole().getRDescripcion().equals("Instructor")) {
 					redireccion = "/instructor/indexInstructor?faces-redirect=true"+"id="+us.getUserId();
 				}else {
-					redireccion = "/admingym/indexAdminGym?faces-redirect=true"+"id="+us.getUserId();
+					redireccion = "/admin/indexAdmin?faces-redirect=true"+"id="+us.getUserId();
 				}
 				
 			}else {

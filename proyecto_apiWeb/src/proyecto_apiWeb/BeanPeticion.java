@@ -54,7 +54,6 @@ public class BeanPeticion implements Serializable {
 
 //	@EJB
 
-
 	private Integer idTipoPeticion;
 	private Integer idEstado;
 
@@ -66,7 +65,7 @@ public class BeanPeticion implements Serializable {
 
 	private boolean panelColapsado;
 	private Peticione selecionada;
-	
+
 	@Inject
 	private BeanNomina beannomina;
 
@@ -103,17 +102,39 @@ public class BeanPeticion implements Serializable {
 			tp = 2;
 		}
 
-		try {
-			System.out.println("----insert-try---*" + aux);
-			managerPeticion.insertar2(peticion, tp, 3, idUsuario, idGuiaEntrenamiento);
-			lista = managerPeticion.findAll2(aux);
+		String h1 = peticion.getPtcHoraInicio();
+		String[] hi = h1.split(":");
+		int hi1 = Integer.parseInt(hi[0]); // 004-
+		System.out.println("-----hora inicio---*" + hi1);
+
+		String h2 = peticion.getPtcHoraFin();
+		String[] hf = h2.split(":");
+		int hf1 = Integer.parseInt(hf[0]); // 004-
+		System.out.println("-----hora fin---*" + hf1);
+
+		if (hi1 > hf1 || peticion.getPtcHoraInicio().equals(peticion.getPtcHoraFin())) {
+			System.out.println("equasl" + aux);
+			JSFUtil.createMensajeError("Revise campos de hora, hora inicio debe ser menor a hora fin");
+		} else {
+
+			try {
+
+				System.out.println("----insert-try---*" + aux);
+				managerPeticion.insertar2(peticion, tp, 3, aux, idGuiaEntrenamiento);
+
+//				System.out.println("----insert-try---*" + aux);
+//				managerPeticion.insertar2(peticion, tp, 3, idUsuario, idGuiaEntrenamiento);
+
+				lista = managerPeticion.findAll2(aux);
 //			lista = managerPeticion.findAll();
-			peticion = new Peticione();
-			JSFUtil.createMensajeInfo("insertados");
-		} catch (Exception e) {
-			System.out.println("----insert- error---*" + aux);
-			JSFUtil.createMensajeError("error " + e.getMessage() + " " + e.getCause());
-			e.printStackTrace();
+				peticion = new Peticione();
+				JSFUtil.createMensajeInfo("Petición registrada con Éxito");
+			} catch (Exception e) {
+				System.out.println("----insert- error---*" + aux);
+				JSFUtil.createMensajeError("error " + e.getMessage() + " " + e.getCause());
+				e.printStackTrace();
+			}
+
 		}
 	}
 
@@ -125,16 +146,14 @@ public class BeanPeticion implements Serializable {
 
 	public void actionListenerSeleccionado(Peticione peticion) {
 		selecionada = peticion;
-		
 
 	}
-	
+
 	public void actionListenerSelecAddUser(Peticione peticion) {
 		selecionada = peticion;
 		beannomina.ViewUsuarioxPeticion(peticion.getPtcId());
 
 	}
-	
 
 	public void actionListenerActualizar() {
 		try {
@@ -147,7 +166,7 @@ public class BeanPeticion implements Serializable {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void actionListenerAceptarPeticion(Integer idPtc) {
 		try {
 			managerPeticion.actualizarAceptar(idPtc);
@@ -159,7 +178,7 @@ public class BeanPeticion implements Serializable {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void actionListenerRechazarPeticion(Integer idPtc) {
 		try {
 			managerPeticion.actualizarRechazar(idPtc);
@@ -171,7 +190,6 @@ public class BeanPeticion implements Serializable {
 			e.printStackTrace();
 		}
 	}
-	
 
 	public String actionReporteUsuario() {
 		Map<String, Object> parametros = new HashMap<String, Object>();
