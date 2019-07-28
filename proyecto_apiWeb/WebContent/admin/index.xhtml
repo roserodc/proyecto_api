@@ -15,10 +15,11 @@
 <body>
 	<h:form>
 		<p:menubar>
-			
+			<p:menuitem value="Registro Instructor" action="registroguiaentrenamiento"  icon="fa fa-bars"></p:menuitem>
 			<p:menuitem value="Registro Instructor" action="registrousuario"  icon="fa fa-bars"></p:menuitem>
 			<p:menuitem value="Peticiones Individuales" action="individuales"  icon="fa fa-bars"></p:menuitem>
 			<p:menuitem value="Peticiones Grupales" action="grupales" icon="fa fa-cog"></p:menuitem>
+			<p:menuitem value="Reporte" action="registroguiaentrenamiento"  icon="fa fa-bars"></p:menuitem>
 			
 			<f:facet name="options">
 				<p:commandButton value="Salir" action="#{beanLogin.salirSistema()}" icon="fa fa-sign-out"/>

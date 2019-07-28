@@ -10,14 +10,15 @@
 </f:metadata>
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>Opciones Instructor</title>
+	<title>Opciones supervisor</title>
 </h:head>
 <body>
 	<h:form>
 		<p:menubar>
-			
-			<p:menuitem value="Reporte" action="registroguiaentrenamiento"  icon="fa fa-bars"></p:menuitem>
-			<p:menuitem value="Peticiones" action="peticiones" icon="fa fa-cog"></p:menuitem>
+			<p:menuitem value="Registro Instructor" action="registroguiaentrenamiento"  icon="fa fa-bars"></p:menuitem>
+			<p:menuitem value="Registro Instructor" action="registrousuario"  icon="fa fa-bars"></p:menuitem>
+			<p:menuitem value="Peticiones Individuales" action="individuales"  icon="fa fa-bars"></p:menuitem>
+			<p:menuitem value="Peticiones Grupales" action="grupales" icon="fa fa-cog"></p:menuitem>
 			
 			<f:facet name="options">
 				<p:commandButton value="Salir" action="#{beanLogin.salirSistema()}" icon="fa fa-sign-out"/>
