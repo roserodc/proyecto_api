@@ -60,7 +60,6 @@ public class BeanPeticion implements Serializable {
 	private Integer idTipoPeticion;
 	private Integer idEstado;
 
-	private Integer aux;
 	private Integer idUsuario;
 	private Integer idGuiaEntrenamiento;
 	private List<Peticione> lista;
@@ -360,8 +359,5 @@ public class BeanPeticion implements Serializable {
 		this.listaGrupales = listaGrupales;
 	}
 
-
-
-	
 
 }
