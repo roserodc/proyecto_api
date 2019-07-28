@@ -38,14 +38,7 @@
 				<p:inputText value="#{beanPlan.plane.plTipo}" />
 				
 				
-				<p:selectOneMenu value="#{beanPlan.idPlan}" filter="true"
-						filterMatchMode="contains">
-						<f:selectItem itemLabel="Seleccione..." itemValue=""
-							noSelectionOption="true" />
-						<f:selectItems value="#{beanPlan.listaGuiaEntrenamientoSI}" />
-				
-				</p:selectOneMenu>
-				
+
 <!-- 				<p:selectOneMenu value="#{beanCarrera.carrera.facultad}" >                                                 -->
 <!--                             <f:selectItem noSelectionOption="true" itemLabel="Seleccione Facultad" itemValue="#{null}"/> -->
 <!--                             <f:selectItems value="#{beanCarrera.listaClientesSI}" var="facu" itemLabel="#{facu.description}" itemValue="#{facu}"/> -->
@@ -71,10 +64,7 @@
 				</p:column>
 				
 				
-				<p:column headerText="Guia Entrenamiento" filterBy="#{plan.guiaEntrenamiento.geDescripcion}"
-					filterMatchMode="contains" priority="1">
-					<h:outputText value="#{plan.guiaEntrenamiento.geDescripcion}" />
-				</p:column>
+			
 				
 				<p:column headerText="OPCIONES" priority="1">
 					<p:commandButton icon="fa fa-edit" title="Editar"
@@ -105,21 +95,12 @@
 			<h:outputText value="Tipo Plan" />
 			<p:inputText value="#{beanPlan.selecionada.plTipo}" />
 
-<!-- 			<h:outputText value="Guia Entrenamiento" /> -->
-<!-- 			<p:inputText value="#{beanPlan.selecionada.guiaEntrenamiento}" /> -->
-			
-<!-- 			<p:selectOneMenu value="#{beanPlan.selecionada.guiaEntrenamiento.geId}" filter="true" -->
-<!-- 						filterMatchMode="contains"> -->
-<!-- 						<f:selectItem itemLabel="Seleccione..." itemValue="" -->
-<!-- 							noSelectionOption="true" /> -->
-<!-- 						<f:selectItems value="#{beanPlan.listaGuiaEntrenamientoSI}" /> -->
-				
-<!-- 				</p:selectOneMenu> -->
+
 			
 			
 			<p:commandButton value="Actualizar" icon="fa fa-save"
 				update="@form,:form2"
-				actionListener="#{beanCarrera.actionListenerActualizar()}"></p:commandButton>
+				actionListener="#{beanPlan.actionListenerActualizar()}"></p:commandButton>
 		</h:form>
 	</p:dialog>
 

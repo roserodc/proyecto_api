@@ -25,12 +25,12 @@ import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import proyecto_api.model.entities.Estado;
-import proyecto_api.model.entities.GuiaEntrenamiento;
+import proyecto_api.model.entities.Plane;
 import proyecto_api.model.entities.Peticione;
 import proyecto_api.model.entities.TipoPeticion;
 import proyecto_api.model.entities.Usuario;
 import proyecto_api.model.manager.ManagerEstados;
-import proyecto_api.model.manager.ManagerGuiaEntrenamiento;
+import proyecto_api.model.manager.ManagerPlan;
 import proyecto_api.model.manager.ManagerPeticion;
 import proyecto_api.model.manager.ManagerTipoPeticion;
 import proyecto_api.model.manager.ManagerUsuario;
@@ -52,7 +52,7 @@ public class BeanPeticion implements Serializable {
 	@EJB
 	private ManagerUsuario managerUsuario;
 	@EJB
-	private ManagerGuiaEntrenamiento managerGuiaEntrenamiento;
+	private ManagerPlan managerPlan;
 
 //	@EJB
 
@@ -61,7 +61,7 @@ public class BeanPeticion implements Serializable {
 	private Integer idEstado;
 
 	private Integer idUsuario;
-	private Integer idGuiaEntrenamiento;
+	private Integer idPlan;
 	private List<Peticione> lista;
 	private List<Peticione> listaIndividuales;
 	private List<Peticione> listaGrupales;
@@ -126,7 +126,7 @@ public class BeanPeticion implements Serializable {
 
 			try {
 				System.out.println("----insert-try---*" + usuario.getUserId());
-				managerPeticion.insertar2(peticion, tp, 3, usuario.getUserId(), idGuiaEntrenamiento);
+				managerPeticion.insertar2(peticion, tp, 3, usuario.getUserId(), idPlan);
 				lista = managerPeticion.findAll2(usuario.getUserId());
 				peticion = new Peticione();
 				JSFUtil.createMensajeInfo("insertados");
@@ -286,13 +286,19 @@ public class BeanPeticion implements Serializable {
 		this.idUsuario = idUsuario;
 	}
 
-	public Integer getIdGuiaEntrenamiento() {
-		return idGuiaEntrenamiento;
+	
+
+	public Integer getIdPlan() {
+		return idPlan;
 	}
 
-	public void setIdGuiaEntrenamiento(Integer idGuiaEntrenamiento) {
-		this.idGuiaEntrenamiento = idGuiaEntrenamiento;
+
+
+	public void setIdPlan(Integer idPlan) {
+		this.idPlan = idPlan;
 	}
+
+
 
 	public List<SelectItem> getListaTipoPeticionSI() {
 		List<SelectItem> listadoSI = new ArrayList<SelectItem>();
@@ -327,12 +333,12 @@ public class BeanPeticion implements Serializable {
 		return listadoSI;
 	}
 
-	public List<SelectItem> getListaGuiaEntrenamietnoSI() {
+	public List<SelectItem> getListaPlanSI() {
 		List<SelectItem> listadoSI = new ArrayList<SelectItem>();
-		List<GuiaEntrenamiento> listadoClientes = managerGuiaEntrenamiento.findAll();
+		List<Plane> listadoPlan = managerPlan.findAll();
 
-		for (GuiaEntrenamiento c : listadoClientes) {
-			SelectItem item = new SelectItem(c.getGeId(), c.getGeDescripcion());
+		for (Plane c : listadoPlan) {
+			SelectItem item = new SelectItem(c.getPlId(), c.getPlTipo());
 			listadoSI.add(item);
 		}
 		return listadoSI;

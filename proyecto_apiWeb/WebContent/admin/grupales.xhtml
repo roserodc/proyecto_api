@@ -15,23 +15,25 @@
 <body>
 	<h:form>
 		<p:menubar>
-			<p:menuitem value="Registro Guía" action="registroguiaentrenamiento"  icon="fa fa-bars"></p:menuitem>
-			<p:menuitem value="Registro Instructor" action="registrousuario"  icon="fa fa-bars"></p:menuitem>
-			<p:menuitem value="Peticiones Individuales" action="individuales"  icon="fa fa-bars"></p:menuitem>
-			<p:menuitem value="Peticiones Grupales" action="grupales" icon="fa fa-cog"></p:menuitem>
-			<p:menuitem value="Reporte" action="reportes"  icon="fa fa-bars"></p:menuitem>
-			
+			<p:menuitem value="Registro Plan" action="registroplan"
+				icon="fa fa-bars"></p:menuitem>
+			<p:menuitem value="Registro Instructor" action="registrousuario"
+				icon="fa fa-bars"></p:menuitem>
+			<p:menuitem value="Peticiones Individuales" action="individuales"
+				icon="fa fa-bars"></p:menuitem>
+			<p:menuitem value="Peticiones Grupales" action="grupales"
+				icon="fa fa-cog"></p:menuitem>
+			<p:menuitem value="Reporte" action="reportes" icon="fa fa-bars"></p:menuitem>
+
 			<f:facet name="options">
-				<p:commandButton value="Salir" action="#{beanLogin.salirSistema()}" icon="fa fa-sign-out"/>
+				<p:commandButton value="Salir" action="#{beanLogin.salirSistema()}"
+					icon="fa fa-sign-out" />
 			</f:facet>
 		</p:menubar>
 	</h:form>
 	<br />
-	<br />
-
-
-
-		<h:form id="form1">
+	
+	<h:form id="form1">
 		<p:messages>
 			<p:autoUpdate />
 		</p:messages>
@@ -76,20 +78,19 @@
 					<h:outputText value="#{peticion.estado.estDescripcion}" />
 				</p:column>
 
-				<p:column headerText="Guia de Entrenamiento"
-					filterBy="#{peticion.guiaEntrenamiento.geDescripcion}"
+				<p:column headerText="Plan" filterBy="#{peticion.plan.plTipo}"
 					filterMatchMode="contains" priority="2">
-					<h:outputText value="#{peticion.guiaEntrenamiento.geDescripcion}" />
+					<h:outputText value="#{peticion.plan.plTipo}" />
 				</p:column>
 
 				<p:column headerText="OPCIONES" priority="1">
 					<p:commandButton icon="fa fa-check" title="Aceptar Peticion"
-						
-						actionListener="#{beanPeticion.actionListenerAceptarPeticion(peticion.ptcId)}" update=":form1:panel"  >
+						actionListener="#{beanPeticion.actionListenerAceptarPeticion(peticion.ptcId)}"
+						update=":form1:panel">
 					</p:commandButton>
 					<p:commandButton icon="fa fa-remove" title="Rechazar Peticion"
-						
-						actionListener="#{beanPeticion.actionListenerRechazarPeticion(peticion.ptcId)}" update=":form1:panel"  >
+						actionListener="#{beanPeticion.actionListenerRechazarPeticion(peticion.ptcId)}"
+						update=":form1:panel">
 					</p:commandButton>
 
 				</p:column>
@@ -99,7 +100,7 @@
 	</h:form>
 	<br />
 
-	
+
 
 	<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
 		<p:commandButton value="Si" type="button"

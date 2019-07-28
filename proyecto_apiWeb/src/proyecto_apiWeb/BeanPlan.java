@@ -8,12 +8,10 @@ import javax.inject.Named;
 
 
 import proyecto_api.model.entities.Facultad;
-import proyecto_api.model.entities.GuiaEntrenamiento;
 import proyecto_api.model.entities.Plane;
 import proyecto_api.model.entities.Carrera;
 import proyecto_api.model.manager.ManagerCarrera;
 import proyecto_api.model.manager.ManagerFacultad;
-import proyecto_api.model.manager.ManagerGuiaEntrenamiento;
 import proyecto_api.model.manager.ManagerPlan;
 import proyecto_api.model.manager.ManagerPrueba;
 
@@ -27,8 +25,7 @@ public class BeanPlan implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@EJB
 	private ManagerPlan managerPlan;
-	@EJB
-	private ManagerGuiaEntrenamiento managerGuiaEntrenamiento;
+	
 	private Integer idPlan;
 	private List<Plane> lista;
 	private Plane plane;
@@ -113,17 +110,6 @@ public class BeanPlan implements Serializable {
 		this.plane = plane;
 	}
 
-	public List<SelectItem> getListaGuiaEntrenamientoSI(){
-		List<SelectItem> listadoSI=new ArrayList<SelectItem>();
-		List<GuiaEntrenamiento> listadoClientes=managerGuiaEntrenamiento.findAll();
-		
-		for(GuiaEntrenamiento c:listadoClientes){
-			SelectItem item=new SelectItem(c.getGeId(), 
-					                   c.getGeDescripcion());
-			listadoSI.add(item);
-		}
-		return listadoSI;
-	}
 
 	public Integer getIdPlan() {
 		return idPlan;

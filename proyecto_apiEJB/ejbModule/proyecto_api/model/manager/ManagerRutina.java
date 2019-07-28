@@ -48,7 +48,7 @@ public class ManagerRutina {
     	rt.setRtDuracion(rutina.getRtDuracion());
     	rt.setRtRepeticiones(rutina.getRtRepeticiones());
     	rt.setRtSeries(rutina.getRtSeries());
-    	rt.setPlane2(pla);
+    	rt.setPlane1(pla);
     	em.persist(rt);
     	return rt;
     }
@@ -68,7 +68,7 @@ public class ManagerRutina {
     	rt.setRtDuracion(rutina.getRtDuracion());
     	rt.setRtRepeticiones(rutina.getRtRepeticiones());
     	rt.setRtSeries(rutina.getRtSeries());
-    	rt.setPlane2(rutina.getPlane2());
+    	rt.setPlane1(rutina.getPlane1());
 		em.merge(rt);
     }
 

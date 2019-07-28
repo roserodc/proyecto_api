@@ -39,10 +39,10 @@ public class Peticione implements Serializable {
 	@JoinColumn(name="est_id_estados")
 	private Estado estado;
 
-	//bi-directional many-to-one association to GuiaEntrenamiento
+	//bi-directional many-to-one association to Plan
 	@ManyToOne
-	@JoinColumn(name="ge_id_guia_entrenamiento")
-	private GuiaEntrenamiento guiaEntrenamiento;
+	@JoinColumn(name="pl_id_plan")
+	private Plane plan;
 
 	//bi-directional many-to-one association to TipoPeticion
 	@ManyToOne
@@ -119,12 +119,12 @@ public class Peticione implements Serializable {
 		this.estado = estado;
 	}
 
-	public GuiaEntrenamiento getGuiaEntrenamiento() {
-		return this.guiaEntrenamiento;
+	public Plane getPlan() {
+		return this.plan;
 	}
 
-	public void setGuiaEntrenamiento(GuiaEntrenamiento guiaEntrenamiento) {
-		this.guiaEntrenamiento = guiaEntrenamiento;
+	public void setPlan(Plane plan) {
+		this.plan = plan;
 	}
 
 	public TipoPeticion getTipoPeticion() {

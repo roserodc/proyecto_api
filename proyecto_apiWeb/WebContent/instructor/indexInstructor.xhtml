@@ -205,11 +205,11 @@
 							</p:selectOneMenu>
 						</div>
 						<div>
-							<p:selectOneMenu value="#{beanPeticion.idGuiaEntrenamiento}"
+							<p:selectOneMenu value="#{beanPeticion.idPlan}"
 								filter="true" filterMatchMode="contains" required="true">
-								<f:selectItem itemLabel="Seleccione Guia" itemValue=""
+								<f:selectItem itemLabel="Seleccione Plan" itemValue=""
 									noSelectionOption="true" />
-								<f:selectItems value="#{beanPeticion.listaGuiaEntrenamietnoSI}" />
+								<f:selectItems value="#{beanPeticion.listaPlanSI}" />
 							</p:selectOneMenu>
 						</div>
 
@@ -292,11 +292,11 @@
 									<h:outputText value="#{peticion.estado.estDescripcion}" />
 								</p:column>
 
-								<p:column headerText="Guia de Entrenamiento"
-									filterBy="#{peticion.guiaEntrenamiento.geDescripcion}"
+								<p:column headerText="Plan"
+									filterBy="#{peticion.plan.plTipo}"
 									filterMatchMode="contains" priority="2">
 									<h:outputText
-										value="#{peticion.guiaEntrenamiento.geDescripcion}" />
+										value="#{peticion.plan.plTipo}" />
 								</p:column>
 
 

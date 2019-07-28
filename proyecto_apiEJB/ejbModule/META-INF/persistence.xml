@@ -8,7 +8,6 @@
 		<class>proyecto_api.model.entities.Club</class>
 		<class>proyecto_api.model.entities.Estado</class>
 		<class>proyecto_api.model.entities.Facultad</class>
-		<class>proyecto_api.model.entities.GuiaEntrenamiento</class>
 		<class>proyecto_api.model.entities.Nivel</class>
 		<class>proyecto_api.model.entities.Nomina</class>
 		<class>proyecto_api.model.entities.Peticione</class>

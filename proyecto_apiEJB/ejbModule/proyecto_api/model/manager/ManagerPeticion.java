@@ -13,7 +13,7 @@ import proyecto_api.model.entities.Carrera;
 import proyecto_api.model.entities.Club;
 import proyecto_api.model.entities.Estado;
 import proyecto_api.model.entities.Facultad;
-import proyecto_api.model.entities.GuiaEntrenamiento;
+import proyecto_api.model.entities.Plane;
 import proyecto_api.model.entities.Peticione;
 import proyecto_api.model.entities.TipoPeticion;
 import proyecto_api.model.entities.Usuario;
@@ -39,7 +39,9 @@ public class ManagerPeticion {
 	@EJB
 	public ManagerEstados managerEstado;
 	@EJB
-	public ManagerGuiaEntrenamiento managerGuiaEntrenamiento;
+	public ManagerPlan managerPlan;
+
+	
     public ManagerPeticion() {
         // TODO Auto-generated constructor stub
     }
@@ -80,21 +82,21 @@ public class ManagerPeticion {
     	pte.setTipoPeticion(peticion.getTipoPeticion());
     	pte.setEstado(peticion.getEstado());
     	pte.setUsuario(peticion.getUsuario());
-    	pte.setGuiaEntrenamiento(peticion.getGuiaEntrenamiento());
+    	pte.setPlan(peticion.getPlan());
     	em.persist(pte);
     	return pte;
     }
     
     public Peticione insertar2(Peticione peticion, Integer idTipoP,
-    		 Integer idEstado, Integer idUsuario, Integer idguia) {
+    		 Integer idEstado, Integer idUsuario, Integer idplan) {
     	TipoPeticion tp;
     	Estado est;
     	Usuario us;
-    	GuiaEntrenamiento ge;
+    	Plane pl;
     	tp=managerTipoPeticion.findById(idTipoP);
     	est=managerEstado.findById(idEstado);
     	us=managerUsuario.findById(idUsuario);
-    	ge=managerGuiaEntrenamiento.findById(idguia);
+    	pl=managerPlan.findById(idplan);
     	Peticione pte = new Peticione();
     	pte.setPtcFecha(peticion.getPtcFecha());
     	pte.setPtcHoraInicio(peticion.getPtcHoraInicio());
@@ -102,7 +104,7 @@ public class ManagerPeticion {
     	pte.setTipoPeticion(tp);
     	pte.setEstado(est);
     	pte.setUsuario(us);
-    	pte.setGuiaEntrenamiento(ge);
+    	pte.setPlan(pl);
     	em.persist(pte);
     	return pte;
     }
@@ -126,7 +128,7 @@ public class ManagerPeticion {
     	pte.setTipoPeticion(peticion.getTipoPeticion());
     	pte.setEstado(peticion.getEstado());
     	pte.setUsuario(peticion.getUsuario());
-    	pte.setGuiaEntrenamiento(peticion.getGuiaEntrenamiento());
+    	pte.setPlan(peticion.getPlan());
 		em.merge(pte);
     }
     

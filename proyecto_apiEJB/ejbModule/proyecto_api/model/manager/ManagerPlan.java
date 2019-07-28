@@ -9,7 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import proyecto_api.model.entities.GuiaEntrenamiento;
+
 import proyecto_api.model.entities.Plane;
 import proyecto_api.model.entities.Rutina;
 
@@ -27,8 +27,7 @@ public class ManagerPlan {
      */
 	@EJB
 	public ManagerRutina managerRutina;
-	@EJB
-	public ManagerGuiaEntrenamiento managerGuiaEntrenamiento;
+	
 	
     public ManagerPlan() {
         // TODO Auto-generated constructor stub
@@ -46,11 +45,10 @@ public class ManagerPlan {
     
     public Plane insertar(Plane plan,
     		Integer idguia) {
-    	GuiaEntrenamiento ge;
-      	ge=managerGuiaEntrenamiento.findById(idguia);
+    	
     	Plane pl = new Plane();
     	pl.setPlTipo(plan.getPlTipo());
-    	pl.setGuiaEntrenamiento(ge);
+    
 //    	pl.setRutina(rut);
     	em.persist(pl);
     	return pl;
@@ -67,7 +65,7 @@ public class ManagerPlan {
     	Plane pl = findById(plan.getPlId());
     	if (pl==null) 
 			throw new Exception("No existe");
-    	pl.setGuiaEntrenamiento(plan.getGuiaEntrenamiento());
+    
     	pl.setPlTipo(plan.getPlTipo());
     	pl.setRutina(plan.getRutina());
 		em.merge(pl);

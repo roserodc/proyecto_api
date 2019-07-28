@@ -24,10 +24,7 @@ public class Plane implements Serializable {
 	@Column(name="pl_tipo")
 	private String plTipo;
 
-	//bi-directional many-to-one association to GuiaEntrenamiento
-	@ManyToOne
-	@JoinColumn(name="ge_id_guia_entrenamiento")
-	private GuiaEntrenamiento guiaEntrenamiento;
+
 
 	//bi-directional one-to-one association to Rutina
 	@OneToOne(mappedBy="plane1",cascade=CascadeType.ALL)
@@ -56,13 +53,6 @@ public class Plane implements Serializable {
 		this.plTipo = plTipo;
 	}
 
-	public GuiaEntrenamiento getGuiaEntrenamiento() {
-		return this.guiaEntrenamiento;
-	}
-
-	public void setGuiaEntrenamiento(GuiaEntrenamiento guiaEntrenamiento) {
-		this.guiaEntrenamiento = guiaEntrenamiento;
-	}
 
 	public Rutina getRutina() {
 		return this.rutina;

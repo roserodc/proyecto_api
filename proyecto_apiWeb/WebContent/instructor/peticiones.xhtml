@@ -83,9 +83,9 @@
 						</p:column>
 
 						<p:column headerText="Guia de Entrenamiento"
-							filterBy="#{peticion.guiaEntrenamiento.geDescripcion}"
+							filterBy="#{peticion.plan.plTipo}"
 							filterMatchMode="contains" priority="2">
-							<h:outputText value="#{peticion.guiaEntrenamiento.geDescripcion}" />
+							<h:outputText value="#{peticion.plan.plTipo}" />
 						</p:column>
 
 						<p:column headerText="OPCIONES" priority="1">

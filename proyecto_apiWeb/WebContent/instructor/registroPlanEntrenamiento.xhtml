@@ -44,7 +44,7 @@
 						filterMatchMode="contains">
 						<f:selectItem itemValue=""
 							noSelectionOption="true" />
-						<f:selectItems value="#{beanPlan.listaGuiaEntrenamientoSI}" var="plan" itemValue="plan" />
+						<f:selectItems value="#{beanPlan.lista}" var="plan" itemValue="plan" />
 					</p:selectOneMenu>
 					<p:commandButton value="Insertar" icon="fa fa-save"
 						update="@form,:form3" action="#{beanPlan.actionListenerInsertar}"></p:commandButton>
@@ -145,8 +145,7 @@
 			<p:inputText value="#{beanRutina.selecionada.rtDuracion}" />
 
 			<h:outputText value="Plan" />
-			<p:inputText
-				value="#{beanRutina.selecionada.plane2.guiaEntrenamiento}" />
+			<p:inputText value="#{beanRutina.selecionada.plane1.plTipo}" />
 			<p:commandButton value="Actualizar" icon="fa fa-save"
 				update="@form,:form2"
 				actionListener="#{beanCarrera.actionListenerActualizar()}"></p:commandButton>
