@@ -9,7 +9,7 @@
 	<title>login</title>
 </h:head>
 <h:body>
-	
+
 	<h:form>
 		<center>
 
@@ -25,18 +25,21 @@
 					</div>
 
 
-						
-						
+
+
 					<h:outputText value="Código de usuario:" />
-				<p:inputText value="#{beanLogin.codigoUsuario}" required="true"
-					size="20" maxlength="20"
-					requiredMessage="Debe ingresar su codigo de usuario." />
-					
-				<h:outputText value="Clave:" />
-				<p:password value="#{beanLogin.clave}" required="true" size="20"
-					maxlength="10" requiredMessage="Debe ingresar su contraseña." />
-				<p:commandButton value="Ingresar" icon="fa fa-key"
-					action="#{beanLogin.accederSistema()}"  />
+					<br />
+					<p:inputText value="#{beanLogin.codigoUsuario}" required="true"
+						size="20" maxlength="20"
+						requiredMessage="Debe ingresar su codigo de usuario." />
+					<br />
+					<h:outputText value="Clave:" />
+					<br />
+					<p:password value="#{beanLogin.clave}" required="true" size="20"
+						maxlength="10" requiredMessage="Debe ingresar su contraseña." />
+					<br />
+					<p:commandButton value="Ingresar" icon="fa fa-key"
+						action="#{beanLogin.accederSistema()}" />
 
 				</p:panel>
 

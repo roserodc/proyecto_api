@@ -20,6 +20,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -78,15 +79,16 @@ public class BeanPeticion implements Serializable {
 
 	@PostConstruct
 	public void inicalizar() {
-		// lista = managerPeticion.findAll();
-		usuario = managerUsuario.findByCedula(Integer.parseInt(beanlogin.getCodigoUsuario()));
-
-		System.out.println("--------*" + usuario.getUserId());
-		lista = managerPeticion.findAll2(usuario.getUserId());
-		listaIndividuales = managerPeticion.findAllIndividuales();
-		listaGrupales = managerPeticion.findAllGrupales();
 		peticion = new Peticione();
 		panelColapsado = true;
+		// lista = managerPeticion.findAll();
+		usuario = managerUsuario.findByCedula(Integer.parseInt(beanlogin.getCodigoUsuario()));
+		listaIndividuales = managerPeticion.findAllIndividuales();
+		listaGrupales = managerPeticion.findAllGrupales();
+		System.out.println("--------*" + usuario.getUserId());
+		lista = managerPeticion.findAll2(usuario.getUserId());
+		
+		
 	}
 
 	
@@ -96,7 +98,13 @@ public class BeanPeticion implements Serializable {
 	}
 
 	public void actionListenerInsertar() {
-	
+		
+		int tp = 0 ;
+		if (usuario.getRole().getRId()==1) {
+			tp = 2;
+		} else {
+			tp = 1;
+		}
 
 		String h1 = peticion.getPtcHoraInicio();
 		String[] hi = h1.split(":");
@@ -115,7 +123,7 @@ public class BeanPeticion implements Serializable {
 
 			try {
 				System.out.println("----insert-try---*" + usuario.getUserId());
-				managerPeticion.insertar2(peticion, usuario.getRole().getRId(), 3, usuario.getUserId(), idGuiaEntrenamiento);
+				managerPeticion.insertar2(peticion, tp, 3, usuario.getUserId(), idGuiaEntrenamiento);
 				lista = managerPeticion.findAll2(usuario.getUserId());
 				peticion = new Peticione();
 				JSFUtil.createMensajeInfo("insertados");
@@ -159,9 +167,12 @@ public class BeanPeticion implements Serializable {
 
 	public void actionListenerAceptarPeticion(Integer idPtc) {
 		try {
+			
 			managerPeticion.actualizarAceptar(idPtc);
 			lista = managerPeticion.findAll();
 			JSFUtil.createMensajeInfo("Aceptado");
+			listaIndividuales = managerPeticion.findAllIndividuales();
+			listaGrupales = managerPeticion.findAllGrupales();
 		} catch (Exception e) {
 			// TODO: handle exception
 			JSFUtil.createMensajeError(e.getMessage());
@@ -171,9 +182,12 @@ public class BeanPeticion implements Serializable {
 
 	public void actionListenerRechazarPeticion(Integer idPtc) {
 		try {
+
 			managerPeticion.actualizarRechazar(idPtc);
 			lista = managerPeticion.findAll();
 			JSFUtil.createMensajeInfo("Rechazado");
+			listaIndividuales = managerPeticion.findAllIndividuales();
+			listaGrupales = managerPeticion.findAllGrupales();
 		} catch (Exception e) {
 			// TODO: handle exception
 			JSFUtil.createMensajeError(e.getMessage());
@@ -212,7 +226,8 @@ public class BeanPeticion implements Serializable {
 	}
 
 	public List<Peticione> getLista() {
-		return lista;
+		List<Peticione> listadoPeticiones=managerPeticion.findAll();
+		return listadoPeticiones;
 	}
 
 	public void setLista(List<Peticione> lista) {
@@ -318,13 +333,35 @@ public class BeanPeticion implements Serializable {
 		}
 		return listadoSI;
 	}
+	
+	
 
-	public Integer getAux() {
-		return aux;
+	public List<Peticione> getListaIndividuales() {
+		List<Peticione> listadoPeticionesIndividuales=managerPeticion.findAllIndividuales();
+		return listadoPeticionesIndividuales;
 	}
 
-	public void setAux(Integer aux) {
-		this.aux = aux;
+
+
+	public void setListaIndividuales(List<Peticione> listaIndividuales) {
+		this.listaIndividuales = listaIndividuales;
 	}
+
+
+
+	public List<Peticione> getListaGrupales() {
+		List<Peticione> listadoPeticionesGrupales=managerPeticion.findAllGrupales();
+		return listadoPeticionesGrupales;
+	}
+
+
+
+	public void setListaGrupales(List<Peticione> listaGrupales) {
+		this.listaGrupales = listaGrupales;
+	}
+
+
+
+	
 
 }

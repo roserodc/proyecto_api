@@ -48,7 +48,7 @@ public class BeanUsuario implements Serializable {
 	private Integer idCarrera;
 	private List<Usuario> lista;
 	private List<Usuario> listaUsuario;
-
+	private List<Usuario> listaInstructores;
 	
 	private Usuario usuario;
 	private boolean panelColapsado;
@@ -60,7 +60,7 @@ public class BeanUsuario implements Serializable {
 	@PostConstruct
 	public void inicalizar() {
 		listaUsuario = managerUsuario.findAllUsuarios();
-		
+		listaInstructores = managerUsuario.findAllInstructores();
 		lista = managerUsuario.findAll();
 		usuario = new Usuario();
 		panelColapsado = true;
@@ -87,11 +87,30 @@ public class BeanUsuario implements Serializable {
 	public String actionListenerInsertarUsuario() {
 		try {
 //			managerCarrera.insertar(carrera);
-			managerUsuario.insertar(usuario, idNivel, 2, idCarrera, idClub);
+			managerUsuario.insertar(usuario, idNivel, 1, idCarrera, idClub);
 			lista = managerUsuario.findAll();
 			usuario = new Usuario();
 			JSFUtil.createMensajeInfo("insertados");
+			listaUsuario = managerUsuario.findAllUsuarios();
 			return "indexUsuario";
+		} catch (Exception e) {
+			JSFUtil.createMensajeError("error");
+			e.printStackTrace();
+			return "";
+		}
+
+	}
+	
+	public String actionListenerInsertarInstructor() {
+		try {
+//			managerCarrera.insertar(carrera);
+			managerUsuario.insertarInstructor(usuario, 2, idCarrera, idClub);
+			lista = managerUsuario.findAll();
+			usuario = new Usuario();
+			JSFUtil.createMensajeInfo("insertados");
+			listaInstructores = managerUsuario.findAllInstructores();
+			return "indexUsuario";
+			
 		} catch (Exception e) {
 			JSFUtil.createMensajeError("error");
 			e.printStackTrace();
@@ -104,6 +123,8 @@ public class BeanUsuario implements Serializable {
 		managerUsuario.eliminar(id);
 		lista = managerUsuario.findAll();
 		JSFUtil.createMensajeInfo("Eliminado");
+		listaUsuario = managerUsuario.findAllUsuarios();
+		listaInstructores = managerUsuario.findAllInstructores();
 	}
 
 	public void actionListenerSeleccionado(Usuario usuario) {
@@ -117,6 +138,8 @@ public class BeanUsuario implements Serializable {
 			managerUsuario.actualizar(selecionada);
 			lista = managerUsuario.findAll();
 			JSFUtil.createMensajeInfo("Acualizado");
+			listaUsuario = managerUsuario.findAllUsuarios();
+			listaInstructores = managerUsuario.findAllInstructores();
 		} catch (Exception e) {
 			// TODO: handle exception
 			JSFUtil.createMensajeError(e.getMessage());
@@ -253,4 +276,13 @@ public class BeanUsuario implements Serializable {
 		this.idCarrera = idCarrera;
 	}
 
+	public List<Usuario> getListaInstructores() {
+		return listaInstructores;
+	}
+
+	public void setListaInstructores(List<Usuario> listaInstructores) {
+		this.listaInstructores = listaInstructores;
+	}
+
+	
 }

@@ -65,6 +65,12 @@ public class ManagerUsuario {
 	}
 
 	public List<Usuario> findAllUsuarios() {
+		String c = "SELECT c FROM Usuario c WHERE r_id_roles=1 order by user_id";
+		Query q = en.createQuery(c, Usuario.class);
+		return q.getResultList();
+	}
+	
+	public List<Usuario> findAllInstructores() {
 		String c = "SELECT c FROM Usuario c WHERE r_id_roles=2 order by user_id";
 		Query q = en.createQuery(c, Usuario.class);
 		return q.getResultList();
@@ -106,6 +112,28 @@ public class ManagerUsuario {
 		us.setCarrera(ca);
 		us.setClub(clu);
 		us.setNivel(ni);
+		en.persist(us);
+		return us;
+	}
+	
+	public Usuario insertarInstructor(Usuario usuario, Integer idRol, Integer idCarrera, Integer idClub) {
+		Usuario us = new Usuario();
+		Role rol;
+		Carrera ca;
+		Club clu;
+		Nivel ni;
+		rol = managerRol.findById(idRol);
+		ca = managerCarrera.findById(idCarrera);
+		clu = managerClub.findById(idClub);
+		
+		us.setUserCi(usuario.getUserCi());
+		us.setUserPass(usuario.getUserPass());
+		us.setUserApellido(usuario.getUserApellido());
+		us.setUserNombre(usuario.getUserNombre());
+		us.setUserTelefono(usuario.getUserTelefono());
+		us.setRole(rol);
+		us.setCarrera(ca);
+		us.setClub(clu);
 		en.persist(us);
 		return us;
 	}
@@ -161,7 +189,7 @@ public class ManagerUsuario {
 			loginDTO.setRutaAcceso("/instructor/indexInstructor.xhtml");
 			System.out.println("codigo ruta " + loginDTO.getRutaAcceso());
 		} else if (usuario.getRole().getRId() == 3) {
-			loginDTO.setRutaAcceso("/admingym/indexAdminGym.xhtml");
+			loginDTO.setRutaAcceso("/admin/index.xhtml");
 			System.out.println("codigo ruta " + loginDTO.getRutaAcceso());
 		}
 

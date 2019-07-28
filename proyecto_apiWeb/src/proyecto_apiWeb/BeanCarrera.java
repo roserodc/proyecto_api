@@ -4,14 +4,18 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.model.SelectItem;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 
 import proyecto_api.model.entities.Facultad;
+import proyecto_api.model.dto.LoginDTO;
 import proyecto_api.model.entities.Carrera;
+import proyecto_api.model.manager.ManagerAuditoria;
 import proyecto_api.model.manager.ManagerCarrera;
 import proyecto_api.model.manager.ManagerFacultad;
-import proyecto_api.model.manager.ManagerPrueba;
+
+
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -25,6 +29,11 @@ public class BeanCarrera implements Serializable {
 	private ManagerCarrera managerCarrera;
 	@EJB
 	private ManagerFacultad managerFacultad;
+	@EJB
+	private ManagerAuditoria managerAuditoria;
+	
+	private LoginDTO loginDTO;
+	
 	private Integer idFacultad;
 	private List<Carrera> lista;
 	private Carrera carrera;
@@ -45,6 +54,7 @@ public class BeanCarrera implements Serializable {
 	public void actionListenerInsertar() {
 		try {
 //			managerCarrera.insertar(carrera);
+			managerAuditoria.crearEvento(loginDTO.getCodigoUsuario(), this.getClass(), "accederSistema", "Insertar Carrera");
 			managerCarrera.insertar2(carrera, idFacultad);
 			lista = managerCarrera.findAll();
 			carrera = new Carrera();

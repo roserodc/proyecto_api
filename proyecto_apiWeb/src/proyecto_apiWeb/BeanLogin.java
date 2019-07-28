@@ -10,6 +10,7 @@ import proyecto_api.model.dto.LoginDTO;
 import proyecto_api.model.entities.Usuario;
 
 import proyecto_api.model.manager.ManagerUsuario;
+import proyecto_api.model.manager.ManagerAuditoria;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -25,6 +26,9 @@ public class BeanLogin implements Serializable {
 	@EJB
 	private ManagerUsuario managerUsuario;
 	
+	@EJB
+	private ManagerAuditoria managerAuditoria;
+	
 	private LoginDTO loginDTO;
 
 	@PostConstruct
@@ -38,6 +42,7 @@ public class BeanLogin implements Serializable {
 	public String accederSistema(){
 		acceso=false;
 		try {
+			
 			System.out.println("codigo "+ codigoUsuario);
 			System.out.println("clave "+ clave);
 			loginDTO=managerUsuario.accederSistema(codigoUsuario, clave);
@@ -49,7 +54,7 @@ public class BeanLogin implements Serializable {
 			
 			tipoUsuario=loginDTO.getTipoUsuario();
 			//redireccion dependiendo del tipo de usuario:
-			
+			managerAuditoria.crearEvento(loginDTO.getUsuario(), this.getClass(), "accederSistema", "Iniciar Sesion");
 			return loginDTO.getRutaAcceso()+"?faces-redirect=true";
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -66,7 +71,7 @@ public class BeanLogin implements Serializable {
 	public String salirSistema(){
 		System.out.println("salirSistema");
 		try {
-//			managerAuditoria.crearEvento(loginDTO.getCodigoUsuario(), this.getClass(), "salisSistema", "Cerrar sesion");
+			managerAuditoria.crearEvento(loginDTO.getCodigoUsuario(), this.getClass(), "salirSistema", "Cerrar sesion");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -89,11 +94,12 @@ public class BeanLogin implements Serializable {
 					return;
 				if(requestPath.contains("/instructor") && loginDTO.getRutaAcceso().startsWith("/instructor"))
 					return;
-				if(requestPath.contains("/admingym") && loginDTO.getRutaAcceso().startsWith("/admingym"))
+				if(requestPath.contains("/admin") && loginDTO.getRutaAcceso().startsWith("/admin"))
 					return;
 				//caso contrario significa que hizo login pero intenta acceder a ruta no permitida:
 				ec.redirect(ec.getRequestContextPath() + "/index.html");
 			}
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<f:facet name="first">
+		<meta name="viewport"
+			content="widtd=device-widtg, initial-sacale=1, shrink-to-fit=no, user-scalable=no" />
+		<title>Peticiones Grupales</title>
+	</f:facet>
+</h:head>
+<body>
+	<h:form>
+		<p:menubar>
+
+
+			<p:menuitem value="Registro Instructor" action="registrousuario"  icon="fa fa-bars"></p:menuitem>
+			<p:menuitem value="Peticiones Individuales" action="individuales"  icon="fa fa-bars"></p:menuitem>
+			<p:menuitem value="Peticiones Grupales" action="grupales" icon="fa fa-cog"></p:menuitem>
+
+			<f:facet name="options">
+				<p:commandButton value="Salir" action="#{beanLogin.salirSistema()}"
+					icon="fa fa-sign-out" />
+			</f:facet>
+		</p:menubar>
+	</h:form>
+
+	<h:form id="form1">
+		<p:messages>
+			<p:autoUpdate />
+		</p:messages>
+		<p:panel header="Actualización de producto" id="panel">
+			<p:dataTable value="#{beanPeticion.listaIndividuales}" var="peticion"
+				reflow="true" paginator="true" id="table1">
+
+				<p:column headerText="Id ">
+					<h:outputText value="#{peticion.ptcId}" />
+				</p:column>
+
+				<p:column headerText="name">
+					<h:outputText
+						value="#{peticion.usuario.userApellido} #{peticion.usuario.userNombre}" />
+				</p:column>
+
+				<p:column headerText="Tipo"
+					filterBy="#{peticion.tipoPeticion.tpDescripcion}"
+					filterMatchMode="contains" priority="1">
+					<h:outputText value="#{peticion.tipoPeticion.tpDescripcion}" />
+				</p:column>
+
+				<p:column headerText="Fecha" filterBy="#{peticion.ptcFecha}"
+					filterMatchMode="contains" priority="1">
+					<h:outputText value="#{peticion.ptcFecha}" />
+				</p:column>
+
+				<p:column headerText="Hora Inicio"
+					filterBy="#{peticion.ptcHoraInicio}" filterMatchMode="contains"
+					priority="2">
+					<h:outputText value="#{peticion.ptcHoraInicio}" />
+				</p:column>
+
+				<p:column headerText="Hora Fin" filterBy="#{peticion.ptcHoraFin}"
+					filterMatchMode="contains" priority="2">
+					<h:outputText value="#{peticion.ptcHoraFin}" />
+				</p:column>
+
+				<p:column headerText="Estado"
+					filterBy="#{peticion.estado.estDescripcion}"
+					filterMatchMode="contains" priority="2">
+					<h:outputText value="#{peticion.estado.estDescripcion}" />
+				</p:column>
+
+				<p:column headerText="Guia de Entrenamiento"
+					filterBy="#{peticion.guiaEntrenamiento.geDescripcion}"
+					filterMatchMode="contains" priority="2">
+					<h:outputText value="#{peticion.guiaEntrenamiento.geDescripcion}" />
+				</p:column>
+
+				<p:column headerText="OPCIONES" priority="1">
+					<p:commandButton icon="fa fa-check" title="Aceptar Peticion"
+						
+						actionListener="#{beanPeticion.actionListenerAceptarPeticion(peticion.ptcId)}" update=":form1:panel"  >
+					</p:commandButton>
+					<p:commandButton icon="fa fa-remove" title="Rechazar Peticion"
+						
+						actionListener="#{beanPeticion.actionListenerRechazarPeticion(peticion.ptcId)}" update=":form1:panel"  >
+					</p:commandButton>
+
+				</p:column>
+			</p:dataTable>
+
+		</p:panel>
+	</h:form>
+	<br />
+
+
+
+
+	<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+		<p:commandButton value="Si" type="button"
+			styleClass="ui-confirmdialog-yes" icon="fa fa-check"></p:commandButton>
+		<p:commandButton value="No" type="button"
+			styleClass="ui-confirmdialog-no" icon="fa fa-times"></p:commandButton>
+	</p:confirmDialog>
+
+</body>
+</html>
