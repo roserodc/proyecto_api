@@ -1,32 +1,69 @@
-<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
-<f:metadata>
-	<f:event listener="#{beanLogin.actionVerificarLogin()}"
-		type="preRenderView"></f:event>
-</f:metadata>
+
 <h:head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>Opciones supervisor</title>
+	<f:facet name="first">
+		<meta name="viewport"
+			content="widtd=device-widtg, initial-sacale=1, shrink-to-fit=no, user-scalable=no" />
+		<title>Registro Usuario</title>
+	</f:facet>
 </h:head>
 <body>
-	<h:form>
+
+	<h:form id="Menu">
 		<p:menubar>
-			<p:menuitem value="Registro Instructor" action="registroguiaentrenamiento"  icon="fa fa-bars"></p:menuitem>
-			<p:menuitem value="Registro Instructor" action="registrousuario"  icon="fa fa-bars"></p:menuitem>
-			<p:menuitem value="Peticiones Individuales" action="individuales"  icon="fa fa-bars"></p:menuitem>
-			<p:menuitem value="Peticiones Grupales" action="grupales" icon="fa fa-cog"></p:menuitem>
-			
+
+			<p:menuitem value="Registro Guía" action="registroguiaentrenamiento"
+				icon="fa fa-bars"></p:menuitem>
+			<p:menuitem value="Registro Instructor" action="registrousuario"
+				icon="fa fa-bars"></p:menuitem>
+			<p:menuitem value="Peticiones Individuales" action="individuales"
+				icon="fa fa-bars"></p:menuitem>
+			<p:menuitem value="Peticiones Grupales" action="grupales"
+				icon="fa fa-cog"></p:menuitem>
+			<p:menuitem value="Reporte" action="reportes" icon="fa fa-bars"></p:menuitem>
 			<f:facet name="options">
-				<p:commandButton value="Salir" action="#{beanLogin.salirSistema()}" icon="fa fa-sign-out"/>
+				<p:commandButton value="Salir" action="#{beanLogin.salirSistema()}"
+					icon="fa fa-sign-out" />
 			</f:facet>
 		</p:menubar>
 	</h:form>
 	<br />
+	<p:growl>
+		<p:autoUpdate />
+	</p:growl>
 
-	
+	<h:form id="form1">
+		<p:messages>
+			<p:autoUpdate />
+		</p:messages>
+		<p:tabView>
+			<p:tab title="Tipos Petición">
+				<p:commandButton value="Individuales" icon="fa fa-user"
+					action="#{beanPeticion.actionReporteUsuario()}" ajax="false">
+				</p:commandButton>
+				<p:commandButton value="Grupales" icon="fa fa-users"
+					action="#{beanPeticion.actionReporteUsuario()}" ajax="false">
+				</p:commandButton>
+			</p:tab>
+			<p:tab title="Estados Petición">
+				<p:commandButton value="Aprobadas" icon="fa fa-check"
+					action="#{beanPeticion.actionReporteUsuario()}" ajax="false">
+				</p:commandButton>
+				<p:commandButton value="Pendientes" icon="far fa-clock"
+					action="#{beanPeticion.actionReporteUsuario()}" ajax="false">
+				</p:commandButton>
+				<p:commandButton value="Rechazadas" icon="fa fa-times"
+					action="#{beanPeticion.actionReporteUsuario()}" ajax="false">
+				</p:commandButton>
+			</p:tab>
+		</p:tabView>
+	</h:form>
+	<br />
+
 </body>
 </html>
