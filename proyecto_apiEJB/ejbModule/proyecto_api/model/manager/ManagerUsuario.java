@@ -183,10 +183,10 @@ public class ManagerUsuario {
 		// dependiendo del tipo de usuario, configuramos la ruta de acceso a las pags
 		// web:
 		if (usuario.getRole().getRId() == 1) {
-			loginDTO.setRutaAcceso("/usuario/indexUsuario.xhtml");
+			loginDTO.setRutaAcceso("/usuario/index.xhtml");
 			System.out.println("codigo ruta " + loginDTO.getRutaAcceso());
 		} else if (usuario.getRole().getRId() == 2) {
-			loginDTO.setRutaAcceso("/instructor/indexInstructor.xhtml");
+			loginDTO.setRutaAcceso("/instructor/index.xhtml");
 			System.out.println("codigo ruta " + loginDTO.getRutaAcceso());
 		} else if (usuario.getRole().getRId() == 3) {
 			loginDTO.setRutaAcceso("/admin/index.xhtml");

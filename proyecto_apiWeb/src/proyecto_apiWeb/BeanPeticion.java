@@ -65,6 +65,8 @@ public class BeanPeticion implements Serializable {
 	private List<Peticione> lista;
 	private List<Peticione> listaIndividuales;
 	private List<Peticione> listaGrupales;
+	private List<Usuario> listaInstructores;
+	private List<Usuario> listaUsuarios;
 	private Peticione peticion;
 
 	private boolean panelColapsado;
@@ -84,6 +86,8 @@ public class BeanPeticion implements Serializable {
 		usuario = managerUsuario.findByCedula(Integer.parseInt(beanlogin.getCodigoUsuario()));
 		listaIndividuales = managerPeticion.findAllIndividuales();
 		listaGrupales = managerPeticion.findAllGrupales();
+		listaUsuarios = managerUsuario.findAllUsuarios();
+		listaInstructores = managerUsuario.findAllInstructores();
 		System.out.println("--------*" + usuario.getUserId());
 		lista = managerPeticion.findAll2(usuario.getUserId());
 		
@@ -142,6 +146,7 @@ public class BeanPeticion implements Serializable {
 	}
 
 	public void actionListenerSeleccionado(Peticione peticion) {
+		listaUsuarios = managerUsuario.findAllUsuarios();
 		selecionada = peticion;
 
 	}
@@ -351,6 +356,30 @@ public class BeanPeticion implements Serializable {
 	public List<Peticione> getListaGrupales() {
 		List<Peticione> listadoPeticionesGrupales=managerPeticion.findAllGrupales();
 		return listadoPeticionesGrupales;
+	}
+
+
+
+	public List<Usuario> getListaInstructores() {
+		return listaInstructores;
+	}
+
+
+
+	public void setListaInstructores(List<Usuario> listaInstructores) {
+		this.listaInstructores = listaInstructores;
+	}
+
+
+
+	public List<Usuario> getListaUsuarios() {
+		return listaUsuarios;
+	}
+
+
+
+	public void setListaUsuarios(List<Usuario> listaUsuarios) {
+		this.listaUsuarios = listaUsuarios;
 	}
 
 

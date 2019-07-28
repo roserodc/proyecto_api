@@ -1,0 +1,317 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<f:facet name="first">
+		<meta name="viewport"
+			content="widtd=device-widtg, initial-sacale=1, shrink-to-fit=no, user-scalable=no" />
+		<title>Gestion de Peticiones</title>
+	</f:facet>
+</h:head>
+<body>
+<h:form>
+		<p:menubar>
+			
+			<p:menuitem value="Peticiones" action="peticiones" icon="fa fa-cog"></p:menuitem>
+			
+			<f:facet name="options">
+				<p:commandButton value="Salir" action="#{beanLogin.salirSistema()}" icon="fa fa-sign-out"/>
+			</f:facet>
+		</p:menubar>
+	</h:form>
+	<br />
+	<p:growl>
+		<p:autoUpdate />
+	</p:growl>
+	<h:form>
+		<p:growl>
+			<p:autoUpdate />
+		</p:growl>
+
+
+	</h:form>
+	
+
+	<p:tab title="Lista Peticiones">
+		<p:tab title="Lista Peticiones">
+			<h3>Instructor</h3>
+			<h:outputText value="Peticiones Realizadas" />
+			<h:form id="form3">
+
+				<p:panel header="Datos de Peticiones" id="panel1">
+					<p:dataTable value="#{beanPeticion.lista}" var="peticion"
+						reflow="true" paginator="true">
+						<p:column headerText="Id ">
+							<h:outputText value="#{peticion.ptcId}" />
+						</p:column>
+						<p:column headerText="name">
+							<h:outputText
+								value="#{peticion.usuario.userApellido} #{peticion.usuario.userNombre}" />
+						</p:column>
+						<p:column headerText="Tipo"
+							filterBy="#{peticion.tipoPeticion.tpDescripcion}"
+							filterMatchMode="contains" priority="1">
+							<h:outputText value="#{peticion.tipoPeticion.tpDescripcion}" />
+						</p:column>
+
+						<p:column headerText="Fecha" filterBy="#{peticion.ptcFecha}"
+							filterMatchMode="contains" priority="1">
+							<h:outputText value="#{peticion.ptcFecha}" />
+						</p:column>
+
+						<p:column headerText="Hora Inicio"
+							filterBy="#{peticion.ptcHoraInicio}" filterMatchMode="contains"
+							priority="2">
+							<h:outputText value="#{peticion.ptcHoraInicio}" />
+						</p:column>
+
+						<p:column headerText="Hora Fin" filterBy="#{peticion.ptcHoraFin}"
+							filterMatchMode="contains" priority="2">
+							<h:outputText value="#{peticion.ptcHoraFin}" />
+						</p:column>
+
+
+
+						<p:column headerText="Estado"
+							filterBy="#{peticion.estado.estDescripcion}"
+							filterMatchMode="contains" priority="2">
+							<h:outputText value="#{peticion.estado.estDescripcion}" />
+						</p:column>
+
+						<p:column headerText="Guia de Entrenamiento"
+							filterBy="#{peticion.guiaEntrenamiento.geDescripcion}"
+							filterMatchMode="contains" priority="2">
+							<h:outputText value="#{peticion.guiaEntrenamiento.geDescripcion}" />
+						</p:column>
+
+						<p:column headerText="OPCIONES" priority="1">
+							<p:commandButton icon="fa fa-plus"
+								title="Añadir Estudiante a Nomina"
+								actionListener="#{beanPeticion.actionListenerSeleccionado(peticion)}"
+								update="formAddUsuario" oncomplete="PF('dlgAddUsuario').show();">
+							</p:commandButton>
+
+							<p:commandButton icon="fa fa-search" title="Ver Nomina"
+								actionListener="#{beanPeticion.actionListenerSelecAddUser(peticion)}"
+								update="formViewNomina" oncomplete="PF('dlgViewNomina').show();">
+							</p:commandButton>
+						</p:column>
+
+
+
+					</p:dataTable>
+				</p:panel>
+
+			</h:form>
+
+		</p:tab>
+
+	</p:tab>
+
+
+
+
+
+
+
+
+
+	<p:dialog header="Ver Nomina" widgetVar="dlgViewNomina" modal="true">
+		<h:form id="formViewNomina">
+			<p:growl>
+				<p:autoUpdate />
+			</p:growl>
+			<p:panel header="Datos de Usuarios">
+				<p:dataTable value="#{beanNomina.listaUsuarioxPeticion}"
+					var="nomina" reflow="true" paginator="true">
+					<p:column headerText="Id ">
+						<h:outputText value="#{beanPeticion.selecionada.ptcId}" />
+					</p:column>
+					<p:column headerText="Id ">
+						<h:outputText value="#{nomina.usuario.userCi}" />
+					</p:column>
+
+					<p:column headerText="Descripción"
+						filterBy="#{nomina.usuario.userCi}" filterMatchMode="contains"
+						priority="1">
+						<h:outputText value="#{nomina.usuario.userCi}" />
+					</p:column>
+
+					<p:column headerText="Apellido"
+						filterBy="#{nomina.usuario.userApellido}"
+						filterMatchMode="contains" priority="1">
+						<h:outputText value="#{nomina.usuario.userApellido}" />
+					</p:column>
+
+					<p:column headerText="Nombre"
+						filterBy="#{nomina.usuario.userNombre}" filterMatchMode="contains"
+						priority="1">
+						<h:outputText value="#{nomina.usuario.userNombre}" />
+					</p:column>
+
+					<p:column headerText="Telefono"
+						filterBy="#{nomina.usuario.userTelefono}"
+						filterMatchMode="contains" priority="1">
+						<h:outputText value="#{nomina.usuario.userTelefono}" />
+					</p:column>
+
+					<p:column headerText="Rol"
+						filterBy="#{nomina.usuario.role.RDescripcion}"
+						filterMatchMode="contains" priority="1">
+						<h:outputText value="#{nomina.usuario.role.RDescripcion}" />
+					</p:column>
+
+					<p:column headerText="Carrera"
+						filterBy="#{nomina.usuario.carrera.caDescripcion}"
+						filterMatchMode="contains" priority="1">
+						<h:outputText value="#{nomina.usuario.carrera.caDescripcion}" />
+					</p:column>
+
+					<p:column headerText="Club"
+						filterBy="#{nomina.usuario.club.cluDescripcion}"
+						filterMatchMode="contains" priority="1">
+						<h:outputText value="#{nomina.usuario.club.cluDescripcion}" />
+					</p:column>
+
+					<p:column headerText="Nivel"
+						filterBy="#{nomina.usuario.nivel.niDescripcion}"
+						filterMatchMode="contains" priority="1">
+						<h:outputText value="#{nomina.usuario.nivel.niDescripcion}" />
+					</p:column>
+
+
+
+				</p:dataTable>
+			</p:panel>
+
+
+		</h:form>
+	</p:dialog>
+
+
+	<p:dialog header="Añadir Usuario" widgetVar="dlgAddUsuario"
+		modal="true">
+		<h:form id="formAddUsuario">
+			<p:growl>
+				<p:autoUpdate />
+			</p:growl>
+			<p:panel header="Datos de Usuarios">
+				<p:dataTable value="#{beanUsuario.listaUsuario}" var="usuario"
+					reflow="true" paginator="true">
+					<p:column headerText="Id ">
+						<h:outputText value="#{beanPeticion.selecionada.ptcId}" />
+					</p:column>
+					<p:column headerText="Id ">
+						<h:outputText value="#{usuario.userId}" />
+					</p:column>
+					<p:column headerText="Descripción" filterBy="#{usuario.userCi}"
+						filterMatchMode="contains" priority="1">
+						<h:outputText value="#{usuario.userCi}" />
+					</p:column>
+
+					<p:column headerText="Apellido" filterBy="#{usuario.userApellido}"
+						filterMatchMode="contains" priority="1">
+						<h:outputText value="#{usuario.userApellido}" />
+					</p:column>
+
+					<p:column headerText="Nombre" filterBy="#{usuario.userNombre}"
+						filterMatchMode="contains" priority="1">
+						<h:outputText value="#{usuario.userNombre}" />
+					</p:column>
+
+					<p:column headerText="Telefono" filterBy="#{usuario.userTelefono}"
+						filterMatchMode="contains" priority="1">
+						<h:outputText value="#{usuario.userTelefono}" />
+					</p:column>
+
+					<p:column headerText="Rol" filterBy="#{usuario.role.RDescripcion}"
+						filterMatchMode="contains" priority="1">
+						<h:outputText value="#{usuario.role.RDescripcion}" />
+					</p:column>
+
+					<p:column headerText="Carrera"
+						filterBy="#{usuario.carrera.caDescripcion}"
+						filterMatchMode="contains" priority="1">
+						<h:outputText value="#{usuario.carrera.caDescripcion}" />
+					</p:column>
+
+					<p:column headerText="Club"
+						filterBy="#{usuario.club.cluDescripcion}"
+						filterMatchMode="contains" priority="1">
+						<h:outputText value="#{usuario.club.cluDescripcion}" />
+					</p:column>
+
+					<p:column headerText="Nivel"
+						filterBy="#{usuario.nivel.niDescripcion}"
+						filterMatchMode="contains" priority="1">
+						<h:outputText value="#{usuario.nivel.niDescripcion}" />
+					</p:column>
+
+					<p:column headerText="OPCIONES" priority="1">
+
+
+						<p:commandButton icon="fa fa-plus" title="Añadir"
+							update="@form,:form3"
+							actionListener="#{beanNomina.actionListenerAñadirUsr(beanPeticion.selecionada.ptcId, usuario.userId)}">
+							<p:confirm header="Confirmacion" message="Desea Añadir?"
+								icon="fa fa-exclamation-triangle"></p:confirm>
+						</p:commandButton>
+
+
+					</p:column>
+
+				</p:dataTable>
+			</p:panel>
+
+
+		</h:form>
+	</p:dialog>
+
+
+	<p:dialog header="Editar Informacion" widgetVar="dlgEdicion"
+		modal="true">
+		<h:form id="formEdicion">
+			<p:growl>
+				<p:autoUpdate />
+			</p:growl>
+
+
+			<p:selectOneMenu value="#{beanNomina.idUsuario}" filter="true"
+				filterMatchMode="contains">
+				<f:selectItem
+					itemLabel="#{beanNomina.selecionada.usuario.userNombre} #{beanNomina.selecionada.usuario.userApellido}"
+					itemValue="" noSelectionOption="true" />
+				<f:selectItems value="#{beanNomina.listaUsuarioSI}" />
+
+			</p:selectOneMenu>
+
+			<p:selectOneMenu value="#{beanNomina.idPeticion}" filter="true"
+				filterMatchMode="contains">
+				<f:selectItem itemLabel="#{beanNomina.selecionada.peticione.ptcId}"
+					itemValue="" noSelectionOption="true" />
+				<f:selectItems value="#{beanNomina.listaPeticionSI}" />
+
+			</p:selectOneMenu>
+
+
+
+
+			<p:commandButton value="Actualizar" icon="fa fa-save"
+				update="@form,:form3"
+				actionListener="#{beanNomina.actionListenerActualizar()}"></p:commandButton>
+		</h:form>
+	</p:dialog>
+
+	<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+		<p:commandButton value="Si" type="button"
+			styleClass="ui-confirmdialog-yes" icon="fa fa-check"></p:commandButton>
+		<p:commandButton value="No" type="button"
+			styleClass="ui-confirmdialog-no" icon="fa fa-times"></p:commandButton>
+	</p:confirmDialog>
+
+</body>
+</html>
