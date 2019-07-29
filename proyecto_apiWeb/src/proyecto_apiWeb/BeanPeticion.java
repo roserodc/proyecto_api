@@ -120,11 +120,13 @@ public class BeanPeticion implements Serializable {
 		if (hi1 > hf1 || peticion.getPtcHoraInicio().equals(peticion.getPtcHoraFin())) {
 			System.out.println("equasl" + usuario.getUserId());
 			JSFUtil.createMensajeError("Revise campos de hora, hora inicio debe ser menor a hora fin");
-		}
-		if (peticion.getPtcFecha() == null) {
+		}else if (peticion.getPtcFecha() == null) {
 			JSFUtil.createMensajeError("Debe seleccionar una fecha");
-		}
-		if (idPlan == null) {
+		}else if (peticion.getPtcHoraFin() == null) {
+			JSFUtil.createMensajeError("Debe seleccionar hora Fin ");
+		}else if (peticion.getPtcHoraInicio() == null) {
+			JSFUtil.createMensajeError("Debe seleccionar hora Inicio ");
+		}else if (idPlan == null) {
 			JSFUtil.createMensajeError("Debe seleccionar un plan de la lista");
 		} else {
 

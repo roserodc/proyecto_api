@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<f:metadata>
+	<f:event listener="#{beanLogin.actionVerificarLogin()}"
+		type="preRenderView"></f:event>
+</f:metadata>
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Opciones Usuario</title>
+</h:head>
+<body>
+<p:messages>
+			<p:autoUpdate />
+		</p:messages>
+	<h:form>
+		<p:menubar>
+			<p:menuitem value="Registro Peticiones" action="registropeticiones"
+				icon="fa fa-bars"></p:menuitem>
+			<p:menuitem value="Lista Peticiones" action="listapeticiones"
+				icon="fa fa-bars"></p:menuitem>
+		<p:menuitem value="Reportes" action="reportes"
+				icon="fa fa-bars"></p:menuitem>
+			
+
+			<f:facet name="options">
+				<p:commandButton value="Salir" action="#{beanLogin.salirSistema()}"
+					icon="fa fa-sign-out" />
+			</f:facet>
+		</p:menubar>
+	</h:form>
+	<br />
+
+
+	<h:form >
+		<p:tab title="Peticiones">
+			<p:panel header="Registro de Peticion">
+
+
+				<p:calendar value="#{beanPeticion.peticion.ptcFecha}"
+					style="width: 45%; float: left;" mode="inline">
+					<f:convertDateTime pattern="dd/MM/yyyy"
+						timeZone="America/Quito_City" />
+				</p:calendar>
+
+				<div>
+					<h:outputText value="Complete los campos solicitados" />
+					<br /> <br />
+
+				</div>
+
+
+				<div>
+					<p:selectOneMenu value="#{beanPeticion.idPlan}" filter="true"
+						filterMatchMode="contains">
+						<f:selectItem itemLabel="Seleccione Plan" itemValue=""
+							noSelectionOption="true" />
+						<f:selectItems value="#{beanPeticion.listaPlanSI}" />
+					</p:selectOneMenu>
+				</div>
+
+				<div>
+					<p:selectOneMenu value="#{beanPeticion.peticion.ptcHoraInicio}"
+						style="width:125px">
+						<f:selectItem itemLabel="Hora inicio" itemValue="" />
+						<f:selectItem itemLabel="7:00" itemValue="7:00" />
+						<f:selectItem itemLabel="8:00" itemValue="8:00" />
+						<f:selectItem itemLabel="9:00" itemValue="9:00" />
+						<f:selectItem itemLabel="10:00" itemValue="10:00" />
+						<f:selectItem itemLabel="11:00" itemValue="11:00" />
+						<f:selectItem itemLabel="12:00" itemValue="12:00" />
+						<f:selectItem itemLabel="13:00" itemValue="13:00" />
+						<f:selectItem itemLabel="14:00" itemValue="14:00" />
+						<f:selectItem itemLabel="15:00" itemValue="15:00" />
+						<f:selectItem itemLabel="16:00" itemValue="16:00" />
+						<f:selectItem itemLabel="17:00" itemValue="17:00" />
+						<f:selectItem itemLabel="18:00" itemValue="18:00" />
+						<f:selectItem itemLabel="19:00" itemValue="19:00" />
+						<f:selectItem itemLabel="20:00" itemValue="20:00" />
+					</p:selectOneMenu>
+				</div>
+
+				<div>
+					<p:selectOneMenu value="#{beanPeticion.peticion.ptcHoraFin}"
+						style="width:125px">
+						<f:selectItem itemLabel="Hora fin" itemValue="" />
+						<f:selectItem itemLabel="8:00" itemValue="8:00" />
+						<f:selectItem itemLabel="9:00" itemValue="9:00" />
+						<f:selectItem itemLabel="10:00" itemValue="10:00" />
+						<f:selectItem itemLabel="11:00" itemValue="11:00" />
+						<f:selectItem itemLabel="12:00" itemValue="12:00" />
+						<f:selectItem itemLabel="13:00" itemValue="13:00" />
+						<f:selectItem itemLabel="14:00" itemValue="14:00" />
+						<f:selectItem itemLabel="15:00" itemValue="15:00" />
+						<f:selectItem itemLabel="16:00" itemValue="16:00" />
+						<f:selectItem itemLabel="17:00" itemValue="17:00" />
+						<f:selectItem itemLabel="18:00" itemValue="18:00" />
+						<f:selectItem itemLabel="19:00" itemValue="19:00" />
+					</p:selectOneMenu>
+				</div>
+				<div></div>
+
+
+
+
+
+				<br />
+				<p:commandButton value="Insertar" icon="fa fa-save"
+					update="@form"
+					action="#{beanPeticion.actionListenerInsertar()}"></p:commandButton>
+				<br />
+				<br />
+				<br />
+				<br />
+			</p:panel>
+		</p:tab>
+	</h:form>
+
+</body>
+</html>
