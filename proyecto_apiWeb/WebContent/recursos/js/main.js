@@ -1,77 +1,85 @@
-jQuery(document).ready(function( $ ) {
+/* 
 
-  // Smooth scroll for the menu and links with .scrollto classes
-  $('.smoothscroll').on('click', function(e) {
-    e.preventDefault();
-    if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
-      var target = $(this.hash);
-      if (target.length) {
+Template 2089 Meteor
 
-        $('html, body').animate({
-          scrollTop: target.offset().top - 70
-        }, 1500, 'easeInOutExpo');
-      }
-    }
-  });
+http://www.tooplate.com/view/2089-meteor
 
-  $(".navbar-collapse a").on('click', function() {
-    $(".navbar-collapse.collapse").removeClass('in');
-  });
+*/
 
-  // Javascript Chart
-		if($('#javascript').length) {
+jQuery(document).ready(function($) {
 
-			var doughnutData = [{
-	        value: 70,
-	        color: "#74cfae"
-	      },
-	      {
-	        value: 30,
-	        color: "#3c3c3c"
-	      }
-	    ];
-	    var myDoughnut = new Chart(document.getElementById("javascript").getContext("2d")).Doughnut(doughnutData);
-		};
+	'use strict';
 
-		// Bootstrap Chart
-		if($('#bootstrap').length) {
-			var doughnutData = [{
-					value: 90,
-					color: "#74cfae"
-				},
-				{
-					value: 10,
-					color: "#3c3c3c"
-				}
-			];
-			var myDoughnut = new Chart(document.getElementById("bootstrap").getContext("2d")).Doughnut(doughnutData);
-		}
 
-		// WordPress Chart
-		if($('#wordpress').length) {
-			var doughnutData = [{
-					value: 55,
-					color: "#74cfae"
-				},
-				{
-					value: 45,
-					color: "#3c3c3c"
-				}
-			];
-			var myDoughnut = new Chart(document.getElementById("wordpress").getContext("2d")).Doughnut(doughnutData);
-		}
+        $('.counter').each(function() {
+          var $this = $(this),
+              countTo = $this.attr('data-count');
+          
+          $({ countNum: $this.text()}).animate({
+            countNum: countTo
+          },
 
-		// Photoshop Chart
-		if($('#photoshop').length) {
-			var doughnutData = [{
-					value: 80,
-					color: "#74cfae"
-				},
-				{
-					value: 20,
-					color: "#3c3c3c"
-				}
-			];
-			var myDoughnut = new Chart(document.getElementById("photoshop").getContext("2d")).Doughnut(doughnutData);
-		}
+          {
+
+            duration: 8000,
+            easing:'linear',
+            step: function() {
+              $this.text(Math.floor(this.countNum));
+            },
+            complete: function() {
+              $this.text(this.countNum);
+              //alert('finished');
+            }
+
+          });  
+          
+        });
+
+
+
+        $(".b1").click(function () {
+            $(".pop").fadeIn(300);
+            
+        });
+		
+		$(".b2").click(function () {
+            $(".pop2").fadeIn(300);
+            
+        });
+		
+		$(".b3").click(function () {
+            $(".pop3").fadeIn(300);
+            
+        });
+
+        $(".pop > span, .pop").click(function () {
+            $(".pop").fadeOut(300);
+        });
+		
+		$(".pop2 > span, .pop2").click(function () {
+            $(".pop2").fadeOut(300);
+        });
+		
+		$(".pop3 > span, .pop3").click(function () {
+            $(".pop3").fadeOut(300);
+        });
+
+
+        $(window).on("scroll", function() {
+            if($(window).scrollTop() > 100) {
+                $(".header").addClass("active");
+            } else {
+                //remove the background property so it comes transparent again (defined in your css)
+               $(".header").removeClass("active");
+            }
+        });
+
+
+	/************** Mixitup (Filter Projects) *********************/
+    	$('.projects-holder').mixitup({
+            effects: ['fade','grayscale'],
+            easing: 'snap',
+            transitionSpeed: 400
+        });
+
 });
