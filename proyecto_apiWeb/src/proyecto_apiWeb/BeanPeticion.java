@@ -234,7 +234,7 @@ public class BeanPeticion implements Serializable {
 	}
 
 	public List<Peticione> getLista() {
-		List<Peticione> listadoPeticiones = managerPeticion.findAll();
+		List<Peticione> listadoPeticiones = managerPeticion.findAll2(usuario.getUserId());
 		return listadoPeticiones;
 	}
 

@@ -52,6 +52,8 @@ public class ManagerPeticion {
     	return q.getResultList();
     }
     
+    
+    
     public List<Peticione>findAll2 (Integer id){
     	String c =  "SELECT o FROM Peticione o WHERE user_id_usuario=" + id +" order by ptc_Id";
     	Query q = em.createQuery(c,Peticione.class);
