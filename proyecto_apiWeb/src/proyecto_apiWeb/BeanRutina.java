@@ -44,9 +44,7 @@ public class BeanRutina implements Serializable {
 	public void inicalizar() {
 		lista = managerRutina.findAll();
 		
-//		if (!beanplan.getSelecionada().getPlId().equals(null)) {
-//			listaDiferente = managerRutina.findAllDif(beanplan.getSelecionada().getPlId());
-//		}
+		
 		
 		
 		rutina = new Rutina();
@@ -60,14 +58,14 @@ public class BeanRutina implements Serializable {
 	public void actionListenerInsertar() {
 		try {
 
-			if (managerRutina.comprobar(rutina, idPlan)) {
+			if (managerRutina.comprobarRutinaNull(rutina)) {
 				JSFUtil.createMensajeError("Ya Existe");
 			} else {
 				System.out.println("bean " + idPlan);
 
-				managerRutina.insertar(rutina, idPlan);
+				managerRutina.insertarNull(rutina);
 
-				System.out.println("bean " + idPlan);
+				
 				lista = managerRutina.findAll();
 				rutina = new Rutina();
 				JSFUtil.createMensajeInfo("insertados");
@@ -91,7 +89,7 @@ public class BeanRutina implements Serializable {
 				managerRutina.insertar(rutina, idPlan);
 
 				System.out.println("bean " + idPlan);
-				lista = managerRutina.findAll();
+				lista = managerRutina.findAllDif();
 				rutina = new Rutina();
 				JSFUtil.createMensajeInfo("insertados");
 			}
@@ -103,24 +101,24 @@ public class BeanRutina implements Serializable {
 	}
 	
 
-//	public void actionListenerAddRutinaxPlan(Rutina rutina, Integer idPlan) {
-//		try {
-//			
-//			if (!rutina.getPlane2().equals(null)) {
-//				
-//			}else {
-//				
-//			}
-//			
-//			managerRutina.actualizarRutinaxPlan(rutina , idPlan);
-//			lista = managerRutina.findAll();
-//			JSFUtil.createMensajeInfo("Acualizado");
-//		} catch (Exception e) {
-//			// TODO: handle exception
-//			JSFUtil.createMensajeError(e.getMessage());
-//			e.printStackTrace();
-//		}
-//	}
+	public void actionListenerAddRutinaxPlan(Rutina rutina, Integer idPlan) {
+		try {
+			if (managerRutina.comprobarRutina(rutina, idPlan)) {
+				JSFUtil.createMensajeError("Ya Existe");
+			} else {
+				managerRutina.insertarRutinaxPlan(rutina, idPlan);
+				lista = managerRutina.findAllDif();
+				
+				JSFUtil.createMensajeInfo("Plan Añadido");
+			}
+			
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			JSFUtil.createMensajeError(e.getMessage());
+			e.printStackTrace();
+		}
+	}
 	
 	public void actionListenerEliminar(Integer id) {
 		managerRutina.eliminar(id);

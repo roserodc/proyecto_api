@@ -105,8 +105,6 @@ public class BeanPeticion implements Serializable {
 			tp = 2;
 		}
 
-		
-
 		String h1 = peticion.getPtcHoraInicio();
 		String[] hi = h1.split(":");
 		int hi1 = Integer.parseInt(hi[0]); // 004-
@@ -132,7 +130,7 @@ public class BeanPeticion implements Serializable {
 
 			try {
 				System.out.println("----insert-try---*" + usuario.getUserId());
-				managerPeticion.insertar2(peticion, tp, 3, usuario.getUserId(), idPlan);
+				managerPeticion.insertar2(peticion, tp, 1, usuario.getUserId(), idPlan);
 				lista = managerPeticion.findAll2(usuario.getUserId());
 				peticion = new Peticione();
 				JSFUtil.createMensajeInfo("Petición Registrada");
