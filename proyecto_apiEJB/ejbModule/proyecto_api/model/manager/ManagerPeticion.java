@@ -93,12 +93,15 @@ public class ManagerPeticion {
     	Estado est;
     	Usuario us;
     	Plane pl;
+    	String r="";
     	tp=managerTipoPeticion.findById(idTipoP);
     	est=managerEstado.findById(idEstado);
     	us=managerUsuario.findById(idUsuario);
     	pl=managerPlan.findById(idplan);
     	Peticione pte = new Peticione();
-    	pte.setPtcFecha(peticion.getPtcFecha());
+    	r = peticion.getPtcFecha().replace("19:00:00 COT 19", ".");
+		System.out.println("-----fecha---*" + r);
+    	pte.setPtcFecha(r);
     	pte.setPtcHoraInicio(peticion.getPtcHoraInicio());
     	pte.setPtcHoraFin(peticion.getPtcHoraFin());
     	pte.setTipoPeticion(tp);

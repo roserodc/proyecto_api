@@ -20,7 +20,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -90,24 +89,23 @@ public class BeanPeticion implements Serializable {
 		listaInstructores = managerUsuario.findAllInstructores();
 		System.out.println("--------*" + usuario.getUserId());
 		lista = managerPeticion.findAll2(usuario.getUserId());
-		
-		
-	}
 
-	
+	}
 
 	public void actionListenerColapsarPanerl() {
 		panelColapsado = !panelColapsado;
 	}
 
 	public void actionListenerInsertar() {
-		
-		int tp = 0 ;
-		if (usuario.getRole().getRId()==1) {
-			tp = 2;
-		} else {
+		String r = "";
+		int tp = 0;
+		if (usuario.getRole().getRId() == 1) {
 			tp = 1;
+		} else {
+			tp = 2;
 		}
+
+		
 
 		String h1 = peticion.getPtcHoraInicio();
 		String[] hi = h1.split(":");
@@ -122,6 +120,12 @@ public class BeanPeticion implements Serializable {
 		if (hi1 > hf1 || peticion.getPtcHoraInicio().equals(peticion.getPtcHoraFin())) {
 			System.out.println("equasl" + usuario.getUserId());
 			JSFUtil.createMensajeError("Revise campos de hora, hora inicio debe ser menor a hora fin");
+		}
+		if (peticion.getPtcFecha() == null) {
+			JSFUtil.createMensajeError("Debe seleccionar una fecha");
+		}
+		if (idPlan == null) {
+			JSFUtil.createMensajeError("Debe seleccionar un plan de la lista");
 		} else {
 
 			try {
@@ -129,7 +133,7 @@ public class BeanPeticion implements Serializable {
 				managerPeticion.insertar2(peticion, tp, 3, usuario.getUserId(), idPlan);
 				lista = managerPeticion.findAll2(usuario.getUserId());
 				peticion = new Peticione();
-				JSFUtil.createMensajeInfo("insertados");
+				JSFUtil.createMensajeInfo("Petición Registrada");
 			} catch (Exception e) {
 				System.out.println("----insert- error---*" + usuario.getUserId());
 				JSFUtil.createMensajeError("error " + e.getMessage() + " " + e.getCause());
@@ -171,7 +175,7 @@ public class BeanPeticion implements Serializable {
 
 	public void actionListenerAceptarPeticion(Integer idPtc) {
 		try {
-			
+
 			managerPeticion.actualizarAceptar(idPtc);
 			lista = managerPeticion.findAll();
 			JSFUtil.createMensajeInfo("Aceptado");
@@ -207,7 +211,7 @@ public class BeanPeticion implements Serializable {
 //		 */
 		FacesContext context = FacesContext.getCurrentInstance();
 		ServletContext servletContext = (ServletContext) context.getExternalContext().getContext();
-		String ruta = servletContext.getRealPath("usuario/rp_usr.jasper");
+		String ruta = servletContext.getRealPath("usuario/reporteUser.jasper");
 		System.out.println(ruta);
 		HttpServletResponse response = (HttpServletResponse) context.getExternalContext().getResponse();
 		response.addHeader("Content-disposition", "attachment;filename=reporte.pdf");
@@ -230,7 +234,7 @@ public class BeanPeticion implements Serializable {
 	}
 
 	public List<Peticione> getLista() {
-		List<Peticione> listadoPeticiones=managerPeticion.findAll();
+		List<Peticione> listadoPeticiones = managerPeticion.findAll();
 		return listadoPeticiones;
 	}
 
@@ -286,19 +290,13 @@ public class BeanPeticion implements Serializable {
 		this.idUsuario = idUsuario;
 	}
 
-	
-
 	public Integer getIdPlan() {
 		return idPlan;
 	}
 
-
-
 	public void setIdPlan(Integer idPlan) {
 		this.idPlan = idPlan;
 	}
-
-
 
 	public List<SelectItem> getListaTipoPeticionSI() {
 		List<SelectItem> listadoSI = new ArrayList<SelectItem>();
@@ -343,56 +341,39 @@ public class BeanPeticion implements Serializable {
 		}
 		return listadoSI;
 	}
-	
-	
 
 	public List<Peticione> getListaIndividuales() {
-		List<Peticione> listadoPeticionesIndividuales=managerPeticion.findAllIndividuales();
+		List<Peticione> listadoPeticionesIndividuales = managerPeticion.findAllIndividuales();
 		return listadoPeticionesIndividuales;
 	}
-
-
 
 	public void setListaIndividuales(List<Peticione> listaIndividuales) {
 		this.listaIndividuales = listaIndividuales;
 	}
 
-
-
 	public List<Peticione> getListaGrupales() {
-		List<Peticione> listadoPeticionesGrupales=managerPeticion.findAllGrupales();
+		List<Peticione> listadoPeticionesGrupales = managerPeticion.findAllGrupales();
 		return listadoPeticionesGrupales;
 	}
-
-
 
 	public List<Usuario> getListaInstructores() {
 		return listaInstructores;
 	}
 
-
-
 	public void setListaInstructores(List<Usuario> listaInstructores) {
 		this.listaInstructores = listaInstructores;
 	}
-
-
 
 	public List<Usuario> getListaUsuarios() {
 		return listaUsuarios;
 	}
 
-
-
 	public void setListaUsuarios(List<Usuario> listaUsuarios) {
 		this.listaUsuarios = listaUsuarios;
 	}
 
-
-
 	public void setListaGrupales(List<Peticione> listaGrupales) {
 		this.listaGrupales = listaGrupales;
 	}
-
 
 }
