@@ -6,7 +6,6 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.model.SelectItem;
 import javax.inject.Named;
 
-
 import proyecto_api.model.entities.Facultad;
 import proyecto_api.model.entities.Plane;
 import proyecto_api.model.entities.Carrera;
@@ -25,7 +24,7 @@ public class BeanPlan implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@EJB
 	private ManagerPlan managerPlan;
-	
+
 	private Integer idPlan;
 	private List<Plane> lista;
 	private Plane plane;
@@ -55,21 +54,26 @@ public class BeanPlan implements Serializable {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void actionListenerEliminar(Integer id) {
-		managerPlan.eliminar(id);
-		lista=managerPlan.findAll();
-		JSFUtil.createMensajeInfo("Eliminado");
+		try {
+			managerPlan.eliminar(id);
+			lista = managerPlan.findAll();
+			JSFUtil.createMensajeInfo("Eliminado");
+		} catch (Exception e) {
+			JSFUtil.createMensajeError("error");
+			e.printStackTrace();
+		}
 	}
-	
+
 	public void actionListenerSeleccionado(Plane plan) {
 		selecionada = plan;
 	}
-	
+
 	public void actionListenerActualizar() {
 		try {
 			managerPlan.actualizar(selecionada);
-			lista=managerPlan.findAll();
+			lista = managerPlan.findAll();
 			JSFUtil.createMensajeInfo("Acualizado");
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -93,7 +97,7 @@ public class BeanPlan implements Serializable {
 	public void setPanelColapsado(boolean panelColapsado) {
 		this.panelColapsado = panelColapsado;
 	}
-	
+
 	public Plane getSelecionada() {
 		return selecionada;
 	}
@@ -110,7 +114,6 @@ public class BeanPlan implements Serializable {
 		this.plane = plane;
 	}
 
-
 	public Integer getIdPlan() {
 		return idPlan;
 	}
@@ -119,5 +122,4 @@ public class BeanPlan implements Serializable {
 		this.idPlan = idPlan;
 	}
 
-	
 }

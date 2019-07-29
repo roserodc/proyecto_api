@@ -46,10 +46,7 @@
 				<h:outputText value="Duracion" />
 				<p:inputText value="#{beanRutina.rutina.rtDuracion}" />
 							
-<!-- 				<h:outputText value="Facultad" /> -->
-<!-- 				<p:inputText value="#{beanCarrera.carrera.facultad.FId}" /> -->
-				
-				
+
 				<p:selectOneMenu value="#{beanRutina.idPlan}" filter="true"
 						filterMatchMode="contains">
 						<f:selectItem itemLabel="Seleccione..." itemValue=""
@@ -136,7 +133,7 @@
 			<p:inputText value="#{beanRutina.selecionada.rtDuracion}" />
 			
 			<h:outputText value="Plan" />
-			<p:inputText value="#{beanRutina.selecionada.plane2.guiaEntrenamiento}" />
+			<p:inputText value="#{beanRutina.selecionada.plane2.plTipo}" />
 			
 			
 			<p:commandButton value="Actualizar" icon="fa fa-save"

@@ -64,6 +64,8 @@
 		</p:panel>
 	</h:form>
 	<br />
+
+
 	<h:form id="form2">
 		<p:panel header="Datos de Planes">
 			<p:dataTable value="#{beanPlan.lista}" var="plan" reflow="true"
@@ -88,11 +90,84 @@
 							icon="fa fa-exclamation-triangle"></p:confirm>
 					</p:commandButton>
 
+					<p:commandButton icon="fa fa-edit" title="Añadir Rutina"
+						actionListener="#{beanPlan.actionListenerSeleccionado(plan)}"
+						update="formAddRutina" oncomplete="PF('dlgAddRutina').show();">
+					</p:commandButton>
+
 				</p:column>
 
 			</p:dataTable>
 		</p:panel>
 	</h:form>
+
+
+	<p:dialog header="Añadir Rutina" widgetVar="dlgAddRutina" modal="true">
+		<h:form id="formAddRutina">
+			<p:growl>
+				<p:autoUpdate />
+			</p:growl>
+			<p:panel header="Datos de Rutina">
+			
+				<p:dataTable value="#{beanRutina.lista}" var="rutina" reflow="true"
+					paginator="true">
+					<p:column headerText="Id ">
+						<h:outputText value="#{rutina.rtId}" />
+					</p:column>
+					<p:column headerText="Descripción"
+						filterBy="#{rutina.rtDescripcion}" filterMatchMode="contains"
+						priority="1">
+						<h:outputText value="#{rutina.rtDescripcion}" />
+					</p:column>
+
+					<p:column headerText="Series" filterBy="#{rutina.rtSeries}"
+						filterMatchMode="contains" priority="1">
+						<h:outputText value="#{rutina.rtSeries}" />
+					</p:column>
+
+					<p:column headerText="Repeticiones"
+						filterBy="#{rutina.rtRepeticiones}" filterMatchMode="contains"
+						priority="1">
+						<h:outputText value="#{rutina.rtRepeticiones}" />
+					</p:column>
+
+					<p:column headerText="Duracion" filterBy="#{rutina.rtDuracion}"
+						filterMatchMode="contains" priority="1">
+						<h:outputText value="#{rutina.rtDuracion}" />
+					</p:column>
+
+					<p:column headerText="Plan" filterBy="#{rutina.plane2.plTipo}"
+						filterMatchMode="contains" priority="1">
+						<h:outputText value="#{rutina.plane2.plTipo}" />
+					</p:column>
+
+					<p:column headerText="OPCIONES" priority="1">
+						<p:commandButton icon="fa fa-edit" title="Editar"
+							actionListener="#{beanRutina.actionListenerSeleccionado(rutina)}"
+							update="formEdicion" oncomplete="PF('dlgEdicion').show();">
+						</p:commandButton>
+
+						<p:commandButton icon="fa fa-close" title="eliminar"
+							update="@form"
+							actionListener="#{beanRutina.actionListenerEliminar(rutina.rtId)}">
+							<p:confirm header="Confirmacion" message="Desea Elminar?"
+								icon="fa fa-exclamation-triangle"></p:confirm>
+						</p:commandButton>
+
+					</p:column>
+
+				</p:dataTable>
+			</p:panel>
+
+
+
+
+
+<!-- 			<p:commandButton value="Actualizar" icon="fa fa-save" -->
+<!-- 				update="@form,:form2" -->
+<!-- 				actionListener="#{beanPlan.actionListenerActualizar()}"></p:commandButton> -->
+		</h:form>
+	</p:dialog>
 
 	<p:dialog header="Editar Informacion" widgetVar="dlgEdicion"
 		modal="true">

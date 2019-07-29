@@ -4,8 +4,8 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.model.SelectItem;
+import javax.inject.Inject;
 import javax.inject.Named;
-
 
 import proyecto_api.model.entities.Facultad;
 import proyecto_api.model.entities.Plane;
@@ -16,7 +16,7 @@ import proyecto_api.model.manager.ManagerFacultad;
 import proyecto_api.model.manager.ManagerPlan;
 import proyecto_api.model.manager.ManagerPrueba;
 import proyecto_api.model.manager.ManagerRutina;
-
+import proyecto_apiWeb.BeanPlan;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,18 +30,25 @@ public class BeanRutina implements Serializable {
 	@EJB
 	private ManagerPlan managerPlan;
 	private Integer idPlan;
-	public void setIdPlan(Integer idPlan) {
-		this.idPlan = idPlan;
-	}
 
 	private List<Rutina> lista;
+	private List<Rutina> listaDiferente;
 	private Rutina rutina;
 	private boolean panelColapsado;
 	private Rutina selecionada;
 
+	@Inject
+	private BeanPlan beanplan;
+	
 	@PostConstruct
 	public void inicalizar() {
 		lista = managerRutina.findAll();
+		
+//		if (!beanplan.getSelecionada().getPlId().equals(null)) {
+//			listaDiferente = managerRutina.findAllDif(beanplan.getSelecionada().getPlId());
+//		}
+		
+		
 		rutina = new Rutina();
 		panelColapsado = true;
 	}
@@ -52,31 +59,83 @@ public class BeanRutina implements Serializable {
 
 	public void actionListenerInsertar() {
 		try {
-//			managerCarrera.insertar(carrera);
-			managerRutina.insertar(rutina, idPlan);
-			lista = managerRutina.findAll();
-			rutina = new Rutina();
-			JSFUtil.createMensajeInfo("insertados");
+
+			if (managerRutina.comprobar(rutina, idPlan)) {
+				JSFUtil.createMensajeError("Ya Existe");
+			} else {
+				System.out.println("bean " + idPlan);
+
+				managerRutina.insertar(rutina, idPlan);
+
+				System.out.println("bean " + idPlan);
+				lista = managerRutina.findAll();
+				rutina = new Rutina();
+				JSFUtil.createMensajeInfo("insertados");
+			}
+
 		} catch (Exception e) {
 			JSFUtil.createMensajeError("error");
 			e.printStackTrace();
 		}
 	}
 	
-	public void actionListenerEliminar(Integer id) {
-		managerRutina.eliminar(id);
-		lista=managerRutina.findAll();
-		JSFUtil.createMensajeInfo("Eliminado");
+
+	public void actionListenerInsertarxPlan(Integer idPlan) {
+		try {
+
+			if (managerRutina.comprobar(rutina, idPlan)) {
+				JSFUtil.createMensajeError("Ya Existe");
+			} else {
+				System.out.println("bean " + idPlan);
+
+				managerRutina.insertar(rutina, idPlan);
+
+				System.out.println("bean " + idPlan);
+				lista = managerRutina.findAll();
+				rutina = new Rutina();
+				JSFUtil.createMensajeInfo("insertados");
+			}
+
+		} catch (Exception e) {
+			JSFUtil.createMensajeError("error");
+			e.printStackTrace();
+		}
 	}
 	
+
+//	public void actionListenerAddRutinaxPlan(Rutina rutina, Integer idPlan) {
+//		try {
+//			
+//			if (!rutina.getPlane2().equals(null)) {
+//				
+//			}else {
+//				
+//			}
+//			
+//			managerRutina.actualizarRutinaxPlan(rutina , idPlan);
+//			lista = managerRutina.findAll();
+//			JSFUtil.createMensajeInfo("Acualizado");
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//			JSFUtil.createMensajeError(e.getMessage());
+//			e.printStackTrace();
+//		}
+//	}
+	
+	public void actionListenerEliminar(Integer id) {
+		managerRutina.eliminar(id);
+		lista = managerRutina.findAll();
+		JSFUtil.createMensajeInfo("Eliminado");
+	}
+
 	public void actionListenerSeleccionado(Rutina rutina) {
 		selecionada = rutina;
 	}
-	
+
 	public void actionListenerActualizar() {
 		try {
 			managerRutina.actualizar(selecionada);
-			lista=managerRutina.findAll();
+			lista = managerRutina.findAll();
 			JSFUtil.createMensajeInfo("Acualizado");
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -117,14 +176,12 @@ public class BeanRutina implements Serializable {
 		this.rutina = rutina;
 	}
 
-	
-	public List<SelectItem> getListaSI(){
-		List<SelectItem> listadoSI=new ArrayList<SelectItem>();
-		List<Plane> listadoClientes=managerPlan.findAll();
-		
-		for(Plane c:listadoClientes){
-			SelectItem item=new SelectItem(c.getPlId(), 
-					                   c.getPlTipo());
+	public List<SelectItem> getListaSI() {
+		List<SelectItem> listadoSI = new ArrayList<SelectItem>();
+		List<Plane> listadoClientes = managerPlan.findAll();
+
+		for (Plane c : listadoClientes) {
+			SelectItem item = new SelectItem(c.getPlId(), c.getPlTipo());
 			listadoSI.add(item);
 		}
 		return listadoSI;
@@ -134,7 +191,20 @@ public class BeanRutina implements Serializable {
 		return idPlan;
 	}
 
+	public void setIdPlan(Integer idPlan) {
+		this.idPlan = idPlan;
+	}
+
 	public void setIdFacultad(Integer idPlan) {
 		this.idPlan = idPlan;
 	}
+
+	public List<Rutina> getListaDiferente() {
+		return listaDiferente;
+	}
+
+	public void setListaDiferente(List<Rutina> listaDiferente) {
+		this.listaDiferente = listaDiferente;
+	}
+	
 }
