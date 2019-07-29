@@ -8,7 +8,7 @@
 <h:head>
 	<f:facet name="first">
 		<meta name="viewport"
-			content="widtd=device-widtg, initial-sacale=1, shrink-to-fit=no, user-scalable=no" />
+			content="width=device-width,initial-scale=1, shrink-to-fit=no, user-scalable=yes" />
 		<title>Manejo de Datos</title>
 	</f:facet>
 </h:head>
@@ -17,9 +17,8 @@
 		<p:autoUpdate />
 	</p:growl>
 	<h:form>
-		<p:growl>
-			<p:autoUpdate />
-		</p:growl>
+		<p:graphicImage value="../recursos/img/fondologin.png" style="width:1350px;height:135px"  alt="header"
+		onclick="location.href='/proyecto_apiWeb/faces/index.html'" />
 	</h:form>
 	<div align="center">
 	<h:form id="form1">
@@ -27,7 +26,7 @@
 			<p:panel>
 				<f:facet name="header">
 					<h:outputText value="REGISTRO DE USUARIO"
-						style="height:100px; font-size:50px; bgcolor:#909497" />
+						style="height:100px; font-size:25px; bgcolor:#909497" />
 				</f:facet>
 				<p:panelGrid columns="2">
 					<h:outputText value="Cedula" />
