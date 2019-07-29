@@ -9,7 +9,7 @@
 	<f:facet name="first">
 		<meta name="viewport"
 			content="widtd=device-widtg, initial-sacale=1, shrink-to-fit=no, user-scalable=no" />
-		<title>Registro Usuario</title>
+		<title>Reportes</title>
 	</f:facet>
 </h:head>
 <body>
@@ -17,15 +17,16 @@
 	<h:form id="Menu">
 		<p:menubar>
 
-			<p:menuitem value="Registro Guía" action="registroguiaentrenamiento"
-				icon="fa fa-bars"></p:menuitem>
+			<p:menuitem value="Registro Plan" action="registroplan"
+				icon="fa fa-tasks"></p:menuitem>
 			<p:menuitem value="Registro Instructor" action="registrousuario"
-				icon="fa fa-bars"></p:menuitem>
+				icon="fa fa-address-book-o"></p:menuitem>
 			<p:menuitem value="Peticiones Individuales" action="individuales"
-				icon="fa fa-bars"></p:menuitem>
+				icon="fa fa-user"></p:menuitem>
 			<p:menuitem value="Peticiones Grupales" action="grupales"
-				icon="fa fa-cog"></p:menuitem>
-			<p:menuitem value="Reporte" action="reportes" icon="fa fa-bars"></p:menuitem>
+				icon="fa fa-users"></p:menuitem>
+			<p:menuitem value="Reporte" action="reportes" icon="fa fa-file-pdf-o"></p:menuitem>
+
 			<f:facet name="options">
 				<p:commandButton value="Salir" action="#{beanLogin.salirSistema()}"
 					icon="fa fa-sign-out" />
@@ -42,24 +43,53 @@
 			<p:autoUpdate />
 		</p:messages>
 		<p:tabView>
-			<p:tab title="Tipos Petición">
-				<p:commandButton value="Individuales" icon="fa fa-user"
-					action="#{beanPeticion.actionReporteUsuario()}" ajax="false">
+			<p:tab title="Según Estado de Petición">
+				<p:outputLabel
+					value="Seleccione es estado de la petición para el reporte"></p:outputLabel>
+				<br />
+				<p:selectOneMenu value="#{beanPeticion.idEstadoRep}"
+					style="width:125px">
+					<!-- 						<f:selectItem itemLabel="Estado Petición" itemValue="" /> -->
+					<f:selectItem itemLabel="Pendiente" itemValue="1" />
+					<f:selectItem itemLabel="Aprobada" itemValue="2" />
+					<f:selectItem itemLabel="Rechazada" itemValue="3" />
+				</p:selectOneMenu>
+				<br />
+				<p:commandButton value="Generar Reporte" icon="fa fa-file-pdf-o"
+					action="#{beanPeticion.actionReporteAdmin()}" ajax="false">
 				</p:commandButton>
-				<p:commandButton value="Grupales" icon="fa fa-users"
-					action="#{beanPeticion.actionReporteUsuario()}" ajax="false">
-				</p:commandButton>
+				<br />
+				<!-- 				<p:commandButton value="Individuales" icon="fa fa-user" -->
+				<!-- 					action="#{beanPeticion.actionReporteUsuario()}" ajax="false"> -->
+				<!-- 				</p:commandButton> -->
+				<!-- 				<p:commandButton value="Grupales" icon="fa fa-users" -->
+				<!-- 					action="#{beanPeticion.actionReporteUsuario()}" ajax="false"> -->
+				<!-- 				</p:commandButton> -->
 			</p:tab>
-			<p:tab title="Estados Petición">
-				<p:commandButton value="Aprobadas" icon="fa fa-check"
-					action="#{beanPeticion.actionReporteUsuario()}" ajax="false">
+			<p:tab title="Según Tipo de Petición">
+				<p:outputLabel
+					value="Seleccione el tipo de la petición para el reporte"></p:outputLabel>
+				<br />
+				<p:selectOneMenu value="#{beanPeticion.idTipoRep}"
+					style="width:125px">
+					<!-- 						<f:selectItem itemLabel="Estado Petición" itemValue="" /> -->
+					<f:selectItem itemLabel="Individual" itemValue="1" />
+					<f:selectItem itemLabel="Grupal" itemValue="2" />
+				</p:selectOneMenu>
+				<br />
+				<p:commandButton value="Generar Reporte" icon="fa fa-file-pdf-o"
+					action="#{beanPeticion.actionReporteAdminTipo()}" ajax="false">
 				</p:commandButton>
-				<p:commandButton value="Pendientes" icon="far fa-clock"
-					action="#{beanPeticion.actionReporteUsuario()}" ajax="false">
-				</p:commandButton>
-				<p:commandButton value="Rechazadas" icon="fa fa-times"
-					action="#{beanPeticion.actionReporteUsuario()}" ajax="false">
-				</p:commandButton>
+				<br />
+				<!-- 				<p:commandButton value="Aprobadas" icon="fa fa-check" -->
+				<!-- 					action="#{beanPeticion.actionReporteUsuario()}" ajax="false"> -->
+				<!-- 				</p:commandButton> -->
+				<!-- 				<p:commandButton value="Pendientes" icon="far fa-clock" -->
+				<!-- 					action="#{beanPeticion.actionReporteUsuario()}" ajax="false"> -->
+				<!-- 				</p:commandButton> -->
+				<!-- 				<p:commandButton value="Rechazadas" icon="fa fa-times" -->
+				<!-- 					action="#{beanPeticion.actionReporteUsuario()}" ajax="false"> -->
+				<!-- 				</p:commandButton> -->
 			</p:tab>
 		</p:tabView>
 	</h:form>

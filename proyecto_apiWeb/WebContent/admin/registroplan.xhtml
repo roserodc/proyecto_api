@@ -9,22 +9,18 @@
 	<f:facet name="first">
 		<meta name="viewport"
 			content="widtd=device-widtg, initial-sacale=1, shrink-to-fit=no, user-scalable=no" />
-		<title>Manejo de Datos</title>
+		<title>Manejo de Datos Planes</title>
 	</f:facet>
 </h:head>
 <body>
 
 	<h:form>
 		<p:menubar>
-			<p:menuitem value="Registro Plan" action="registroplan"
-				icon="fa fa-bars"></p:menuitem>
-			<p:menuitem value="Registro Instructor" action="registrousuario"
-				icon="fa fa-bars"></p:menuitem>
-			<p:menuitem value="Peticiones Individuales" action="individuales"
-				icon="fa fa-bars"></p:menuitem>
-			<p:menuitem value="Peticiones Grupales" action="grupales"
-				icon="fa fa-cog"></p:menuitem>
-			<p:menuitem value="Reporte" action="reportes" icon="fa fa-bars"></p:menuitem>
+			<p:menuitem value="Registro Plan" action="registroplan"	icon="fa fa-tasks"></p:menuitem>
+			<p:menuitem value="Registro Instructor" action="registrousuario"	icon="fa fa-address-book-o"></p:menuitem>
+			<p:menuitem value="Peticiones Individuales" action="individuales" 	icon="fa fa-user"></p:menuitem>
+			<p:menuitem value="Peticiones Grupales" action="grupales"	icon="fa fa-users"></p:menuitem>
+			<p:menuitem value="Reporte" action="reportes" icon="fa fa-file-pdf-o"></p:menuitem>
 
 			<f:facet name="options">
 				<p:commandButton value="Salir" action="#{beanLogin.salirSistema()}"
@@ -82,13 +78,26 @@
 				<p:inputText value="#{beanRutina.rutina.rtDescripcion}" />
 
 				<h:outputText value="Series" />
-				<p:inputText value="#{beanRutina.rutina.rtSeries}" />
-
+				<p:spinner  value="#{beanRutina.rutina.rtSeries}" min="2" max="100" />
+				
 				<h:outputText value="Repeticiones" />
-				<p:inputText value="#{beanRutina.rutina.rtRepeticiones}" />
+				<p:spinner  value="#{beanRutina.rutina.rtRepeticiones}" min="5" max="100" />
+
 
 				<h:outputText value="Duracion" />
-				<p:inputText value="#{beanRutina.rutina.rtDuracion}" />
+
+				<p:selectOneMenu value="#{beanRutina.rutina.rtDuracion}"
+						style="width:125px">
+						<f:selectItem itemLabel="mm:ss" itemValue="" />
+						<f:selectItem itemLabel="00:30" itemValue="00:30" />
+						<f:selectItem itemLabel="01:00" itemValue="01:00" />
+						<f:selectItem itemLabel="01:30" itemValue="01:30" />
+						<f:selectItem itemLabel="02:00" itemValue="02:00" />
+						<f:selectItem itemLabel="02:30" itemValue="02:30" />
+						<f:selectItem itemLabel="03:00" itemValue="03:00" />
+						<f:selectItem itemLabel="03:30" itemValue="03:30" />
+						<f:selectItem itemLabel="04:00" itemValue="04:00" />
+					</p:selectOneMenu>
 
 
 

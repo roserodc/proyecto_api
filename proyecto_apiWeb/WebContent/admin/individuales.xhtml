@@ -9,21 +9,17 @@
 	<f:facet name="first">
 		<meta name="viewport"
 			content="widtd=device-widtg, initial-sacale=1, shrink-to-fit=no, user-scalable=no" />
-		<title>Peticiones Grupales</title>
+		<title>Peticiones Individuales</title>
 	</f:facet>
 </h:head>
 <body>
 	<h:form>
 		<p:menubar>
-			<p:menuitem value="Registro Plan" action="registroplan"
-				icon="fa fa-bars"></p:menuitem>
-			<p:menuitem value="Registro Instructor" action="registrousuario"
-				icon="fa fa-bars"></p:menuitem>
-			<p:menuitem value="Peticiones Individuales" action="individuales"
-				icon="fa fa-bars"></p:menuitem>
-			<p:menuitem value="Peticiones Grupales" action="grupales"
-				icon="fa fa-cog"></p:menuitem>
-			<p:menuitem value="Reporte" action="reportes" icon="fa fa-bars"></p:menuitem>
+			<p:menuitem value="Registro Plan" action="registroplan"	icon="fa fa-tasks"></p:menuitem>
+			<p:menuitem value="Registro Instructor" action="registrousuario"	icon="fa fa-address-book-o"></p:menuitem>
+			<p:menuitem value="Peticiones Individuales" action="individuales" 	icon="fa fa-user"></p:menuitem>
+			<p:menuitem value="Peticiones Grupales" action="grupales"	icon="fa fa-users"></p:menuitem>
+			<p:menuitem value="Reporte" action="reportes" icon="fa fa-file-pdf-o"></p:menuitem>
 
 			<f:facet name="options">
 				<p:commandButton value="Salir" action="#{beanLogin.salirSistema()}"
@@ -37,7 +33,7 @@
 		<p:messages>
 			<p:autoUpdate />
 		</p:messages>
-		<p:panel header="Actualización de producto" id="panel">
+		<p:panel header="Lista de Peticiones Individuales" id="panel">
 			<p:dataTable value="#{beanPeticion.listaIndividuales}" var="peticion"
 				reflow="true" paginator="true" id="table1">
 

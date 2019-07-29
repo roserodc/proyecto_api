@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteTipoOK" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="76b219f9-80ef-434e-8e07-243295ad0d8b">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<parameter name="tp_id" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SELECT DISTINCT pt.ptc_id,pt.ptc_fecha,pt.ptc_hora_inicio,pt.ptc_hora_fin,
+concat(us.user_apellido, ' ' , us.user_nombre) as nombres, es.est_descripcion, pl.pl_tipo,tp.tp_descripcion
+FROM peticiones pt, tipo_peticion tp, estados es, usuario us, planes pl
+WHERE tp.tp_id=$P{tp_id}
+and pt.user_id_usuario=us.user_id
+and pt.pl_id_plan=pl.pl_id
+and pt.est_id_estados=es.est_id
+order by pt.ptc_id]]>
+	</queryString>
+	<field name="ptc_id" class="java.lang.Integer"/>
+	<field name="ptc_fecha" class="java.lang.String"/>
+	<field name="ptc_hora_inicio" class="java.lang.String"/>
+	<field name="ptc_hora_fin" class="java.lang.String"/>
+	<field name="nombres" class="java.lang.String"/>
+	<field name="est_descripcion" class="java.lang.String"/>
+	<field name="pl_tipo" class="java.lang.String"/>
+	<field name="tp_descripcion" class="java.lang.String"/>
+	<group name="gnameGroup">
+		<groupExpression><![CDATA[$F{nombres}]]></groupExpression>
+		<groupHeader>
+			<band height="50"/>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<staticText>
+				<reportElement style="Title" x="132" y="0" width="368" height="33" uuid="e517a8a4-3fd6-4906-b465-ce20edb07303"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[REPORTE DE PETICIONES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="184" y="50" width="65" height="20" uuid="f3298f02-5ec2-4323-852b-23455c61b2a8"/>
+				<textElement>
+					<font size="15"/>
+				</textElement>
+				<text><![CDATA[TIPO:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="231" y="50" width="137" height="20" uuid="58875a70-63df-48d9-b5e4-0956e23da958"/>
+				<textElement>
+					<font size="15"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tp_descripcion}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1" uuid="1c754cb2-ec76-477e-8a5a-0aa3f4ce6786"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="0" y="19" width="92" height="15" uuid="1aa95bb7-d00b-4972-9bbd-51ad15132a62"/>
+				<text><![CDATA[FECHA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="100" y="19" width="92" height="15" uuid="9a6bc403-f158-4db2-a1cb-39a4d6679a92"/>
+				<text><![CDATA[HORA INICIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="184" y="19" width="92" height="15" uuid="8bef4dd0-b19a-411b-a48e-e079d5b3abc2"/>
+				<text><![CDATA[HORA FIN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="276" y="19" width="92" height="15" uuid="0d366b43-966e-400e-a460-6568dfb1d698"/>
+				<text><![CDATA[USUARIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="368" y="19" width="92" height="15" uuid="f0e2c92d-ccc9-4d93-ae2d-451ab2c8e8a2"/>
+				<text><![CDATA[ESTADO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="440" y="19" width="113" height="15" uuid="2f555ef0-4b18-49b5-99ae-bf892631bd87"/>
+				<text><![CDATA[PLAN]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1" uuid="b98682a3-3404-47a2-9a8f-62c6bb2a8807"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement style="Detail" x="0" y="0" width="92" height="15" uuid="753d18fd-ebd8-4b75-9043-75492f067f64"/>
+				<textFieldExpression><![CDATA[$F{ptc_fecha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="100" y="0" width="92" height="15" uuid="8dffbfd1-8a3a-4a91-afff-07a359da1d4a"/>
+				<textFieldExpression><![CDATA[$F{ptc_hora_inicio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="184" y="0" width="92" height="15" uuid="a7827df2-cb92-4e0d-a985-fa6cc289d388"/>
+				<textFieldExpression><![CDATA[$F{ptc_hora_fin}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="276" y="0" width="92" height="15" uuid="4b0f7ff5-93da-4d4f-92f2-856bd985ce24"/>
+				<textFieldExpression><![CDATA[$F{nombres}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="368" y="0" width="92" height="15" uuid="a929c7ce-94d4-45f6-8ba4-9f3e135c4a61"/>
+				<textFieldExpression><![CDATA[$F{est_descripcion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="440" y="0" width="113" height="15" uuid="9773c8bd-2582-49f4-a452-e68a30c904f8"/>
+				<textFieldExpression><![CDATA[$F{pl_tipo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="1554cef8-42a4-4cd3-8a30-a1f4da173bef"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement style="Column header" x="433" y="0" width="80" height="20" uuid="838d2472-bca4-4b24-8893-c1ee89f6ce51"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Column header" x="513" y="0" width="40" height="20" uuid="d2fa3444-7abb-4c25-b153-b966668f1c7c"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="0" y="0" width="197" height="20" uuid="ae068654-c11a-4bb1-9812-ed031af7c1c1"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

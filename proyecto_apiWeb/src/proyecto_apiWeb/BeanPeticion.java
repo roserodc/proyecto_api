@@ -58,7 +58,8 @@ public class BeanPeticion implements Serializable {
 	private Usuario usuario;
 	private Integer idTipoPeticion;
 	private Integer idEstado;
-
+	private Integer idEstadoRep;
+	private Integer idTipoRep;
 	private Integer idUsuario;
 	private Integer idPlan;
 	private List<Peticione> lista;
@@ -232,6 +233,64 @@ public class BeanPeticion implements Serializable {
 		}
 		return "";
 	}
+	public String actionReporteAdmin() {
+		Map<String, Object> parametros = new HashMap<String, Object>();
+//		/*
+		parametros.put("est_id_estados", idEstadoRep);
+//		 parametros.put("p_titulo",p_titulo);
+//		 */
+		FacesContext context = FacesContext.getCurrentInstance();
+		ServletContext servletContext = (ServletContext) context.getExternalContext().getContext();
+		String ruta = servletContext.getRealPath("admin/reporteTipoPeticion.jasper");
+		System.out.println(ruta);
+		HttpServletResponse response = (HttpServletResponse) context.getExternalContext().getResponse();
+		response.addHeader("Content-disposition", "attachment;filename=reporte.pdf");
+		response.setContentType("application/pdf");
+		try {
+			Class.forName("org.postgresql.Driver");
+			Connection connection = null;
+			connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/gimnasio_utn", "postgres",
+					"dr1234");
+			JasperPrint impresion = JasperFillManager.fillReport(ruta, parametros, connection);
+			JasperExportManager.exportReportToPdfStream(impresion, response.getOutputStream());
+			context.getApplication().getStateManager().saveView(context);
+			System.out.println("reporte generado.");
+			context.responseComplete();
+		} catch (Exception e) {
+			JSFUtil.createMensajeError(e.getMessage());
+			e.printStackTrace();
+		}
+		return "";
+	}
+	public String actionReporteAdminTipo() {
+		Map<String, Object> parametros = new HashMap<String, Object>();
+//		/*
+		parametros.put("tp_id", idTipoRep);
+//		 parametros.put("p_titulo",p_titulo);
+//		 */
+		FacesContext context = FacesContext.getCurrentInstance();
+		ServletContext servletContext = (ServletContext) context.getExternalContext().getContext();
+		String ruta = servletContext.getRealPath("admin/reporteTipoOK.jasper");
+		System.out.println(ruta);
+		HttpServletResponse response = (HttpServletResponse) context.getExternalContext().getResponse();
+		response.addHeader("Content-disposition", "attachment;filename=reporteTipo.pdf");
+		response.setContentType("application/pdf");
+		try {
+			Class.forName("org.postgresql.Driver");
+			Connection connection = null;
+			connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/gimnasio_utn", "postgres",
+					"dr1234");
+			JasperPrint impresion = JasperFillManager.fillReport(ruta, parametros, connection);
+			JasperExportManager.exportReportToPdfStream(impresion, response.getOutputStream());
+			context.getApplication().getStateManager().saveView(context);
+			System.out.println("reporte generado.");
+			context.responseComplete();
+		} catch (Exception e) {
+			JSFUtil.createMensajeError(e.getMessage());
+			e.printStackTrace();
+		}
+		return "";
+	}
 
 	public List<Peticione> getLista() {
 		List<Peticione> listadoPeticiones = managerPeticion.findAll2(usuario.getUserId());
@@ -374,6 +433,22 @@ public class BeanPeticion implements Serializable {
 
 	public void setListaGrupales(List<Peticione> listaGrupales) {
 		this.listaGrupales = listaGrupales;
+	}
+
+	public Integer getIdEstadoRep() {
+		return idEstadoRep;
+	}
+
+	public void setIdEstadoRep(Integer idEstadoRep) {
+		this.idEstadoRep = idEstadoRep;
+	}
+
+	public Integer getIdTipoRep() {
+		return idTipoRep;
+	}
+
+	public void setIdTipoRep(Integer idTipoRep) {
+		this.idTipoRep = idTipoRep;
 	}
 
 }
