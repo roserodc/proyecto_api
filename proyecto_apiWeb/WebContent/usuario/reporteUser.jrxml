@@ -46,10 +46,6 @@ order by pt.ptc_id]]>
 				<reportElement x="0" y="50" width="100" height="20" uuid="b50f69a1-5149-499e-bd04-10c69f1f813f"/>
 				<textFieldExpression><![CDATA[$F{nombres}]]></textFieldExpression>
 			</textField>
-			<image>
-				<reportElement x="455" y="0" width="120" height="70" uuid="05369522-771a-405e-b470-ea75b32b0947"/>
-				<imageExpression><![CDATA["C:\\Users\\drosero\\Desktop\\reporte usuario\\logoUtn.png"]]></imageExpression>
-			</image>
 		</band>
 	</title>
 	<pageHeader>
