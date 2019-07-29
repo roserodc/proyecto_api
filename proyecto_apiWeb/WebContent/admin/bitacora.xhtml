@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<f:metadata>
+	<f:event listener="#{beanLogin.actionVerificarLogin()}"
+		type="preRenderView"></f:event>
+</f:metadata>
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Opciones supervisor</title>
+</h:head>
+<body>
+	<h:form>
+		<p:menubar>
+			<p:menuitem value="Registro Plan" action="registroplan"
+				icon="fa fa-bars"></p:menuitem>
+			<p:menuitem value="Registro Instructor" action="registrousuario"
+				icon="fa fa-bars"></p:menuitem>
+			<p:menuitem value="Peticiones Individuales" action="individuales"
+				icon="fa fa-bars"></p:menuitem>
+			<p:menuitem value="Peticiones Grupales" action="grupales"
+				icon="fa fa-cog"></p:menuitem>
+			<p:menuitem value="Reporte" action="reportes" icon="fa fa-bars"></p:menuitem>
+			<p:menuitem value="Bitacora" action="bitacora" icon="fa fa-bars"></p:menuitem>
+
+			<f:facet name="options">
+				<p:commandButton value="Salir" action="#{beanLogin.salirSistema()}"
+					icon="fa fa-sign-out" />
+			</f:facet>
+		</p:menubar>
+	</h:form>
+	<br />
+
+
+	<h:form id="form2">
+		<p:panel header="Bitacora">
+			<p:dataTable value="#{beanBitacora.lista}" var="bitacora"
+				reflow="true" paginator="true">
+				<p:column headerText="Id ">
+					<h:outputText value="#{bitacora.BId}" />
+				</p:column>
+				<p:column headerText="Descripción"
+					filterBy="#{bitacora.BDescripcion}" filterMatchMode="contains"
+					priority="1">
+					<h:outputText value="#{bitacora.BDescripcion}" />
+				</p:column>
+
+				<p:column headerText="Fecha" filterBy="#{bitacora.BFechaevento}"
+					filterMatchMode="contains" priority="1">
+					<h:outputText value="#{bitacora.BFechaevento}" />
+				</p:column>
+
+				<p:column headerText="Nombre" filterBy="#{bitacora.BNombreevento}"
+					filterMatchMode="contains" priority="1">
+					<h:outputText value="#{bitacora.BNombreevento}" />
+				</p:column>
+
+				<p:column headerText="IP" filterBy="#{bitacora.BIpmaquina}"
+					filterMatchMode="contains" priority="1">
+					<h:outputText value="#{bitacora.BIpmaquina}" />
+				</p:column>
+
+				<p:column headerText="Rol" filterBy="#{bitacora.usuario.userCi}"
+					filterMatchMode="contains" priority="1">
+					<h:outputText value="#{bitacora.usuario.userCi}" />
+				</p:column>
+
+
+
+			</p:dataTable>
+		</p:panel>
+	</h:form>
+
+
+</body>
+</html>

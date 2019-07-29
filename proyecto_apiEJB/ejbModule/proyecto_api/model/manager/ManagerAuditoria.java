@@ -1,12 +1,15 @@
 package proyecto_api.model.manager;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
+import javax.persistence.Query;
 
 import proyecto_api.model.entities.Bitacora;
 import proyecto_api.model.entities.Usuario;
@@ -39,6 +42,13 @@ public class ManagerAuditoria {
 	 * @param descripcion Informacion detallada del evento.
 	 * @throws Exception 
 	 */
+	
+	 public List<Bitacora>findAll(){
+	    	String c = "SELECT b FROM Bitacora b order by b_id";
+	    	Query q = em.createQuery(c,Bitacora.class);
+	    	return q.getResultList();
+	    }
+	
 	public void crearEvento(String codigoUsuario,Class clase,String metodo,String descripcion) throws Exception{
 		Bitacora evento=new Bitacora();
 		//cambio para probar git
